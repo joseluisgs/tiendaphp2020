@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Filtramos el Password
     $pass = md5(filtrado($_POST['pass'])); // codificamos la contraseña con md5
+    echo $pass;
     if (empty($pass)) {
         $passErr = "El password no es correcto o no pude ser vacío";
         $errores[] = $passErr;
@@ -51,18 +52,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errores[] = $direErr;
     }
 
-    // Procesamos la foto si no hay errores
-    $propiedades = explode("/", $_FILES['imagen']['type']);
-    $extension = $propiedades[1];
-    // salvamos la imagen
+    // Procesamos la foto si no hay errores Para evitar cargarla varias veces
+    if (count($errores) == 0) {
 
-    $imagen = md5($_FILES['imagen']['tmp_name'] . $_FILES['imagen']['name'] . time()) . "." . $extension;
-    $ci = ControladorImagen::getControlador();
-    if (!$ci->salvarImagen($_FILES['imagen']['tmp_name'], USERS_IMAGES_PATH, $imagen)) {
-        $imagenErr = "No se ha podido subir la imagen en el servidor";
-        $errores[] = $imagenErr;
+        $propiedades = explode("/", $_FILES['imagen']['type']);
+        $extension = $propiedades[1];
+        // salvamos la imagen
+
+        $imagen = md5($_FILES['imagen']['tmp_name'] . $_FILES['imagen']['name'] . time()) . "." . $extension;
+        $ci = ControladorImagen::getControlador();
+        if (!$ci->salvarImagen($_FILES['imagen']['tmp_name'], USERS_IMAGES_PATH, $imagen)) {
+            $imagenErr = "No se ha podido subir la imagen en el servidor";
+            $errores[] = $imagenErr;
 
 
+        }
     }
 
 

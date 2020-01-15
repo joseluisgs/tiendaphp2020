@@ -27,7 +27,7 @@ session_start();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Tienda IAW</title>
+    <title>Tienda PHP 2020</title>
     <!--
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/estilos.css">

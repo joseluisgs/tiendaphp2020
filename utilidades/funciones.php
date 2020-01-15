@@ -7,10 +7,10 @@
  */
 function alerta($texto, $ruta=null)
 {
-    echo "<script>
-                alert('" . $texto . "')";
-                if($ruta!=null)
-                    echo "window.location= '" . $ruta . "'";
+    echo "<script>";
+    echo "alert('" . $texto . "');";
+    if($ruta!=null)
+        echo "window.location= '" . $ruta . "'";
     echo "</script>";
 }
 

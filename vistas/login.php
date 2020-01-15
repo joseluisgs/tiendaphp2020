@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // si no encuentra el usuario te indica que son incorrectos los datos
     if (is_null($usuario)) {
-        alerta("Email o password incorrectos", "login.php");
+        alerta("Email o password incorrectos");
     } else {
         // se loguea correctamente. Debemos comprobar si existe una cookie con ese usuario
         // si es así, pasaremos los datos de las cookies del carrito a la sessión
