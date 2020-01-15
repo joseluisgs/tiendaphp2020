@@ -32,8 +32,8 @@ $secciones = $cp->mostrarSecciones();
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración y Gestión <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href=<?php echo DIRECTORIO_PATH . "vistas/gestionProductos.php"; ?>>Productos</a></li>
-                        <li><a href=<?php echo DIRECTORIO_PATH . "vistas/gestionUsuarios.php"; ?>>Usuarios</a></li>
+                        <li><a href=<?php echo DIRECTORIO_PATH . "vistas/productos.php"; ?>>Productos</a></li>
+                        <li><a href=<?php echo DIRECTORIO_PATH . "vistas/usuarios.php"; ?>>Usuarios</a></li>
                     </ul>
                 </li>
 

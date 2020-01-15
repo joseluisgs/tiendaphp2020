@@ -40,20 +40,22 @@ class ControladorUsuario {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         // creamos la consulta
-        $consulta = "SELECT * FROM usuario WHERE nombre LIKE '%" . $filtro . "%' or email LIKE '%" . $filtro . "%'";
-        //echo "Consulta desde controlador" . $consulta;
-        $filas = $bd->consultarBD($consulta);
+        $consulta = "SELECT * FROM alumnadocrud WHERE nombre LIKE :filtro OR email LIKE :filtro";
+        $parametros = array(':filtro' => "%".$filtro."%");
 
-        if ($filas->rowCount() > 0) {
-            while ($fila = $filas->fetch()) {
-                $producto = new Usuario($fila['id'], $fila['nombre'], $fila['email'], $fila['direccion'], $fila['rol'], $fila['pass']);
+        $res = $bd->consultarBD($consulta,$parametros);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+
+        if (count($filas) > 0) {
+            foreach ($filas as $u) {
+                // $id, $nombre, $alias, $email, $pass, $direccion, $imagen, $admin
+                $usuario = new Usuario($u->ID, $u->NOMBRE, $u->ALIAS, $u->EMAIL, $u->PASS, $u->DIRECCION, $u->FOTO, $u->ADMIN);
                 // Lo añadimos
-                $lista[] = $producto;
+                $lista[] = $usuario;
             }
-            //$filas->free();
             $bd->cerrarBD();
             return $lista;
-        } else {
+        }else{
             return null;
         }
     }
