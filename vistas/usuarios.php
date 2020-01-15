@@ -33,7 +33,7 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                     <button type="submit" class="btn btn-primary mb-2"> <span class="glyphicon glyphicon-search"></span>  Buscar</button>
 
                     <!-- <a href="utilidades/descargar.php" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  Descargar</a>-->
-                    <a href="/tienda/vistas/registro.php" class="btn btn-success pull-right"><span class="glyphicon glyphicon-user"></span>  Añadir Usuario</a>
+                    <a href="/tienda/vistas/usuarios_create.php" class="btn btn-success pull-right"><span class="glyphicon glyphicon-user"></span>  Añadir Usuario</a>
 
                 </form>
             </div>
@@ -64,6 +64,7 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                 echo "<th>Nombre</th>";
                 echo "<th>Alias</th>";
                 echo "<th>E-Mail</th>";
+                echo "<th>Rol</th>";
                 echo "<th>Acción</th>";
                 echo "</tr>";
                 echo "</thead>";
@@ -77,6 +78,10 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                     echo "<td>" . $u->NOMBRE . "</td>";
                     echo "<td>" . $u->ALIAS . "</td>";
                     echo "<td>" . $u->EMAIL . "</td>";
+                    if($u->ADMIN==0)
+                        echo "<td><span class='label label-info'>Normal</span></td>";
+                    else
+                        echo "<td><span class='label label-warning'>Admin</span></td>";
                     echo "<td>";
                     echo "<a href='usuarios_read.php?id=" . encode($u->ID) . "' title='Ver Usuario/a' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                     echo "<a href='vistas/usuarios_update.php?id=" . encode($u->ID) . "' title='Actualizar Usuario/a' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";

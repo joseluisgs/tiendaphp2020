@@ -10,7 +10,7 @@
 ### Desarrollo
 * 15/01/2020: Inicio del proyecto y configuración del mismo
 * 15/01/2020: Login, Logout, Registro de usuarios
-* 15/01/2020: CRUD Uusuarios: listado, ver
+* 15/01/2020: CRUD Uusuarios: listado, ver, crear
 
 ##### Administracion
 + usuario: pepe@pepe.com

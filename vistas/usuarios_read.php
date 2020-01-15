@@ -77,6 +77,20 @@ if (is_null($usuario)) {
                         </div>
                     </div>
 
+                <!-- ROL -->
+                <div class="form-group">
+                    <label for="mail" class="col-md-3 control-label">Rols:</label>
+                    <div class="col-md-9">
+                        <?php
+                            if($usuario->getAdmin()==0)
+                                echo "<label for='name' class='col-md-3 control-label'><span class='label label-info'>Normal</span></label>";
+                        else
+                                echo "<label for='name' class='col-md-3 control-label'><span class='label label-warning'>Admin</span></label>";
+                        ?>
+
+                    </div>
+                </div>
+
                     <!-- Direccion -->
                     <div class="form-group" <?php echo (!empty($direErrErr)) ? 'error: ' : ''; ?>>
                         <label for="password" class="col-md-3 control-label">Dirección:</label>
