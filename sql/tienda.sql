@@ -154,6 +154,7 @@ DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `ID` int(11) NOT NULL,
   `NOMBRE` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL DEFAULT '',
+  `ALIAS` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL DEFAULT '',
   `PASS` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `EMAIL` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `DIRECCION` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
@@ -165,12 +166,12 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`ID`, `NOMBRE`, `PASS`, `EMAIL`, `DIRECCION`, `FOTO`, `ADMIN`) VALUES
-(1, 'maria', '263bce650e68ab4e23f28263760b9fa5', 'maria@maria.com', 'marialandia', 'af4be49d1f8c19c716a1753a8ef2d5fa.png', 0),
-(2, 'pepe', '926e27eecdbc7a18858b3798ba99bddd', 'pepe@pepe.com', 'pepilandia2', 'fd728cc47bd157190a7783acefc3fb87.png', 1),
-(3, 'perico', 'dfe483413e24a5b1506389d36ebfd05c', 'perico@perico.com', 'pericolandia', '0678bbbfd54441766dc8763d304d2d59.png', 0),
-(4, 'ana', '276b6c4692e78d4799c12ada515bc3e4', 'ana@ana.com', 'analandia', 'f87023390ecd2e5b818657105a76cacb.png', 0),
-(6, 'pedro', 'c6cc8094c2dc07b700ffcc36d64e2138', 'pedro@pedro.com', 'pedrolandia', '9134b86bd9d2ee8288104190320667f6.png', 0);
+INSERT INTO `usuarios` (`ID`, `NOMBRE`,  `ALIAS`, `PASS`, `EMAIL`, `DIRECCION`, `FOTO`, `ADMIN`) VALUES
+(1, 'maria', 'maria','263bce650e68ab4e23f28263760b9fa5', 'maria@maria.com', 'marialandia', 'af4be49d1f8c19c716a1753a8ef2d5fa.png', 0),
+(2, 'pepe', 'pepe','926e27eecdbc7a18858b3798ba99bddd', 'pepe@pepe.com', 'pepilandia2', 'fd728cc47bd157190a7783acefc3fb87.png', 1),
+(3, 'perico', 'perico', 'dfe483413e24a5b1506389d36ebfd05c', 'perico@perico.com', 'pericolandia', '0678bbbfd54441766dc8763d304d2d59.png', 0),
+(4, 'ana', 'ana', '276b6c4692e78d4799c12ada515bc3e4', 'ana@ana.com', 'analandia', 'f87023390ecd2e5b818657105a76cacb.png', 0),
+(6, 'pedro', 'pedro','c6cc8094c2dc07b700ffcc36d64e2138', 'pedro@pedro.com', 'pedrolandia', '9134b86bd9d2ee8288104190320667f6.png', 0);
 
 -- --------------------------------------------------------
 

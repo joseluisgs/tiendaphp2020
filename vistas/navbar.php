@@ -51,7 +51,7 @@ $secciones = $cp->mostrarSecciones();
 
                 $itemscarrito = $_SESSION['uds'] != 0 ? "<font color='darksalmon'> ".$_SESSION['uds']."</font>":"";
                 echo "<li><a href='/tienda/vistas/carritoMostrar.php' class='cart-link' title='Ver Carrito'> <b>".$itemscarrito."</b> <span class='glyphicon glyphicon-shopping-cart'></span></a></li>";
-                echo "<li><a href='/tienda/vistas/usuarioUpdate.php?id=".$_SESSION['id_usuario']."&email=".$_SESSION['email']."'><span class='glyphicon glyphicon-user'></span> ". $_SESSION['email']. " </a></li>";
+                echo "<li><a href='/tienda/vistas/usuarioUpdate.php?id=".$_SESSION['id_usuario']."&email=".$_SESSION['email']."'><span class='glyphicon glyphicon-user'></span> ". $_SESSION['alias']. " </a></li>";
                 echo "<li><a href='/tienda/vistas/logout.php'><span class='glyphicon glyphicon glyphicon-log-out'></span> Cerrar sesión </a></li>";
 
             } else {

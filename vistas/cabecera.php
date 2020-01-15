@@ -1,18 +1,21 @@
 <!-- Cabecera de las páginas web común a todos -->
 <?php
 // Incluimos los directorios a trabajar
-require_once "dirs.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/tienda/dirs.php";
 
 // Incluimos los controladores que vamos a usar
 require_once CONTROLLER_PATH . "ControladorProducto.php";
-/*
+require_once CONTROLLER_PATH . "ControladorSesion.php";
 require_once CONTROLLER_PATH . "ControladorUsuario.php";
+require_once CONTROLLER_PATH . "ControladorImagen.php";
+/*
 require_once CONTROLLER_PATH . "ControladorCarrito.php";
 require_once CONTROLLER_PATH . "ControladorVenta.php";
 require_once CONTROLLER_PATH . "Paginador.php";
-require_once CONTROLLER_PATH . "ControladorSesionesCookies.php";
-require_once UTILITY_PATH . "funciones.php";
+
 */
+require_once UTILITY_PATH . "funciones.php";
+
 session_start();
 
 

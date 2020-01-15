@@ -25,9 +25,16 @@ if (!defined('UTILITY_PATH'))
 if (!defined('RESOURCE_PATH'))
     define('RESOURCE_PATH', ROOT_PATH . "recursos/");
 
+if (!defined('IMAGES_PATH'))
+    define('IMAGES_PATH', ROOT_PATH . "images/");
+
 if (!defined('PRODUCTOS_IMAGES_PATH'))
-    define('PRODUCTOS_IMAGES_PATH', "productos_img/");
+    define('PRODUCTOS_IMAGES_PATH', ROOT_PATH. "img_productos/");
 
 if (!defined('USERS_IMAGES_PATH'))
-    define('USERS_IMAGES_PATH', "usuarios_img/");
+    define('USERS_IMAGES_PATH', ROOT_PATH. "img_usuarios/");
+
+if ( !defined('VENDOR_PATH') )
+    define('VENDOR_PATH', ROOT_PATH."vendor/");
+
 ?>

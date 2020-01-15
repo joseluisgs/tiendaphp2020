@@ -19,6 +19,13 @@ table tr td:last-child a{
     margin-right: 15px;
 }
 
+.help-block {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #f58080;
+}
+
 
 .credit-card-div  span { padding-top:10px; }
 .credit-card-div img { padding-top:30px; }
