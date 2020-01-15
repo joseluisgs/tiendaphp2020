@@ -69,8 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- Imagen -->
                     <div class="form-group">
                         <img src='../img_usuarios/<?php echo $usuario->getImagen(); ?>' class='center-block'
-                             class='rounded' class='img-thumbnail' width='80' height='auto'
-                             enctype="multipart/form-data">
+                             class='rounded' class='img-thumbnail' width='80' height='auto'>
                     </div>
 
                     <!-- ID -->

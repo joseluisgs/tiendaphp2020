@@ -12,11 +12,37 @@ if ((($_SESSION['rol'])!=1) || (!isset($_SESSION['nombre']))){
 }
 
 // Variables temporales
-$nombre = $alias= $email = $pass = $dire = $rol= $imagen ="";
+$id= $nombre = $alias= $email = $pass = $dire = $rol= $imagen = $imagenAnterior="";
 $nombreErr = $aliasErr = $emailErr = $passErr = $direErr= $rolErr= $imagenErr= "";
 $errores=[];
 
+
+// Comprobamos que existe el id antes de ir más lejos
+if(isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
+    $id = decode($_GET["id"]);
+    $controlador = ControladorUsuario::getControlador();
+    $usuario = $controlador->buscarUsuarioID($id);
+    if (!is_null($usuario)) {
+        $nombre = $usuario->getNombre();
+        $alias = $usuario->getAlias();
+        $email = $usuario->getEmail();
+        $pass = $usuario->getPass();
+        $dire = $usuario->getDireccion();
+        $rol = $usuario->getAdmin();
+        $imagen = $usuario->getImagen();
+        $imagenAnterior = $imagen;
+    } else {
+        // hay un error
+        header("location: error.php");
+        exit();
+    }
+}
+
+
+// Procesamos el POST, es decir el botón borrar
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = $_POST['id'];
+
     // Filtramos el nombre
     $nombre = filtrado($_POST['nombre']);
     if (empty($nombre)) {
@@ -31,26 +57,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errores[] = $aliasErr;
     }
 
-    // Filtramos el email
+    // Filtramos el email.
     $email = filtrado($_POST['email']);
     if (empty($email)) {
         $emailErr = "El email no es correcto o no puede estar vacío";
         $errores[] = $emailErr;
     }
-
-    //comprobamos que el mail no esá en uso
+    //comprobamos que el mail no esá en uso en otro
     $controlador = ControladorUsuario::getControlador();
-    if ($controlador->buscarEmail($email) != 0) {
+
+    // Esta libre o que ese mail sea el mio
+    if (($controlador->buscarEmail($email)!=0) && ($controlador->buscarEmail($email)!=$id)) {
         $emailErr = "Ya existe un usuario en la BD con dicho correo electrónico";
         $errores[] = $emailErr;
     }
 
+
     // Filtramos el Password
+    // No tocamos el password
+    /*
     $pass = md5(filtrado($_POST['pass'])); // codificamos la contraseña con md5
     if (empty($pass)) {
         $passErr = "El password no es correcto o no pude ser vacío";
         $errores[] = $passErr;
     }
+    */
 
     // Filtramos la dirección
     $dire = filtrado($_POST['direccion']);
@@ -60,42 +91,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Procesamos el rol
-    if(isset($_POST["rol"])){
+    if (isset($_POST["rol"])) {
         $rol = filtrado($_POST["rol"]);
-    }else{
+    } else {
         $rolErr = "Debe elegir un rol obligatoriamente";
     }
 
     // Procesamos la foto si no hay errores Para evitar cargarla varias veces
-    if (count($errores) == 0) {
-
-        $propiedades = explode("/", $_FILES['imagen']['type']);
-        $extension = $propiedades[1];
-        // salvamos la imagen
-
-        $imagen = md5($_FILES['imagen']['tmp_name'] . $_FILES['imagen']['name'] . time()) . "." . $extension;
+    if ($_FILES['imagen']['size']>0 && count($errores) == 0) {
+        // actualizamos la imagen manteniendo el nombre que tenía
+        $imagen=$_POST["imagenAnterior"];
         $ci = ControladorImagen::getControlador();
-        if (!$ci->salvarImagen($_FILES['imagen']['tmp_name'], USERS_IMAGES_PATH.$imagen)) {
+
+        if (!$ci->salvarImagen($_FILES['imagen']['tmp_name'], USERS_IMAGES_PATH . $imagen)) {
+            exit();
             $imagenErr = "No se ha podido subir la imagen en el servidor";
             $errores[] = $imagenErr;
-
-
         }
+    }else{
+        $imagen = trim($_POST["imagenAnterior"]);
     }
-
 
 
     // Si no hay errores insertamos
     if (count($errores) == 0) {
-
-        $usuario = new Usuario(0, $nombre, $alias, $email, $pass, $dire, $imagen, $rol);
         $cu = ControladorUsuario::getControlador();
-        if ($estado = $cu->insertarUsuario($usuario)) {
-            alerta("Usuario/a registrado/a correctamente", "usuarios.php");
+        // Recupero el pass para lamacenar el cambio
+        $usuario = $cu->buscarUsuarioID($id);
+        $pass = $usuario->getPass();
+        $usuario = new Usuario($id, $nombre, $alias, $email, $pass, $dire, $imagen, $rol);
+        if ($estado = $cu->actualizarUsuario($usuario)) {
+            alerta("Usuario/a actualizado/a correctamente", "usuarios.php");
             exit();
         }
     }else{
-        alerta("Existen errores en el formulario");
+        $imagen=trim($_POST["imagenAnterior"]);
+        alerta("Existen errores en el formulario: ".$errores[0],"usuarios_update.php?id=" . encode($id));
     }
 }
 
@@ -104,9 +135,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container">
         <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 
-            <div class="panel panel-info">
+            <div class="panel panel-warning">
                 <div class="panel-heading">
-                    <div class="panel-title">Crear usuario/a</div>
+                    <div class="panel-title">Actualizar usuario/a</div>
                 </div>
                 <div class="panel-body" >
                     <form id="signupform" class="form-horizontal" role="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
@@ -119,7 +150,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <!-- Imagen -->
                         <div class="form-group">
-                            <img src='../images/sinfoto.png' class='center-block' class='rounded' class='img-thumbnail' width='50' height='auto' enctype="multipart/form-data">
+                            <img src='../img_usuarios/<?php echo $usuario->getImagen(); ?>' class='center-block'
+                                 class='rounded' class='img-thumbnail' width='80' height='auto'>
                         </div>
 
                         <!-- Nombre -->
@@ -163,7 +195,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="col-md-9">
                                 <input type="password" class="form-control" name="pass" placeholder="Password" required
                                        minlength="5"
-                                       value="">
+                                       value="****************************"
+                                       disabled>
                                 <span class="help-block"><?php echo $passErr;?></span>
                             </div>
                         </div>
@@ -193,17 +226,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="form-group" <?php echo (!empty($imagenErr)) ? 'error: ' : ''; ?>">
                         <label for="imagen" class="col-md-3 control-label">Imagen:</label>
                         <div class="col-md-9">
-                            <input type="file" required name="imagen" class="form-control-file" id="imagen" accept="image/jpeg">
+                            <input type="file" name="imagen" class="form-control-file" id="imagen" accept="image/jpeg">
                             <span class="help-block"><?php echo $imagenErr;?></span>
                         </div>
                 </div>
 
-
+                <!-- Campos ocultos -->
+                <input type="hidden" name="id" value="<?php echo trim($id); ?>"/>
+                <input type="hidden" name="imagenAnterior" value="<?php echo $imagenAnterior; ?>"/>
 
                 <div class="form-group">
                     <!-- Button -->
                     <div class="col-md-offset-3 col-md-9">
-                        <button type="submit" class="btn btn btn-success"> <span class="glyphicon glyphicon-saved"></span>  Aceptar</button>
+                        <button type="submit" class="btn btn btn-warning"> <span class="glyphicon glyphicon-refresh"></span>  Aceptar</button>
                         <a href="usuarios.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Volver</a>
 
                     </div>

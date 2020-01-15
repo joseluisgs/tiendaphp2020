@@ -32,6 +32,8 @@ class ControladorImagen {
      * @return bool
      */
     function salvarImagen($fichero_tmp, $fichero_destino) {
+        echo $fichero_tmp .'<br>';
+        echo $fichero_destino .'<br>';
         if (move_uploaded_file($fichero_tmp, $fichero_destino)) {
             return true;
         }

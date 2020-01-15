@@ -79,7 +79,7 @@ class ControladorUsuario {
     }
 
     /**
-     * dice si existe un usuario dado un eamil
+     * dice si existe un usuario dado un eamil, devuelve el id del usuario que lo tiene
      * @param $email
      * @return int
      */
@@ -92,9 +92,12 @@ class ControladorUsuario {
 
         $res = $bd->consultarBD($consulta, $parametros);
         $filas = $res->fetchAll(PDO::FETCH_OBJ);
-        $bd->cerrarBD();
+        if (count($filas) > 0) {
+            return $filas[0]->ID;
+        }else{
+            return 0;
+        }
 
-        return count($filas);
 
     }
 
@@ -114,7 +117,8 @@ class ControladorUsuario {
         $filas = $res->fetchAll(PDO::FETCH_OBJ);
 
         if (count($filas) > 0) {
-            $usuario = new Usuario($filas[0]->ID, $filas[0]->NOMBRE, $filas[0]->ALIAS, $filas[0]->EMAIL, $filas[0]->PASS, $filas[0]->DIRECCION, $filas[0]->FOTO, $filas[0]->ADMIN);
+            $usuario = new Usuario($filas[0]->ID, $filas[0]->NOMBRE, $filas[0]->ALIAS,
+                $filas[0]->EMAIL, $filas[0]->PASS, $filas[0]->DIRECCION, $filas[0]->FOTO, $filas[0]->ADMIN);
             $bd->cerrarBD();
             return $usuario;
         } else {
@@ -149,6 +153,11 @@ class ControladorUsuario {
         }
     }
 
+    /**
+     * Elimina un usuario dado su id
+     * @param $id
+     * @return mixed
+     */
     public function eliminarUsuario($id) {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
@@ -159,12 +168,20 @@ class ControladorUsuario {
         return $estado;
     }
 
-    public function actualizarUsuario($id, $nombre, $email, $direccion, $rol, $pass) {
+    /**
+     * Actualiza un usuario
+     * @param $usuario
+     * @return mixed
+     */
+    public function actualizarUsuario($usuario) {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        $consulta = "update usuario set nombre='" . $nombre . "',email='" . $email . "', direccion='" . $direccion . "', rol=" . $rol . ", pass='" . $pass . "' where id=".$id."";
-        //echo "<br><br><br>".$consulta;
-        $estado = $bd->consultarBD($consulta);
+        $consulta = "Update usuarios set nombre =:nombre, alias=:alias, email=:email, direccion=:direccion, foto=:foto,
+                    admin=:admin, pass=:pass where id=:id";
+        $parametros = array(':id'=>$usuario->getId(),':nombre' => $usuario->getNombre(), ':alias' => $usuario->getAlias(),
+            ':email'=>$usuario->getEmail(), ':direccion'=>$usuario->getDireccion(),
+            ':foto'=>$usuario->getImagen(), ':admin'=>$usuario->getAdmin(), ':pass'=>$usuario->getPass());
+        $estado = $bd->actualizarBD($consulta, $parametros);
         $bd->cerrarBD();
         return $estado;
     }
