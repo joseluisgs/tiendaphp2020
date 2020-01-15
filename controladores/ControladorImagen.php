@@ -26,27 +26,30 @@ class ControladorImagen {
     }
 
     /**
-     * Salva un fichero
-     * @param $fichero
-     * @param $path
-     * @param $imagen
+     * Almacena un fichero en el servidor que se encuetra en la variable FILE
+     * @param $fichero_tmp
+     * @param $fichero_destino
      * @return bool
      */
-    function salvarImagen($fichero_tmp, $path_destino, $imagen_final) {
-        if (move_uploaded_file($fichero_tmp, $path_destino .$imagen_final)) {
+    function salvarImagen($fichero_tmp, $fichero_destino) {
+        if (move_uploaded_file($fichero_tmp, $fichero_destino)) {
             return true;
         }
         return false;
     }
 
-    function eliminarImagen($imagen) {
-        $fichero = IMAGE_PATH . $imagen;
+    /**
+     * Elimina un fichero almacenado en el servidor
+     * @param $fichero
+     * @return bool
+     */
+    function eliminarImagen($fichero) {
         if (file_exists($fichero)) {
             unlink($fichero); // Funcion para borrar desde el servidor
             return true;
             //throw new Exception('No se puede borrar el fichero ' . $fichero . ' Por favor cierre otras aplicaciones que lo pueden estar usando.');
         }
-        return false;;
+        return false;
     }
 
     function actualizarFoto(){

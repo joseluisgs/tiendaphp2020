@@ -85,7 +85,7 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                     echo "<td>";
                     echo "<a href='usuarios_read.php?id=" . encode($u->ID) . "' title='Ver Usuario/a' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                     echo "<a href='vistas/usuarios_update.php?id=" . encode($u->ID) . "' title='Actualizar Usuario/a' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-                    echo "<a href='vistas/usuarios_delete.php?id=" . encode($u->ID) . "' title='Borar Usuario/a' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
+                    echo "<a href='usuarios_delete.php?id=" . encode($u->ID) . "' title='Borar Usuario/a' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
                     echo "</td>";
                     echo "</tr>";
                 }

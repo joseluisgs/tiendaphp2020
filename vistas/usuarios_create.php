@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $imagen = md5($_FILES['imagen']['tmp_name'] . $_FILES['imagen']['name'] . time()) . "." . $extension;
         $ci = ControladorImagen::getControlador();
-        if (!$ci->salvarImagen($_FILES['imagen']['tmp_name'], USERS_IMAGES_PATH, $imagen)) {
+        if (!$ci->salvarImagen($_FILES['imagen']['tmp_name'], USERS_IMAGES_PATH.$imagen)) {
             $imagenErr = "No se ha podido subir la imagen en el servidor";
             $errores[] = $imagenErr;
 
@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $usuario = new Usuario(0, $nombre, $alias, $email, $pass, $dire, $imagen, $rol);
         $cu = ControladorUsuario::getControlador();
         if ($estado = $cu->insertarUsuario($usuario)) {
-            alerta("Se ha registrado correctamente", "usuarios.php");
+            alerta("Usuario/a registrado correctamente", "usuarios.php");
             exit();
         }
     }else{
@@ -203,7 +203,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="form-group">
                     <!-- Button -->
                     <div class="col-md-offset-3 col-md-9">
-                        <button type="submit" class="btn btn btn-success"> <span class="glyphicon glyphicon-ok"></span>  Aceptar</button>
+                        <button type="submit" class="btn btn btn-success"> <span class="glyphicon glyphicon-saved"></span>  Aceptar</button>
+                        <a href="usuarios.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Volver</a>
+
                     </div>
                 </div>
                 </form>

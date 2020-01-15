@@ -149,11 +149,12 @@ class ControladorUsuario {
         }
     }
 
-    public function borrarUsuario($id) {
+    public function eliminarUsuario($id) {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        $consulta = "delete from usuario where id = '" . $id . "'";
-        $estado = $bd->consultarBD($consulta);
+        $consulta = "delete from usuarios where id = :id";
+        $parametros = array(':id'=>$id);
+        $estado = $bd->consultarBD($consulta, $parametros);
         $bd->cerrarBD();
         return $estado;
     }
