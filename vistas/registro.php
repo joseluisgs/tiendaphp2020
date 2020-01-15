@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //comprobamos que el mail no esá en uso
     $controlador = ControladorUsuario::getControlador();
-    if ($controlador->buscarUsuario($email) != 0) {
+    if ($controlador->buscarEmail($email) != 0) {
         $emailErr = "Ya existe un usuario en la BD con dicho correo electrónico";
         $errores[] = $emailErr;
     }

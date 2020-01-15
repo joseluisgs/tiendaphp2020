@@ -79,11 +79,11 @@ class ControladorUsuario {
     }
 
     /**
-     * Busca la existencia de un usuario por email
+     * dice si existe un usuario dado un eamil
      * @param $email
      * @return int
      */
-    public function buscarUsuario($email) {
+    public function buscarEmail($email) {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
 
@@ -95,6 +95,31 @@ class ControladorUsuario {
         $bd->cerrarBD();
 
         return count($filas);
+
+    }
+
+    /**
+     * Busca la existencia de un usuario por ID
+     * @param $email
+     * @return int
+     */
+    public function buscarUsuarioID($id) {
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+
+        $consulta = "select * from usuarios where id = :id";
+        $parametros = array(':id' => $id);
+
+        $res = $bd->consultarBD($consulta, $parametros);
+        $filas = $res->fetchAll(PDO::FETCH_OBJ);
+
+        if (count($filas) > 0) {
+            $usuario = new Usuario($filas[0]->ID, $filas[0]->NOMBRE, $filas[0]->ALIAS, $filas[0]->EMAIL, $filas[0]->PASS, $filas[0]->DIRECCION, $filas[0]->FOTO, $filas[0]->ADMIN);
+            $bd->cerrarBD();
+            return $usuario;
+        } else {
+            return null;
+        }
 
     }
 
