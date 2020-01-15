@@ -12,6 +12,10 @@
 * 15/01/2020: Login, Logout, Registro de usuarios
 * 15/01/2020: CRUD Uusuarios: listado, ver, crear, eliminar
 
+##### Ejecución
+http://localhost/tienda
+
+
 ##### Administracion
 + usuario: pepe@pepe.com
 + pass: pepe
