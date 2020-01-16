@@ -9,6 +9,10 @@
                     <h1>Operación no permitida</h1>
                 </div>
                 <div class="alert alert-danger fade in">
+                    <a href="../index.php">
+                        <img src="../images/chucknorris.jpg" width="100%">
+                    </a>
+
                     <p>Lo siento, estás intentando realizar una operación no válida o ha habido un error de procesamiento. Por favor <a href="../index.php" class="alert-link">regresa</a> e inténtelo de nuevo.</p>
                 </div>
             </div>
