@@ -62,20 +62,22 @@ class ControladorProducto {
     }
 
     /**
-     * Almacenana un objeto alumno en la base de datos
-     * @param type $nombre
-     * @param type $apellidos
-     * @param type $email
+     * Inserta un producto en la base de datos
+     * @param $producto
+     * @return mixed
      */
-    public function almacenarProducto($id, $titulo, $descripcion, $seccion, $importe, $foto, $stock) {
-        $producto = new Producto($id, $titulo, $descripcion, $seccion, $importe, $foto, $stock);
+    public function insertarProducto($producto) {
         $conexion = ControladorBD::getControlador();
         $conexion->abrirBD();
-        $consulta = "insert into producto (id, titulo, descripcion, seccion, importe, foto, stock) values ('" . $producto->getId() . "','" . $producto->getTitulo() . "','" . $producto->getDescripcion() . "','" . $producto->getSeccion() . "'," . $producto->getImporte() . ",'" . $producto->getFoto() . "'," . $producto->getStock() . ")";
-        //echo $consulta;
-        $estado = $conexion->actualizarBD($consulta);
+        $consulta = "insert into productos (tipo, marca, modelo, descripcion, precio, stock, oferta, imagen, disponible, fecha) 
+            values (:tipo, :marca, :modelo, :descripcion, :precio, :stock, :oferta, :imagen, :disponible, :fecha)";
+        $parametros = array(':tipo'=>$producto->getTipo(), ':marca'=>$producto->getMarca(), ':modelo'=>$producto->getModelo(),
+            ':descripcion'=>$producto->getDesc(), ':precio'=>$producto->getPrecio(), ':stock'=>$producto->getStock(),
+            ':oferta'=>$producto->getOferta(), ':imagen'=>$producto->getImagen(), ':disponible'=>$producto->getDisponible(),
+            ':fecha'=>$producto->getFecha());
+        $estado = $conexion->actualizarBD($consulta, $parametros);
         $conexion->cerrarBD();
-        return estado;
+        return $estado;
     }
 
     /**

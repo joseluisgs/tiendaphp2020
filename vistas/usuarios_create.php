@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
     }else{
-        alerta("Existen errores en el formulario");
+        alerta("Existen errores en el formulario: ". $errores[0]);
     }
 }
 

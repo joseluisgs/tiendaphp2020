@@ -28,8 +28,8 @@ if (!defined('RESOURCE_PATH'))
 if (!defined('IMAGES_PATH'))
     define('IMAGES_PATH', ROOT_PATH . "images/");
 
-if (!defined('PRODUCTOS_IMAGES_PATH'))
-    define('PRODUCTOS_IMAGES_PATH', ROOT_PATH. "img_productos/");
+if (!defined('PRODUCTS_IMAGES_PATH'))
+    define('PRODUCTS_IMAGES_PATH', ROOT_PATH. "img_productos/");
 
 if (!defined('USERS_IMAGES_PATH'))
     define('USERS_IMAGES_PATH', ROOT_PATH. "img_usuarios/");

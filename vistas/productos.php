@@ -33,7 +33,7 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                     <button type="submit" class="btn btn-primary mb-2"> <span class="glyphicon glyphicon-search"></span>  Buscar</button>
 
                     <!-- <a href="utilidades/descargar.php" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  Descargar</a>-->
-                    <a href="/tienda/vistas/productos_create.php" class="btn btn-success pull-right"><span class="glyphicon glyphicon-user"></span>  Añadir Producto</a>
+                    <a href="/tienda/vistas/productos_create.php" class="btn btn-success pull-right"><span class="glyphicon glyphicon-phone"></span>  Añadir Producto</a>
 
                 </form>
             </div>
@@ -88,7 +88,7 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                         echo "<td><span class='label label-info'>" .$p->STOCK . "</span></td>";
                     echo "<td>" . $p->TIPO . "</td>";
                     $date = new DateTime($p->FECHA);
-                    echo "<td>" . $date->format('d-m-Y'). "</td>";
+                    echo "<td>" . $date->format('d/m/Y'). "</td>";
                     echo "<td>";
                     echo "<a href='productos_read.php?id=" . encode($p->ID) . "' title='Ver Producto' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                     echo "<a href='productos_update.php?id=" . encode($p->ID) . "' title='Actualizar Producto' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";

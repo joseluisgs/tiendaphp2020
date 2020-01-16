@@ -6,7 +6,7 @@
  *
  * @author link
  */
-class Usuario implements Serializable {
+class Usuario {
     //put your code here
     private $id;
     private $nombre;
@@ -95,33 +95,6 @@ class Usuario implements Serializable {
 
     function setAdmin($admin) {
         $this->admin = $admin;
-    }
-
-
-    // Para serializar unos objetos, y no pasar el ID y ahorrarme una consulta
-    // NO hace falta definirlo, el por defecto.
-    public function serialize(){
-        return serialize([
-            $this->id,
-            $this->nombre,
-            $this->pass,
-            $this->email,
-            $this->direccion,
-            $this->imagen,
-            $this->admin,
-        ]);
-    }
-
-    public function unserialize($serialized) {
-        list(
-            $this->id,
-            $this->nombre,
-            $this->pass,
-            $this->email,
-            $this->direccion,
-            $this->imagen,
-            $this->admin
-            ) = unserialize($serialized);
     }
 
 

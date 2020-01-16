@@ -44,3 +44,14 @@ function alerta($texto, $ruta=null)
     function decode($str){
         return base64_decode(urldecode($str));
     }
+
+    /**
+     * Te devuelve el formato para meterlo en base de datos
+     * @param string $date
+     * @return string
+     */
+    function getfechaBD(string $date): string {
+        $timestamp = strtotime($date);
+        $date_formated = date('Y-m-d H:i:s', $timestamp);
+        return $date_formated;
+    }
