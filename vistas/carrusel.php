@@ -10,14 +10,14 @@
                 </ol>
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="<?php echo DIRECTORIO_PATH . "images/slider01.jpg"; ?>" alt="First slide">
+                        <img src="<?php echo DIRECTORIO_PATH . "images/slider02.jpg"; ?>" alt="First slide">
                         <div class="carousel-caption">
                             <h3>Toda las novedades.</h3>
                             <p>La última tecnología al alcance de tu mano.</p>
                         </div>
                     </div>
                     <div class="item">
-                        <img src="<?php echo DIRECTORIO_PATH . "images/slider02.jpg"; ?>" alt="Second slide">
+                        <img src="<?php echo DIRECTORIO_PATH . "images/slider01.jpg"; ?>" alt="Second slide">
                         <div class="carousel-caption">
                             <h3>En tu casa en menos de 24 horas.</h3>
                             <p>Símplemente compra y lo disfrutas al día siguiente.</p>
