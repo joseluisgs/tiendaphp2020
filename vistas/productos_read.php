@@ -47,7 +47,7 @@ if (is_null($producto)) {
                                 <h4><?php echo $producto->getTipo();?></h4>
                                 <h2><?php echo $producto->getPrecio();?> €</h2>
                                 <p class="form-control-static"><b>Descripción:</b></p>
-                                <p class="form-control-static"><?php echo utf8_encode($producto->getDesc()); ?></p>
+                                <p class="form-control-static"><?php echo $producto->getDesc(); ?></p>
                                 <p class="form-control-static"><b>Unidades: </b>
                                     <?php
                                     if($producto->getStock()==0)
@@ -77,7 +77,7 @@ if (is_null($producto)) {
                                 <p class="form-control-static"><b>Fecha: </b>
                                 <?php
                                 $date = new DateTime($producto->getFecha());
-                                echo $date->format('d-m-Y');
+                                echo $date->format('d/m/Y');
                                 ?>
                                 </p>
                             </div>

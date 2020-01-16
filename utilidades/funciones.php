@@ -50,8 +50,8 @@ function alerta($texto, $ruta=null)
      * @param string $date
      * @return string
      */
-    function getfechaBD(string $date): string {
-        $timestamp = strtotime($date);
-        $date_formated = date('Y-m-d H:i:s', $timestamp);
-        return $date_formated;
+    function getfechaBD(string $fecha): string {
+        $date= date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $fecha)));
+        echo $date;
+        return $date;
     }

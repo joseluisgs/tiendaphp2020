@@ -104,11 +104,17 @@ class ControladorProducto {
         }
     }
 
-    public function borrarProducto($id) {
+    /**
+     * Elimina un usuario de la BD
+     * @param $id
+     * @return mixed
+     */
+    public function eliminarProducto($id) {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        $consulta = "delete from producto where id = '" . $id . "'";
-        $estado = $bd->consultarBD($consulta);
+        $consulta = "delete from productos where id = :id";
+        $parametros = array(':id'=>$id);
+        $estado = $bd->consultarBD($consulta, $parametros);
         $bd->cerrarBD();
         return $estado;
     }

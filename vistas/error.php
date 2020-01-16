@@ -4,9 +4,9 @@
 <div class="wrapper">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-9">
                 <div class="page-header">
-                    <h1>Operación no permitida</h1>
+                    <h2>Operación no permitida</h2>
                 </div>
                 <div class="alert alert-danger fade in">
                     <a href="../index.php">

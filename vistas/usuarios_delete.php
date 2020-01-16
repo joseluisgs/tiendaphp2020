@@ -29,15 +29,14 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 
 // Si borramos
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $controlador = ControladorUsuario::getControlador();
-    $usuario = $controlador->buscarUsuarioID($_POST["id"]);
     $cu = ControladorUsuario::getControlador();
+    $usuario = $cu->buscarUsuarioID($_POST["id"]);
     if ($estado = $cu->eliminarUsuario($_POST["id"])) {
         //Se ha borrado y volvemos a la página principal
         // Debemos borrar la foto del alumno
         $imagen = USERS_IMAGES_PATH . $usuario->getImagen();
-        $controlador = ControladorImagen::getControlador();
-        if ($controlador->eliminarImagen($imagen)) {
+        $ci = ControladorImagen::getControlador();
+        if ($ci->eliminarImagen($imagen)) {
             alerta("Usuario/a eliminado/a correctamente", "usuarios.php");
             exit();
         } else {

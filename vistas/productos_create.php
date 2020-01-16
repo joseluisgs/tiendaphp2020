@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $interval = $fecha_hoy->diff($fecha_alta);
 
     if($interval->format('%R%a días')>0){
-        $fechaErr = "La fecha no puede ser superior a la fecha actual: ". $fecha_hoy->format('d-m-Y');
+        $fechaErr = "La fecha no puede ser superior a la fecha actual: ". $fecha_hoy->format('d/m/Y');
         $errores[] = $fechaErr;
 
     }else{
