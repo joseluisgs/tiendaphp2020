@@ -1,7 +1,9 @@
 <!-- Cabecera de las páginas web común a todos -->
 <?php
+header("Content-Type: text/html; charset=utf-8");
 // Incluimos los directorios a trabajar
 require_once $_SERVER['DOCUMENT_ROOT'] . "/tienda/dirs.php";
+
 
 // Incluimos los controladores que vamos a usar
 require_once CONTROLLER_PATH . "ControladorProducto.php";
@@ -27,7 +29,7 @@ session_start();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>Tienda PHP 2020</title>
     <!--
     <link rel="stylesheet" href="css/bootstrap.css">

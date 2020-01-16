@@ -79,7 +79,7 @@ class ControladorUsuario {
     }
 
     /**
-     * dice si existe un usuario dado un eamil, devuelve el id del usuario que lo tiene
+     * Indica si existe un usuario dado un eamil, devuelve el id del usuario que lo tiene
      * @param $email
      * @return int
      */

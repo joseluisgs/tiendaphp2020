@@ -49,7 +49,7 @@ class ControladorProducto {
         if (count($filas) > 0) {
             foreach ($filas as $p) {
                 $producto= new Producto($p->ID, $p->TIPO, $p->MARCA, $p->MODELO, $p->DESCRIPCION, $p->PRECIO,
-                    $u->STOCK, $u->OFERTA, $p->DISPONIBLE, $p->FECHA, $p->IMAGEN);
+                    $p->STOCK, $p->OFERTA, $p->DISPONIBLE, $p->FECHA, $p->IMAGEN);
                 // Lo añadimos
                 $lista[] = $producto;
             }
@@ -78,18 +78,23 @@ class ControladorProducto {
         return estado;
     }
 
-    public function buscarProducto($id) {
+    /**
+     * Busca un producto en la base de datos
+     * @param $id
+     * @return Producto|null
+     */
+    public function buscarProductoID($id) {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        $consulta = "select * from producto where id = '" . $id . "'";
-        //echo "<br><br>".$consulta;
-        $filas = $bd->consultarBD($consulta);
-        if ($filas->rowCount() > 0) {
-            while ($fila = $filas->fetch()) {
-                $producto = new Producto($fila['id'], $fila['titulo'], $fila['descripcion'], $fila['seccion'], $fila['importe'], $fila['foto'], $fila['stock']);
-                // Lo añadimos
-            }
-            //$filas->free();
+        $consulta = "select * from productos where id = :id";
+        $parametros = array(':id' => $id);
+
+        $res = $bd->consultarBD($consulta, $parametros);
+        $filas = $res->fetchAll(PDO::FETCH_OBJ);
+
+        if (count($filas) > 0) {
+            $producto= new Producto($filas[0]->ID, $filas[0]->TIPO, $filas[0]->MARCA, $filas[0]->MODELO, $filas[0]->DESCRIPCION,
+                $filas[0]->PRECIO, $filas[0]->STOCK, $filas[0]->OFERTA, $filas[0]->DISPONIBLE, $filas[0]->FECHA, $filas[0]->IMAGEN);
             $bd->cerrarBD();
             return $producto;
         } else {

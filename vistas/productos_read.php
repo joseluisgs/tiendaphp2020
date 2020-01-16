@@ -15,13 +15,13 @@ if ((($_SESSION['rol'])!=1) || (!isset($_SESSION['nombre']))){
 if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     $id = decode($_GET["id"]);
     // Cargamos el controlador
-    $controlador = ControladorUsuario::getControlador();
-    $usuario = $controlador->buscarUsuarioID($id);
+    $controlador = ControladorProducto::getControlador();
+    $producto= $controlador->buscarProductoID($id);
 
 }
 
 //si no existe el usuario lo enviamos a error para que no haga nada
-if (is_null($usuario)) {
+if (is_null($producto)) {
     // hay un error
     header("location: error.php");
     exit();
@@ -31,79 +31,72 @@ if (is_null($usuario)) {
 
 <!-- Cuerpo de la página web -->
 <div class="container">
-    <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-
+    <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-9 col-md-offset-1 col-sm-2 col-sm-offset-1">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <div class="panel-title">Ficha de usuario/a</div>
+                <div class="panel-title">Ficha de Producto</div>
             </div>
             <div class="panel-body" >
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
 
-
-                    <!-- Imagen -->
-                    <div class="form-group">
-                        <img src='../img_usuarios/<?php echo $usuario->getImagen();?>' class='center-block' class='rounded' class='img-thumbnail' width='80' height='auto' enctype="multipart/form-data">
-                    </div>
-
-                    <!-- ID -->
-                <div class="form-group">
-                    <label for="name" class="col-md-3 control-label">ID:</label>
-                    <div class="col-md-9">
-                        <label for="name" class="col-md-3 control-label"><?php echo $usuario->getId(); ?></label>
-                    </div>
-                </div>
-
-                    <!-- Nombre -->
-                    <div class="form-group">
-                        <label for="name" class="col-md-3 control-label">Nombre:</label>
-                        <div class="col-md-9">
-                            <label for="name" class="col-md-3 control-label"><?php echo $usuario->getNombre(); ?></label>
+                            <div class="page-header">
+                                <h1><?php echo $producto->getModelo();?></h1>
+                                <h4><?php echo $producto->getMarca();?></h4>
+                                <h4><?php echo $producto->getTipo();?></h4>
+                                <h2><?php echo $producto->getPrecio();?> €</h2>
+                                <p class="form-control-static"><b>Descripción:</b></p>
+                                <p class="form-control-static"><?php echo utf8_encode($producto->getDesc()); ?></p>
+                                <p class="form-control-static"><b>Unidades: </b>
+                                    <?php
+                                    if($producto->getStock()==0)
+                                        echo "<td><span class='label label-danger'>". $producto->getStock() . "</span></td>";
+                                    else if($producto->getStock()>0 && $producto->getStock()<5)
+                                        echo "<td><span class='label label-warning'>" .$producto->getStock() . "</span></td>";
+                                    else
+                                        echo "<td><span class='label label-info'>" .$producto->getStock() . "</span></td>";
+                                        ?>
+                                </p>
+                                <p class="form-control-static"><b>Disponible: </b>
+                                    <?php
+                                    if($producto->getDisponible()==0)
+                                        echo "<td><span class='label label-danger'>No</span></td>";
+                                    else
+                                        echo "<td><span class='label label-success'>Sí</span></td>";
+                                    ?>
+                                </p>
+                                <p class="form-control-static"><b>Oferta: </b>
+                                    <?php
+                                    if($producto->getOferta()==0)
+                                        echo "<td><span class='label label-info'>No</span></td>";
+                                    else
+                                        echo "<td><span class='label label-warning'>Sí</span></td>";
+                                    ?>
+                                </p>
+                                <p class="form-control-static"><b>Fecha: </b>
+                                <?php
+                                $date = new DateTime($producto->getFecha());
+                                echo $date->format('d-m-Y');
+                                ?>
+                                </p>
+                            </div>
+                            <div>
+                                <!-- Button -->
+                                <div class="col-md-offset-3 col-md-9">
+                                    <p><a href="productos.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Aceptar</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <div >
+                                <br><br>
+                                <img src='../img_productos/<?php echo $producto->getImagen();?>' class='rounded' class='img-thumbnail' width='380' height='auto' enctype="multipart/form-data">
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Alias -->
-                    <div class="form-group">
-                        <label for="name" class="col-md-3 control-label">Alias:</label>
-                        <div class="col-md-9">
-                            <label for="name" class="col-md-3 control-label"><?php echo $usuario->getAlias(); ?></label>
-                        </div>
-                    </div>
 
-                    <!-- Email -->
-                    <div class="form-group">
-                        <label for="mail" class="col-md-3 control-label">Email:</label>
-                        <div class="col-md-9">
-                            <label for="name" class="col-md-3 control-label"><?php echo $usuario->getEmail(); ?></label>
-                        </div>
-                    </div>
-
-                <!-- ROL -->
-                <div class="form-group">
-                    <label for="mail" class="col-md-3 control-label">Rols:</label>
-                    <div class="col-md-9">
-                        <?php
-                            if($usuario->getAdmin()==0)
-                                echo "<label for='name' class='col-md-3 control-label'><span class='label label-info'>Normal</span></label>";
-                        else
-                                echo "<label for='name' class='col-md-3 control-label'><span class='label label-warning'>Admin</span></label>";
-                        ?>
-
-                    </div>
-                </div>
-
-                    <!-- Direccion -->
-                    <div class="form-group" <?php echo (!empty($direErrErr)) ? 'error: ' : ''; ?>>
-                        <label for="password" class="col-md-3 control-label">Dirección:</label>
-                        <div class="col-md-9">
-                            <label for="name" class="col-md-3 control-label"><?php echo $usuario->getDireccion(); ?></label>
-                        </div>
-                    </div>
-
-                <div class="form-group">
-                <!-- Button -->
-                <div class="col-md-offset-3 col-md-9">
-                    <p><a href="usuarios.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Aceptar</a></p>
-                </div>
             </div>
         </div>
     </div>

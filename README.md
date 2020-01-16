@@ -12,7 +12,8 @@
 * 15/01/2020: Login, Logout, Registro de usuarios
 * 15/01/2020: CRUD Usuarios: listado, ver, crear, eliminar, actualizar
 * 16/01/2020: Carrusel de presentación
-* 16/01/2020: CRUD Productos: listado
+* 16/01/2020: CRUD Productos: listado, ver
+* 16/01/2020: Error, Zona privada de usuario
 
 ##### Ejecución
 http://localhost/tienda

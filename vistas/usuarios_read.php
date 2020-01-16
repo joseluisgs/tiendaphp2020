@@ -95,7 +95,7 @@ if (is_null($usuario)) {
                     <div class="form-group" <?php echo (!empty($direErrErr)) ? 'error: ' : ''; ?>>
                         <label for="password" class="col-md-3 control-label">Dirección:</label>
                         <div class="col-md-9">
-                            <label for="name" class="col-md-3 control-label"><?php echo $usuario->getDireccion(); ?></label>
+                            <label for="name" class="col-md-3 control-label"><?php echo utf8_encode($usuario->getDireccion()); ?></label>
                         </div>
                     </div>
 
