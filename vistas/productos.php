@@ -28,12 +28,12 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                 <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="form-group mx-sm-5 mb-2">
                         <label for="buscar" class="sr-only">Titulo o descripcion</label>
-                        <input type="text" class="form-control" id="buscar" name="filter" value="<?php echo $filtro ?>" placeholder="nombre o email">
+                        <input type="text" class="form-control" id="buscar" name="filter" value="<?php echo $filtro ?>" placeholder="marca o modelo">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2"> <span class="glyphicon glyphicon-search"></span>  Buscar</button>
 
                     <!-- <a href="utilidades/descargar.php" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  Descargar</a>-->
-                    <a href="/tienda/vistas/usuarios_create.php" class="btn btn-success pull-right"><span class="glyphicon glyphicon-user"></span>  Añadir Usuario</a>
+                    <a href="/tienda/vistas/productos_create.php" class="btn btn-success pull-right"><span class="glyphicon glyphicon-user"></span>  Añadir Producto</a>
 
                 </form>
             </div>
@@ -41,13 +41,13 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
             <div class="page-header clearfix">
             </div>
             <?php
-            $controlador = ControladorUsuario::getControlador();
+            $controlador = ControladorProducto::getControlador();
             $pagina = ( isset($_GET['page']) ) ? $_GET['page'] : 1;
             $enlaces = ( isset($_GET['enlaces']) ) ? $_GET['enlaces'] : 10;
 
             // Consulta a realizar filtraremos o bien por email o por nombre y configuramos el paginador
-            $consulta = "SELECT * FROM usuarios WHERE nombre LIKE :nombre OR email LIKE :email";
-            $parametros = array(':nombre' => "%".$filtro."%", ':email'=>"%".$filtro."%");
+            $consulta = "SELECT * FROM productos WHERE marca LIKE :marca OR modelo LIKE :modelo";
+            $parametros = array(':marca' => "%".$filtro."%", ':modelo'=>"%".$filtro."%");
             $limite = 5; // Limite del paginador
 
             $paginador  = new Paginador($consulta, $parametros, $limite);
@@ -61,31 +61,37 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                 echo "<tr>";
                 echo "<th>Imagen</th>";
                 echo "<th>ID</th>";
-                echo "<th>Nombre</th>";
-                echo "<th>Alias</th>";
-                echo "<th>E-Mail</th>";
-                echo "<th>Rol</th>";
+                echo "<th>Marca</th>";
+                echo "<th>Modelo</th>";
+                echo "<th>Precio</th>";
+                echo "<th>Stock</th>";
+                echo "<th>Tipo</th>";
+                echo "<th>Fecha</th>";
                 echo "<th>Acción</th>";
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
 
-                foreach ($resultados->datos as $u) {
+                foreach ($resultados->datos as $p) {
                     // Pintamos cada fila
                     echo "<tr>";
-                    echo "<td><img src='/tienda/img_usuarios/" . $u->FOTO . "' class='rounded' class='img-thumbnail' width='50' height='auto'></td>";
-                    echo "<td>" . $u->ID . "</td>";
-                    echo "<td>" . $u->NOMBRE . "</td>";
-                    echo "<td>" . $u->ALIAS . "</td>";
-                    echo "<td>" . $u->EMAIL . "</td>";
-                    if($u->ADMIN==0)
-                        echo "<td><span class='label label-info'>Normal</span></td>";
+                    echo "<td><img src='/tienda/img_productos/" . $p->FOTO . "' class='rounded' class='img-thumbnail' width='50' height='auto'></td>";
+                    echo "<td>" . $p->ID . "</td>";
+                    echo "<td>" . $p->MARCA . "</td>";
+                    echo "<td>" . $p->MODELO . "</td>";
+                    echo "<td>" . $p->PRECIO . " €</td>";
+                    if($p->STOCK==0)
+                        echo "<td><span class='label label-danger'>". $p->STOCK . "</span></td>";
+                    else if($p->STOCK>0 && $p->STOCK<5)
+                        echo "<td><span class='label label-warning'>" .$p->STOCK . "</span></td>";
                     else
-                        echo "<td><span class='label label-warning'>Admin</span></td>";
+                        echo "<td><span class='label label-info'>" .$p->STOCK . "</span></td>";
+                    echo "<td>" . $p->TIPO . "</td>";
+                    echo "<td>" . $p->FECHA . "</td>";
                     echo "<td>";
-                    echo "<a href='usuarios_read.php?id=" . encode($u->ID) . "' title='Ver Usuario/a' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
-                    echo "<a href='usuarios_update.php?id=" . encode($u->ID) . "' title='Actualizar Usuario/a' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
-                    echo "<a href='usuarios_delete.php?id=" . encode($u->ID) . "' title='Borar Usuario/a' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
+                    echo "<a href='productos_read.php?id=" . encode($p->ID) . "' title='Ver Producto' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
+                    echo "<a href='productos_update.php?id=" . encode($p->ID) . "' title='Actualizar Producto' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
+                    echo "<a href='productos_delete.php?id=" . encode($p->ID) . "' title='Borar Producto' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";
                     echo "</td>";
                     echo "</tr>";
                 }
@@ -97,7 +103,7 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                 echo "</ul>";
             } else {
                 // Si no hay nada seleccionado
-                echo "<p class='lead'><em>No se ha encontrado datos de uduari@s.</em></p>";
+                echo "<p class='lead'><em>No se ha encontrado datos de productos.</em></p>";
             }
             ?>
 
