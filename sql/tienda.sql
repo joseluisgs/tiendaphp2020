@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 17-01-2019 a las 18:33:57
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 7.2.12
+-- Tiempo de generación: 16-01-2020 a las 01:13:18
+-- Versión del servidor: 10.4.6-MariaDB
+-- Versión de PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,6 +29,9 @@ USE `tienda`;
 --
 -- Estructura de tabla para la tabla `captcha`
 --
+-- Creación: 15-01-2020 a las 14:16:21
+-- Última actualización: 15-01-2020 a las 14:16:21
+--
 
 DROP TABLE IF EXISTS `captcha`;
 CREATE TABLE `captcha` (
@@ -36,6 +39,10 @@ CREATE TABLE `captcha` (
   `PREGUNTA` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `RESPUESTA` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- RELACIONES PARA LA TABLA `captcha`:
+--
 
 --
 -- Volcado de datos para la tabla `captcha`
@@ -53,6 +60,8 @@ INSERT INTO `captcha` (`ID`, `PREGUNTA`, `RESPUESTA`) VALUES
 --
 -- Estructura de tabla para la tabla `lineasventas`
 --
+-- Creación: 15-01-2020 a las 14:16:22
+--
 
 DROP TABLE IF EXISTS `lineasventas`;
 CREATE TABLE `lineasventas` (
@@ -65,10 +74,17 @@ CREATE TABLE `lineasventas` (
   `total` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- RELACIONES PARA LA TABLA `lineasventas`:
+--
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `pedidos`
+--
+-- Creación: 15-01-2020 a las 14:16:21
+-- Última actualización: 15-01-2020 a las 14:16:21
 --
 
 DROP TABLE IF EXISTS `pedidos`;
@@ -81,6 +97,10 @@ CREATE TABLE `pedidos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
+-- RELACIONES PARA LA TABLA `pedidos`:
+--
+
+--
 -- Volcado de datos para la tabla `pedidos`
 --
 
@@ -91,6 +111,8 @@ INSERT INTO `pedidos` (`ID`, `USUARIO`, `CODPRODUCTO`, `CANTIDAD`, `FECHA`) VALU
 
 --
 -- Estructura de tabla para la tabla `productos`
+--
+-- Creación: 15-01-2020 a las 14:16:22
 --
 
 DROP TABLE IF EXISTS `productos`;
@@ -105,6 +127,10 @@ CREATE TABLE `productos` (
   `OFERTA` tinyint(1) NOT NULL,
   `FOTO` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- RELACIONES PARA LA TABLA `productos`:
+--
 
 --
 -- Volcado de datos para la tabla `productos`
@@ -127,7 +153,9 @@ INSERT INTO `productos` (`ID`, `TIPO`, `MARCA`, `MODELO`, `DESCRIPCION`, `PRECIO
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `product_tipo`
+-- Estructura de tabla para la tabla `producto_tipo`
+--
+-- Creación: 15-01-2020 a las 14:16:22
 --
 
 DROP TABLE IF EXISTS `producto_tipo`;
@@ -136,18 +164,25 @@ CREATE TABLE `producto_tipo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Volcado de datos para la tabla `product_tipo`
+-- RELACIONES PARA LA TABLA `producto_tipo`:
+--
+
+--
+-- Volcado de datos para la tabla `producto_tipo`
 --
 
 INSERT INTO `producto_tipo` (`TIPO`) VALUES
-('Otros'),
 ('Monitor'),
+('Otros'),
 ('Portatil');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `usuarios`
+--
+-- Creación: 15-01-2020 a las 14:16:22
+-- Última actualización: 15-01-2020 a las 23:10:56
 --
 
 DROP TABLE IF EXISTS `usuarios`;
@@ -159,24 +194,27 @@ CREATE TABLE `usuarios` (
   `EMAIL` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `DIRECCION` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `FOTO` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `ADMIN` tinyint(1) NOT NULL DEFAULT '0'
+  `ADMIN` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- RELACIONES PARA LA TABLA `usuarios`:
+--
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`ID`, `NOMBRE`,  `ALIAS`, `PASS`, `EMAIL`, `DIRECCION`, `FOTO`, `ADMIN`) VALUES
-(1, 'maria', 'maria','263bce650e68ab4e23f28263760b9fa5', 'maria@maria.com', 'marialandia', 'af4be49d1f8c19c716a1753a8ef2d5fa.png', 0),
-(2, 'pepe', 'pepe','926e27eecdbc7a18858b3798ba99bddd', 'pepe@pepe.com', 'pepilandia2', 'fd728cc47bd157190a7783acefc3fb87.png', 1),
-(3, 'perico', 'perico', 'dfe483413e24a5b1506389d36ebfd05c', 'perico@perico.com', 'pericolandia', '0678bbbfd54441766dc8763d304d2d59.png', 0),
-(4, 'ana', 'ana', '276b6c4692e78d4799c12ada515bc3e4', 'ana@ana.com', 'analandia', 'f87023390ecd2e5b818657105a76cacb.png', 0),
-(6, 'pedro', 'pedro','c6cc8094c2dc07b700ffcc36d64e2138', 'pedro@pedro.com', 'pedrolandia', '9134b86bd9d2ee8288104190320667f6.png', 0);
+INSERT INTO `usuarios` (`ID`, `NOMBRE`, `ALIAS`, `PASS`, `EMAIL`, `DIRECCION`, `FOTO`, `ADMIN`) VALUES
+(1, 'pepe', 'pepe', '926e27eecdbc7a18858b3798ba99bddd', 'pepe@pepe.com', 'pepilandia2', '27f07ce08ad6d47ffc5694bec8319bcb.jpeg', 1),
+(10, 'Prueba', 'prueba', 'c893bad68927b457dbed39460e6afd62', 'prueba@prueba.com', 'prueba44', 'fcca0c9e6d311123ea8c7cef8cc708da.jpeg', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `ventas`
+--
+-- Creación: 15-01-2020 a las 14:16:22
 --
 
 DROP TABLE IF EXISTS `ventas`;
@@ -193,6 +231,10 @@ CREATE TABLE `ventas` (
   `nombreTarjeta` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `numTarejta` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- RELACIONES PARA LA TABLA `ventas`:
+--
 
 --
 -- Índices para tablas volcadas
@@ -212,7 +254,7 @@ ALTER TABLE `productos`
   ADD KEY `fk_pro_tipo` (`TIPO`);
 
 --
--- Indices de la tabla `product_tipo`
+-- Indices de la tabla `producto_tipo`
 --
 ALTER TABLE `producto_tipo`
   ADD PRIMARY KEY (`TIPO`),
@@ -244,14 +286,8 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- Restricciones para tablas volcadas
---
-
---
-
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -61,8 +61,6 @@ session_start();
             display: compact;
         }
 
-
-
     </style>
 
     <script type="text/javascript">
