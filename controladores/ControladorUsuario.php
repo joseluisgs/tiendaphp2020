@@ -40,8 +40,8 @@ class ControladorUsuario {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         // creamos la consulta
-        $consulta = "SELECT * FROM alumnadocrud WHERE nombre LIKE :filtro OR email LIKE :filtro";
-        $parametros = array(':filtro' => "%".$filtro."%");
+        $consulta = "SELECT * FROM productos WHERE marca LIKE :marca OR modelo LIKE :modelo";
+        $parametros = array(':marca' => "%".$filtro."%", ':modelo'=>"%".$filtro."%");
 
         $res = $bd->consultarBD($consulta,$parametros);
         $filas=$res->fetchAll(PDO::FETCH_OBJ);

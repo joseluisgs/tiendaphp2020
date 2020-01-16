@@ -64,7 +64,7 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                 echo "<th>Marca</th>";
                 echo "<th>Modelo</th>";
                 echo "<th>Precio</th>";
-                echo "<th>Stock</th>";
+                echo "<th>Unidades</th>";
                 echo "<th>Tipo</th>";
                 echo "<th>Fecha</th>";
                 echo "<th>Acción</th>";
@@ -75,7 +75,7 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                 foreach ($resultados->datos as $p) {
                     // Pintamos cada fila
                     echo "<tr>";
-                    echo "<td><img src='/tienda/img_productos/" . $p->FOTO . "' class='rounded' class='img-thumbnail' width='50' height='auto'></td>";
+                    echo "<td><img src='/tienda/img_productos/" . $p->IMAGEN . "' class='rounded' class='img-thumbnail' width='50' height='auto'></td>";
                     echo "<td>" . $p->ID . "</td>";
                     echo "<td>" . $p->MARCA . "</td>";
                     echo "<td>" . $p->MODELO . "</td>";
@@ -87,7 +87,8 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                     else
                         echo "<td><span class='label label-info'>" .$p->STOCK . "</span></td>";
                     echo "<td>" . $p->TIPO . "</td>";
-                    echo "<td>" . $p->FECHA . "</td>";
+                    $date = new DateTime($p->FECHA);
+                    echo "<td>" . $date->format('d-m-Y'). "</td>";
                     echo "<td>";
                     echo "<a href='productos_read.php?id=" . encode($p->ID) . "' title='Ver Producto' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                     echo "<a href='productos_update.php?id=" . encode($p->ID) . "' title='Actualizar Producto' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";

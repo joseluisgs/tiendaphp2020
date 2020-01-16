@@ -30,10 +30,8 @@ class ControladorProducto {
     }
 
     /**
-     * Lista los productos
-     * @param type $titulo
-     * @param type $descripcion
-     * devuelte: array de objetos
+     * Lista los productos dado un filtro
+     * @param $filtro
      * @return array|null
      */
     public function listarProductos($filtro) {
@@ -42,22 +40,25 @@ class ControladorProducto {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         // creamos la consulta
-        $consulta = "SELECT * FROM producto WHERE titulo LIKE '%" . $filtro . "%' or seccion LIKE '%" . $filtro . "%' or descripcion LIKE '%" . $filtro . "%'";
-        //echo "Consulta desde controlador".$consulta;
-        $filas = $bd->consultarBD($consulta);
+        $consulta = "SELECT * FROM productos WHERE nombre LIKE :filtro OR email LIKE :filtro";
+        $parametros = array(':filtro' => "%".$filtro."%");
 
-        if ($filas->rowCount() > 0) {
-            while ($fila = $filas->fetch()) {
-                $producto = new Producto($fila['id'], $fila['titulo'], $fila['descripcion'], $fila['seccion'], $fila['importe'], $fila['foto'], $fila['stock']);
+        $res = $bd->consultarBD($consulta,$parametros);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+
+        if (count($filas) > 0) {
+            foreach ($filas as $p) {
+                $producto= new Producto($p->ID, $p->TIPO, $p->MARCA, $p->MODELO, $p->DESCRIPCION, $p->PRECIO,
+                    $u->STOCK, $u->OFERTA, $p->DISPONIBLE, $p->FECHA, $p->IMAGEN);
                 // Lo añadimos
                 $lista[] = $producto;
             }
-            //$filas->free();
             $bd->cerrarBD();
             return $lista;
-        } else {
+        }else{
             return null;
         }
+
     }
 
     /**
