@@ -7,7 +7,7 @@ require_once VIEW_PATH . "cabecera.php";
 // lo remitirá a la pagina de inicio
 // rol:1 administrador
 if ((($_SESSION['rol'])!=1) || (!isset($_SESSION['nombre']))){
-    header("location: error.php");
+    alerta("Operación no permitida", "error.php");
     exit();
 }
 

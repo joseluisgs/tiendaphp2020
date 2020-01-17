@@ -60,13 +60,14 @@ class ControladorSesion
     public function destruirCookie()
     {
         setcookie($_SESSION['email'], '', time() - 100);
+        exit();
     }
 
     public function destruirSesion()
     {
         session_destroy();
         session_unset();
-        header("location: ../index.php");
+        alerta("Hasta pronto", "../index.php");
         exit();
     }
 }

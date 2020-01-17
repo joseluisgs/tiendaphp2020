@@ -27,12 +27,12 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))&& isset($_GET["email"]) && !e
 
         if($email != decode($_GET["email"])){
             // hay un error
-            header("location: error.php");
+            alerta("Operación no permitida", "error.php");
             exit();
         }
     } else {
         // hay un error
-        header("location: error.php");
+        alerta("Operación no permitida", "error.php");
         exit();
     }
 }
@@ -232,7 +232,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- Button -->
                     <div class="col-md-offset-3 col-md-9">
                         <button type="submit" class="btn btn btn-warning"> <span class="glyphicon glyphicon-refresh"></span>  Actualizar</button>
-                        <a href="usuarios.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Volver</a>
+                        <a href="../index.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Volver</a>
 
                     </div>
                 </div>

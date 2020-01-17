@@ -7,7 +7,7 @@ require_once VIEW_PATH . "cabecera.php";
 // lo remitirá a la pagina de inicio
 // rol:1 administrador
 if ((($_SESSION['rol'])!=1) || (!isset($_SESSION['nombre']))){
-    header("location: error.php");
+    alerta("Operación no permitida", "error.php");
     exit();
 }
 
@@ -23,7 +23,7 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
         <div class="row">
             <div class="col-md-12">
                 <div class="page-header clearfix">
-                    <h2 class="pull-left">Panel Administración de Usuarios</h2>
+                    <h2 class="pull-left">Panel Administración de Productos</h2>
                 </div>
                 <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="form-group mx-sm-5 mb-2">

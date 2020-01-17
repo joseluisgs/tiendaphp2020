@@ -7,7 +7,7 @@ require_once VIEW_PATH . "cabecera.php";
 // lo remitirá a la pagina de inicio
 // rol:1 administrador
 if ((($_SESSION['rol'])!=1) || (!isset($_SESSION['nombre']))){
-    header("location: error.php");
+    alerta("Operación no permitida", "error.php");
     exit();
 }
 
@@ -23,7 +23,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 //si no existe el usuario lo enviamos a error para que no haga nada
 if (is_null($producto)) {
     // hay un error
-    header("location: error.php");
+    alerta("Operación no permitida", "error.php");
     exit();
 }
 ?>

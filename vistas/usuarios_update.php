@@ -7,7 +7,7 @@ require_once VIEW_PATH . "cabecera.php";
 // lo remitirá a la pagina de inicio
 // rol:1 administrador
 if ((($_SESSION['rol'])!=1) || (!isset($_SESSION['nombre']))){
-    header("location: error.php");
+    alerta("Operación no permitida", "error.php");
     exit();
 }
 
@@ -102,9 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // actualizamos la imagen manteniendo el nombre que tenía
         $imagen=$_POST["imagenAnterior"];
         $ci = ControladorImagen::getControlador();
-
         if (!$ci->salvarImagen($_FILES['imagen']['tmp_name'], USERS_IMAGES_PATH . $imagen)) {
-            exit();
             $imagenErr = "No se ha podido subir la imagen en el servidor";
             $errores[] = $imagenErr;
         }

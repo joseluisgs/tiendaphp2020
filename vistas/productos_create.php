@@ -8,11 +8,10 @@ require_once VIEW_PATH . "cabecera.php";
 // lo remitirá a la pagina de inicio
 // rol:1 administrador
 if ((($_SESSION['rol'])!=1) || (!isset($_SESSION['nombre']))){
-    header("location: error.php");
+    alerta("Operación no permitida", "error.php");
     exit();
 }
 
-// Variables temporales
 // Variables temporales
 $id = $marca = $modelo = $tipo = $descripcion= $precio = $stock = $oferta= $imagen = $disponible = $fecha= "";
 $idErr = $marcaErr = $modeloErr = $tipoErr = $descripcionErr= $precioErr = $stockErr = $ofertaErr= $imagenErr = $disponibleErr = $fechaErr= "";
@@ -112,8 +111,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!$ci->salvarImagen($_FILES['imagen']['tmp_name'], PRODUCTS_IMAGES_PATH.$imagen)) {
             $imagenErr = "No se ha podido subir la imagen en el servidor";
             $errores[] = $imagenErr;
-
-
         }
     }
 
@@ -148,11 +145,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <!-- Columna Izquierda -->
                                 <div class="col-md-4 col-sm-6 col-xs-12">
                                     <div class="text-center">
-                                        <img src='../images/sinimagen.jpg' class = 'center-block' class='avatar img-thumbnail' alt='imagen' width='215' height='auto'>
+                                        <img src='../images/sinimagen.jpeg' class = 'center-block' class='avatar img-thumbnail' alt='imagen' width='215' height='auto'>
                                         <h6>Sube una imagen del producto</h6>
                                         <!-- Imagen -->
-                                        <div class="form-group">
-                                            <input type="file" required name="imagen" class="form-control-file" id="imagen">
+                                        <div class="form-group" <?php echo (!empty($imagenErr)) ? 'error: ' : ''; ?>">
+                                            <input type="file" name="imagen" class="form-control-file" id="imagen" accept="image/jpeg">
+                                            <span class="help-block"><?php echo $imagenErr;?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     </div>
                                     <!-- Descripción-->
                                     <div class="form-group" <?php echo (!empty($descripcionErr)) ? 'error: ' : ''; ?>>
-                                        <label for="descripcion" class="col-lg-1 control-label">Descrip.::</label>
+                                        <label for="descripcion" class="col-lg-1 control-label">Descrip.:</label>
                                         <div class="col-lg-6">
                                             <textarea type="text" class="form-control" name="descripcion" placeholder="descripción"
                                                       required><?php echo $descripcion ?></textarea>
@@ -236,7 +234,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                     <!-- Disponibilidad -->
                                     <div class="form-group" <?php echo (!empty($disponibleErr)) ? 'error: ' : ''; ?>>
-                                        <label for="disponible" class="col-lg-1 control-label">Dispo.::</label>
+                                        <label for="disponible" class="col-lg-1 control-label">Dispo.:</label>
                                         <div class="col-lg-6">
                                             <select name="disponible">
                                                 <option value="1" <?php echo (strstr($disponible, '1')) ? 'selected' : ''; ?>>Sí</option>

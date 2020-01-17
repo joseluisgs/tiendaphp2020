@@ -119,12 +119,22 @@ class ControladorProducto {
         return $estado;
     }
 
-    public function actualizarProducto($id, $titulo, $descripcion, $seccion, $importe, $foto, $stock) {
+    /**
+     * Actualiza un producto en la base de datos
+     * @param $producto
+     * @return mixed
+     */
+    public function actualizarProducto($producto) {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        $consulta = "update producto set id='" . $id . "', titulo='" . $titulo . "', descripcion='" . $descripcion . "', seccion='" . $seccion . "', importe=" . $importe . ", foto='" . $foto . "', stock=" . $stock . " where id= '" . $id . "'";
-        //echo "<br><br>La consulta:" . $consulta;
-        $estado = $bd->consultarBD($consulta);
+        $consulta = "update productos set tipo=:tipo, marca=:marca, modelo=:modelo, descripcion=:descripcion, 
+                    precio=:precio, stock=:stock, oferta=:oferta, imagen=:imagen, disponible=:disponible, fecha=:fecha
+                    where id=:id";
+        $parametros = array(':id'=>$producto->getId(),':tipo'=>$producto->getTipo(), ':marca'=>$producto->getMarca(), ':modelo'=>$producto->getModelo(),
+            ':descripcion'=>$producto->getDesc(), ':precio'=>$producto->getPrecio(), ':stock'=>$producto->getStock(),
+            ':oferta'=>$producto->getOferta(), ':imagen'=>$producto->getImagen(), ':disponible'=>$producto->getDisponible(),
+            ':fecha'=>$producto->getFecha());
+        $estado = $bd->actualizarBD($consulta, $parametros);
         $bd->cerrarBD();
         return $estado;
     }
@@ -145,6 +155,7 @@ class ControladorProducto {
 
 
     /**
+     * Mustra la distintas secciones que hay de un producto
      * @return array|null
      */
     public function mostrarSecciones() {
@@ -161,14 +172,6 @@ class ControladorProducto {
         } else {
             return null;
         }
-    }
-
-    public function serializarProducto($producto) {
-        return serialize($producto);
-    }
-
-    public function deserializarProducto($cadena) {
-        return unserialize($cadena);
     }
 
 }

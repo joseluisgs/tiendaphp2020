@@ -14,6 +14,8 @@
 * 16/01/2020: Carrusel de presentación
 * 16/01/2020: CRUD Productos: listado, ver, crear, eliminar
 * 16/01/2020: Error, Zona privada de usuario
+* 17/01/2020: CRUD Productos: actualizar
+
 
 ##### Ejecución
 http://localhost/tienda
