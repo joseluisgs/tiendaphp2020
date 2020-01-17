@@ -139,8 +139,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }else{
         $imagen = trim($_POST["imagenAnterior"]);
-        $imagen=trim($_POST["imagenAnterior"]);
-        alerta("Existen errores en el formulario: ".$errores[0],"productos_update.php?id=" . encode($id));
     }
 
     // Si no hay errores insertamos
