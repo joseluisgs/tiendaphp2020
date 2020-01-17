@@ -139,6 +139,37 @@ class ControladorProducto {
         return $estado;
     }
 
+    /**
+     * Lista los productos de ofertas
+     * @param $filtro
+     * @return array|null
+     */
+    public function listarDestacados() {
+        // Creamos la conexión a la BD
+        $lista = [];
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+        // creamos la consulta
+        $consulta = "SELECT * FROM productos WHERE stock>0 and oferta=1 limit 4";
+
+        $res = $bd->consultarBD($consulta);
+        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+
+        if (count($filas) > 0) {
+            foreach ($filas as $p) {
+                $producto= new Producto($p->ID, $p->TIPO, $p->MARCA, $p->MODELO, $p->DESCRIPCION, $p->PRECIO,
+                    $p->STOCK, $p->OFERTA, $p->DISPONIBLE, $p->FECHA, $p->IMAGEN);
+                // Lo añadimos
+                $lista[] = $producto;
+            }
+            $bd->cerrarBD();
+            return $lista;
+        }else{
+            return null;
+        }
+
+    }
+
     // restamos las unidades que se han comprado al stock del producto
     public function actualizarLineasStock() {
 
