@@ -150,7 +150,7 @@ class ControladorProducto {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         // creamos la consulta
-        $consulta = "SELECT * FROM productos WHERE stock>0 and oferta>0 and disponible=1 limit 4";
+        $consulta = "SELECT * FROM productos WHERE stock>0 and oferta>0 and disponible=1 order by RAND() limit 4";
 
         $res = $bd->consultarBD($consulta);
         $filas=$res->fetchAll(PDO::FETCH_OBJ);

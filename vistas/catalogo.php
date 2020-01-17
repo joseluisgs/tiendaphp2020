@@ -86,7 +86,7 @@ require_once "cabecera.php";
                             <div class="col-item col-md-12">
                                 <div class="post-img-content">
                                     <a href ='<?php echo "/tienda/vistas/producto.php?id=" . encode($p->ID)?>'><img src='../img_productos/<?php echo $p->IMAGEN; ?>' class="center-block"
-                                                     class="img-responsive" width='220px' height='auto'/></a>
+                                                     class="img-responsive" width='100%' height='100%'/></a>
                                     <span class="post-title">
                         <b><?php echo $p->TIPO; ?></b>
                                         </span>

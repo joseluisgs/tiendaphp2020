@@ -24,7 +24,7 @@
                                 <div class="post-img-content">
                                     <a href ='<?php echo "/tienda/vistas/producto.php?id=" . encode($p->getId())?>'>
                                         <img src='/tienda/img_productos/<?php echo $p->getImagen(); ?>' class="center-block"
-                                             class="img-responsive" width='220px' height='auto'/></a>
+                                             class="img-responsive" width='100%' height='100%'/></a>
                                     <span class="post-title">
                         <b><?php echo $p->getTipo();?></b>
                                 </span><span class="round-tag">-<?php echo $p->getOferta();?>%</span>

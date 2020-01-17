@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Filtramos precio
     $precio= filtrado($_POST['precio']);
-    if (empty($precio)|| $precio<0) {
+    if ($precio<0) {
         $precioErr = "El precio no es correcto o no puede estar vacío";
         $errores[] = $precioErr;
     }
@@ -90,12 +90,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errores[] = $stockErr;
     }
 
-    // Procesamos el oferta
-    if(isset($_POST["oferta"])){
-        $oferta = filtrado($_POST["oferta"]);
-    }else{
-        $ofertaErr = "Debe elegir una opción de oferta obligatoriamente";
+    // Filtramos oferta
+    $oferta= filtrado($_POST['oferta']);
+    if ($oferta<0) {
+        $ofertaErr = "La oferta no es correcta o no puede estar vacía";
         $errores[] = $ofertaErr;
+
     }
 
 
@@ -253,10 +253,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <div class="form-group" <?php echo (!empty($ofertaErr)) ? 'error: ' : ''; ?>>
                                         <label for="oferta" class="col-lg-1 control-label">Oferta:</label>
                                         <div class="col-lg-6">
-                                            <select name="oferta">
-                                                <option value="0" <?php echo (strstr($oferta, '0')) ? 'selected' : ''; ?>>No</option>
-                                                <option value="1" <?php echo (strstr($oferta, '1')) ? 'selected' : ''; ?>>Sí</option>
-                                            </select>
+                                            <input type="number" class="form-control" name="oferta" placeholder="0" required
+                                                   value="<?php echo $oferta; ?>"
+                                                   min="0", max="100" step="1">
+                                            <span class="help-block"><?php echo $ofertaErr;?></span>
                                         </div>
                                     </div>
 
@@ -265,8 +265,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <label for="disponible" class="col-lg-1 control-label">Dispo.:</label>
                                         <div class="col-lg-6">
                                             <select name="disponible">
-                                                <option value="1" <?php echo (strstr($disponible, '1')) ? 'selected' : ''; ?>>Sí</option>
-                                                <option value="0" <?php echo (strstr($disponible, '0')) ? 'selected' : ''; ?>>No</option>
+                                                <?php
+                                                    if($disponible!=0){
+                                                        echo "<option value='1' selected>Sí</option>";
+                                                        echo "<option value='0'>No</option>";
+                                                    }else{
+                                                        echo "<option value='1'>Sí</option>";
+                                                        echo "<option value='0' selected>No</option>";
+                                                    }
+                                                ?>
                                             </select>
                                         </div>
                                     </div>

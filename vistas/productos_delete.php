@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     if($producto->getOferta()==0)
                                         echo "<td><span class='label label-info'>No</span></td>";
                                     else
-                                        echo "<td><span class='label label-warning'>Sí</span></td>";
+                                        echo "<td><span class='label label-success'>-".$producto->getOferta()."%</span></td>";
                                     ?>
                                 </p>
                                 <p class="form-control-static"><b>Fecha: </b>

@@ -64,7 +64,7 @@ if (is_null($producto)) {
                                     if($producto->getOferta()==0)
                                         echo "<td><span class='label label-info'>No</span></td>";
                                     else
-                                        echo "<td><span class='label label-success'>Sí</span></td>";
+                                        echo "<td><span class='label label-success'>-".$producto->getOferta()."%</span></td>";
                                     ?>
                                 </p>
                                 <p class="form-control-static"><b>Fecha: </b>
