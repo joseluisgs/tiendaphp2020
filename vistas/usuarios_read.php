@@ -102,7 +102,7 @@ if (is_null($usuario)) {
                 <div class="form-group">
                 <!-- Button -->
                 <div class="col-md-offset-3 col-md-9">
-                    <p><a href="usuarios.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Aceptar</a></p>
+                    <p><a href="javascript:history.go(-1)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Aceptar</a></p>
                 </div>
             </div>
         </div>

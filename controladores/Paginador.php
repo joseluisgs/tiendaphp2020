@@ -89,35 +89,37 @@ class Paginador {
      * @param type $enlaces
      * @return string
      */
-    public function crearLinks($enlaces) {
+    public function crearLinks($enlaces, $filtro, $seccion) {
+
+        //Omitimos o definimos el parámetro "filter" y seccion
+        $filtro = ($filtro === "" ? "" : "&filter=" . urlencode($filtro));
+        $seccion = ($seccion === "" ? "" : "&seccion=" . urlencode($seccion));
+
         $ultimo = ceil($this->total / $this->limite);
         $comienzo = (($this->pagina - $enlaces) > 0) ? $this->pagina - $enlaces : 1;
         $fin = (($this->pagina + $enlaces ) < $ultimo) ? $this->pagina + $enlaces : $ultimo;
 
-        //$clase = ($this->pagina == 1) ? "disabled" : ""; --> Si queremos que el primero no se edite
-        $clase = ($this->pagina == 1) ? "" : "";
-        $html = '<li class="' . $clase . '"><a href="?limit=' . $this->limite . '&page=' . ($comienzo) . '">&laquo;</a></li>';
+        $clase = ($this->pagina == 1) ? "" : "";//$clase = ($this->pagina == 1) ? "disabled" : "";
+        $html = '<li class="' . $clase . '"><a href="?limit=' . $this->limite . '&page=' . ($comienzo) . $filtro .$seccion. '">&laquo;</a></li>';
 
         if ($comienzo > 1) {
-            $html .= '<li><a href="?limit=' . $this->limite . '&page=1">1</a></li>';
+            $html .= '<li><a href="?limit=' . $this->limite . '&page=1' . $filtro . '">1</a></li>';
             $html .= '<li class="disabled"><span>...</span></li>';
         }
 
         for ($i = $comienzo; $i <= $fin; $i++) {
             $clase = ( $this->pagina == $i ) ? "active" : "";
-            $html .= '<li class="' . $clase . '"><a href="?limit=' . $this->limite . '&page=' . $i . '">' . $i . '</a></li>';
+            $html .= '<li class="' . $clase . '"><a href="?limit=' . $this->limite . '&page=' . $i . $filtro .$seccion. '">' . $i . '</a></li>';
         }
 
         if ($fin < $ultimo) {
             $html .= '<li class="disabled"><span>...</span></li>';
-            $html .= '<li><a href="?limit=' . $this->limite . '&page=' . $ultimo . '">' . $ultimo . '</a></li>';
+            $html .= '<li><a href="?limit=' . $this->limite . '&page=' . $ultimo . $filtro .$seccion. '">' . $ultimo . '</a></li>';
         }
 
-
         $clase = ( $this->pagina == $fin ) ? "disabled" : "enabled";                     // ($fin) --> si queremos ir a la ultima
-        $html .= '<li class="' . $clase . '"><a href="?limit=' . $this->limite . '&page=' . ($fin) . '">&raquo;</a></li>';
+        $html .= '<li class="' . $clase . '"><a href="?limit=' . $this->limite . '&page=' . ($fin) . $filtro .$seccion. '">&raquo;</a></li>';
         return $html;
     }
-
 
 }

@@ -137,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <button type="submit" class="btn btn btn-danger"><span
                                         class="glyphicon glyphicon-remove"></span> Eliminar
                             </button>
-                            <a href="usuarios.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span>
+                            <a href="javascript:history.go(-1)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span>
                                 Volver</a>
                         </div>
                     </div>

@@ -228,7 +228,7 @@ session_start();
             height: 60px;
             border-radius: 50% 50% 50% 0;
             border: 4px solid #FFF;
-            background: #37A12B;
+            background: #245da1;
             position: absolute;
             bottom: 0px;
             padding: 15px 6px;

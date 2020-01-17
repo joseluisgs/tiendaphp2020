@@ -264,7 +264,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <div class="form-group">
                                         <div class="col-md-8">
                                             <button type="submit" class="btn btn btn-success"> <span class="glyphicon glyphicon-saved"></span>  Aceptar</button>
-                                            <a href="productos.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Volver</a>
+                                            <a href="javascript:history.go(-1)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Volver</a>
                                         </div>
                                     </div>
                                 </div>

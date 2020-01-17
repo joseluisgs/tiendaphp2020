@@ -64,7 +64,7 @@ if (is_null($producto)) {
                                     if($producto->getOferta()==0)
                                         echo "<td><span class='label label-info'>No</span></td>";
                                     else
-                                        echo "<td><span class='label label-warning'>Sí</span></td>";
+                                        echo "<td><span class='label label-success'>Sí</span></td>";
                                     ?>
                                 </p>
                                 <p class="form-control-static"><b>Fecha: </b>
@@ -77,7 +77,16 @@ if (is_null($producto)) {
                             <div>
                                 <!-- Button -->
                                 <div class="col-md-offset-3 col-md-9">
-                                    <p><a href="productos.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Aceptar</a></p>
+                                    <p><a href="javascript:history.go(-1)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Aceptar</a>
+                                        <?php
+                                            // Si está logueado, vamos al carrito, si no a login
+                                            if(isset($_SESSION['id_usuario'])) {
+                                                // Metemos al carrito.
+                                                echo "<a href='#' class='btn btn-info'><span class='glyphicon glyphicon-shopping-cart'></span> Comprar</a>";
+                                            }
+                                            ?>
+
+                                    </p>
                                 </div>
                             </div>
                         </div>

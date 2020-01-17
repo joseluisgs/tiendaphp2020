@@ -14,11 +14,11 @@ $secciones = $cp->mostrarSecciones();
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Artículos <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href=<?php echo DIRECTORIO_PATH . "index.php"; ?>>Todos</a></li>
+                    <li><a href=<?php echo DIRECTORIO_PATH . "vistas/catalogo.php"; ?>>Todos</a></li>
                     <?php
                     // Mostramos el menú según tipo de usuarios
                     foreach ($secciones as $seccion => $tipo) {
-                        echo " <li><a href='" . DIRECTORIO_PATH . "index.php?seccion=" . $tipo->nombre . "'>" . $tipo->nombre . "</a></li>";
+                        echo " <li><a href='" . DIRECTORIO_PATH . "vistas/catalogo.php?tipo=" . $tipo->nombre . "'>" . $tipo->nombre . "</a></li>";
                     }
                     ?>
                 </ul>

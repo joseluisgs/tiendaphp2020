@@ -97,7 +97,7 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                 echo "</ul>";
             } else {
                 // Si no hay nada seleccionado
-                echo "<p class='lead'><em>No se ha encontrado datos de uduari@s.</em></p>";
+                echo "<p class='lead'><em>No se ha encontrado datos de uduarios/as.</em></p>";
             }
             ?>
 

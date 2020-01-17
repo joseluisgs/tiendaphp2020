@@ -22,10 +22,12 @@
                         <div class="col-xs-12 col-sm-6 col-md-3">
                             <div class="col-item col-md-12">
                                 <div class="post-img-content">
-                                    <img src='img_productos/<?php echo $p->getImagen();?>' class= "center-block" class="img-responsive" width='220px' height='auto'/>
+                                    <a href ='<?php echo "/tienda/vistas/producto.php?id=" . encode($p->getId())?>'>
+                                        <img src='/tienda/img_productos/<?php echo $p->getImagen(); ?>' class="center-block"
+                                             class="img-responsive" width='220px' height='auto'/></a>
                                     <span class="post-title">
                         <b><?php echo $p->getTipo();?></b>
-                                </span><span class="round-tag">-15%</span>
+                                </span><span class="round-tag">-<?php echo $p->getOferta();?>%</span>
                                 </div>
                                 <div class="info">
                                     <div class="row">
@@ -33,7 +35,7 @@
                                             <h5> <?php echo $p->getMarca(). " " . $p->getModelo();?></h5>
                                         </div>
                                         <div class="price col-md-12">
-                                            <h4 class="price-text-color">19.99€</h4>
+                                            <h4 class="price-text-color"><?php echo $p->getPrecio();?> €</h4>
                                         </div>
                                     </div>
                                     <div class="separator clear-left">

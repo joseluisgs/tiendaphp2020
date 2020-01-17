@@ -232,7 +232,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- Button -->
                     <div class="col-md-offset-3 col-md-9">
                         <button type="submit" class="btn btn btn-warning"> <span class="glyphicon glyphicon-refresh"></span>  Actualizar</button>
-                        <a href="../index.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Volver</a>
+                        <a href="javascript:history.go(-1)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Volver</a>
 
                     </div>
                 </div>

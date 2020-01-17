@@ -1,10 +1,12 @@
 <?php
 
     //Cabecera de la página web
-    require_once VIEW_PATH."cabecera.php";
+    require_once "cabecera.php";
 
     //Cuerpo de la página web
-    require_once VIEW_PATH."listado.php";
+    require_once "carrusel.php";
+    require_once "destacados.php";
+
 
     // Pie de la página web
-    require_once VIEW_PATH."pie.php";
+    require_once "pie.php";

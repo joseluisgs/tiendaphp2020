@@ -67,6 +67,7 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                 echo "<th>Unidades</th>";
                 echo "<th>Tipo</th>";
                 echo "<th>Fecha</th>";
+                echo "<th>Dispo.</th>";
                 echo "<th>Acción</th>";
                 echo "</tr>";
                 echo "</thead>";
@@ -89,6 +90,10 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                     echo "<td>" . $p->TIPO . "</td>";
                     $date = new DateTime($p->FECHA);
                     echo "<td>" . $date->format('d/m/Y'). "</td>";
+                    if($p->STOCK==0)
+                        echo "<td><span class='label label-success'>Sí</span></td>";
+                    else
+                        echo "<td><span class='label label-danger'>No</span></td>";
                     echo "<td>";
                     echo "<a href='productos_read.php?id=" . encode($p->ID) . "' title='Ver Producto' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                     echo "<a href='productos_update.php?id=" . encode($p->ID) . "' title='Actualizar Producto' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";
