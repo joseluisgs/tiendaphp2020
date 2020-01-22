@@ -99,10 +99,16 @@ if (is_null($usuario)) {
                         </div>
                     </div>
 
+
+
                 <div class="form-group">
                 <!-- Button -->
                 <div class="col-md-offset-3 col-md-9">
                     <p><a href="javascript:history.go(-1)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Aceptar</a></p>
+                    <?php
+                        echo "<a href='/tienda/utilidades/descargas.php?opcion=USR_PDF&id=".encode($usuario->getId()). " ' class='btn pull-right' target='_blank'><span class='glyphicon glyphicon-download'></span>  PDF</a>";
+                    ?>
+
                 </div>
             </div>
         </div>

@@ -32,13 +32,6 @@ if(isset($_SESSION['id_usuario']) && isset($_SESSION['email']) && isset($_GET["i
         $idSesion = $_SESSION['id_usuario'];
         $emailSesion = $_SESSION['email'];
 
-        echo $id."<br>";
-        echo $idSesion."<br>";
-        echo $email."<br>";
-        echo $emailSesion."<br>";
-
-
-
         if(($email!==$emailSesion) || ($id!==$idSesion)){
             // hay un error
             alerta("Operación no permitida. No tiene permiso en estapágina", "error.php");

@@ -85,6 +85,7 @@ if (is_null($producto)) {
                                 <!-- Button -->
                                 <div class="col-md-offset-3 col-md-9">
                                     <p><a href="javascript:history.go(-1)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Aceptar</a></p>
+                                    <a href="/tienda/utilidades/descargas.php?opcion=PROD_PDF&id=<?php echo (encode($producto->getId()));?>" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  PDF</a>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +93,7 @@ if (is_null($producto)) {
                             <div >
                                 <br><br>
                                 <img src='../img_productos/<?php echo $producto->getImagen();?>' class='rounded' class='img-thumbnail' width='380' height='auto' enctype="multipart/form-data">
-                                <a href="/tienda/utilidades/descargas.php?opcion=PROD_PDF&id=<?php echo (encode($producto->getId()));?>" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  PDF</a>
+
                             </div>
                         </div>
                     </div>

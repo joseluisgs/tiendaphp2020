@@ -222,7 +222,7 @@ class ControladorDescargas
 
 
     /**
-     * Descarga los Productos en PDF
+     * Descarga el Producto en PDF
      * @throws \Spipu\Html2Pdf\Exception\Html2PdfException
      */
     public function productoPDF($id){
@@ -258,6 +258,37 @@ class ControladorDescargas
         $sal.= $date->format('d/m/Y');
         $sal.="</p>";
 
+
+
+
+        //https://github.com/spipu/html2pdf/blob/master/doc/basic.md
+        $pdf=new HTML2PDF('P','A4','es','true','UTF-8');
+        $pdf->writeHTML($sal);
+        $pdf->output('producto.pdf');
+
+    }
+
+    /**
+     * Descarga el Producto en PDF
+     * @throws \Spipu\Html2Pdf\Exception\Html2PdfException
+     */
+    public function usuarioPDF($id){
+        $sal ='<h1 class="pull-left">Ficha de Usuario</h1>';
+        $controlador = ControladorUsuario::getControlador();
+        $usuario= $controlador->buscarUsuarioID($id);
+
+        $sal.="<img src='".$_SERVER['DOCUMENT_ROOT'] . "/tienda/img_usuarios/".$usuario->getImagen()."'  style='max-width: 300mm; max-height: 12mm'>";
+        $sal.="<h2>". $usuario->getNombre(). " </h2>";
+        $sal.="<h4>". $usuario->getAlias(). "</h4>";
+        $sal.="<h4>". $usuario->getEmail()."</h4>";
+        $sal.="<p><b>Rol:</b>";
+        if($usuario->getAdmin()==0)
+            $sal.= "No";
+        else
+            $sal.= "Sí";
+        $sal.="</p>";
+        $sal.="<p><b>Dirección:</b>".$usuario->getDireccion();
+        $sal.="</p>";
 
 
 

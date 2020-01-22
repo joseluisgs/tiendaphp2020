@@ -22,8 +22,11 @@ switch ($opcion) {
     case 'P_PDF':
         $fichero->productosPDF();
         break;
-    case 'PROD_PDF':
+        case 'PROD_PDF':
         $fichero->productoPDF($id);
+        break;
+    case 'USR_PDF':
+        $fichero->usuarioPDF($id);
         break;
 
 }
