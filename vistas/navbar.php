@@ -1,5 +1,5 @@
 <?php
-ob_start();
+
 $cp = ControladorProducto::getControlador();
 $secciones = $cp->mostrarSecciones();
 ?>

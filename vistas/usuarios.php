@@ -32,7 +32,8 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                     </div>
                     <button type="submit" class="btn btn-primary mb-2"> <span class="glyphicon glyphicon-search"></span>  Buscar</button>
 
-                    <!-- <a href="utilidades/descargar.php" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  Descargar</a>-->
+                    <a href="/tienda/utilidades/descargas.php?opcion=U_JSON" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  JSON</a>
+                    <a href="/tienda/utilidades/descargas.php?opcion=U_PDF" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  PDF</a>
                     <a href="/tienda/vistas/usuarios_create.php" class="btn btn-success pull-right"><span class="glyphicon glyphicon-user"></span>  Añadir Usuario</a>
 
                 </form>
