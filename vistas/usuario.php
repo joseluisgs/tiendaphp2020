@@ -9,13 +9,17 @@ $id= $nombre = $alias= $email = $pass = $dire = $rol= $imagen = $imagenAnterior=
 $nombreErr = $aliasErr = $emailErr = $passErr = $direErr= $rolErr= $imagenErr= "";
 $errores=[];
 
+// Filtramos que sea el mismo usuario
+
+
 
 // Comprobamos que existe el id y que el mail se correspnde a este id antes de ir más lejos
-if(isset($_GET["id"]) && !empty(trim($_GET["id"]))&& isset($_GET["email"]) && !empty(trim($_GET["email"]))) {
+if(isset($_SESSION['id_usuario']) && isset($_SESSION['email']) && isset($_GET["id"]) && !empty(trim($_GET["id"]))&& isset($_GET["email"]) && !empty(trim($_GET["email"]))) {
     $id = decode($_GET["id"]);
     $controlador = ControladorUsuario::getControlador();
     $usuario = $controlador->buscarUsuarioID($id);
     if (!is_null($usuario)) {
+        $id = $usuario->getId();
         $nombre = $usuario->getNombre();
         $alias = $usuario->getAlias();
         $email = $usuario->getEmail();
@@ -25,17 +29,32 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))&& isset($_GET["email"]) && !e
         $imagen = $usuario->getImagen();
         $imagenAnterior = $imagen;
 
-        if($email != decode($_GET["email"])){
+        $idSesion = $_SESSION['id_usuario'];
+        $emailSesion = $_SESSION['email'];
+
+        echo $id."<br>";
+        echo $idSesion."<br>";
+        echo $email."<br>";
+        echo $emailSesion."<br>";
+
+
+
+        if(($email!==$emailSesion) || ($id!==$idSesion)){
             // hay un error
-            alerta("Operación no permitida", "error.php");
+            alerta("Operación no permitida. No tiene permiso en estapágina", "error.php");
             exit();
         }
     } else {
         // hay un error
-        alerta("Operación no permitida", "error.php");
+        alerta("Operación no permitida. Usuario no existe", "error.php");
         exit();
     }
+}else{
+    // hay un error
+    alerta("Operación no permitida. Página no encontrada", "error.php");
+    exit();
 }
+
 
 
 // Procesamos el POST, es decir el botón borrar
