@@ -92,6 +92,7 @@ if (is_null($producto)) {
                             <div >
                                 <br><br>
                                 <img src='../img_productos/<?php echo $producto->getImagen();?>' class='rounded' class='img-thumbnail' width='380' height='auto' enctype="multipart/form-data">
+                                <a href="/tienda/utilidades/descargas.php?opcion=PROD_PDF&id=<?php echo (encode($producto->getId()));?>" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  PDF</a>
                             </div>
                         </div>
                     </div>

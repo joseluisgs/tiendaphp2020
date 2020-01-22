@@ -219,4 +219,52 @@ class ControladorDescargas
         $pdf->output('listado.pdf');
 
     }
+
+
+    /**
+     * Descarga los Productos en PDF
+     * @throws \Spipu\Html2Pdf\Exception\Html2PdfException
+     */
+    public function productoPDF($id){
+        $sal ='<h1 class="pull-left">Ficha de Producto</h1>';
+        $controlador = ControladorProducto::getControlador();
+        $producto= $controlador->buscarProductoID($id);
+
+        $sal.="<img src='".$_SERVER['DOCUMENT_ROOT'] . "/tienda/img_productos/".$producto->getImagen()."'  style='max-width: 300mm; max-height: 12mm'>";
+        $sal.="<h1>". $producto->getModelo(). " </h1>";
+        $sal.="<h4>". $producto->getMarca(). "</h4>";
+        $sal.="<h4>". $producto->getTipo()."</h4>";
+        $sal.="<h4>". $producto->getPrecio(). "€</h4>";
+        $sal.="<p><b>Descripción:</b></p>";
+        $sal.="<p>".$producto->getDesc()."</p>";
+        $sal.="<p><b>Unidades:</b>".$producto->getStock();
+        $sal.="</p>";
+        $sal.="<p><b>Disponible:</b>";
+        if($producto->getDisponible()==0)
+            $sal.= "No";
+        else
+            $sal.= "Sí";
+        $sal.="</p>";
+
+        $sal.="<p><b>Oferta: </b>";
+        if($producto->getOferta()==0)
+            $sal.= "No";
+        else
+            $sal.= "-".$producto->getOferta()."%";
+
+        $sal.="</p>";
+        $sal.="<p><b>Fecha: </b>";
+        $date = new DateTime($producto->getFecha());
+        $sal.= $date->format('d/m/Y');
+        $sal.="</p>";
+
+
+
+
+        //https://github.com/spipu/html2pdf/blob/master/doc/basic.md
+        $pdf=new HTML2PDF('P','A4','es','true','UTF-8');
+        $pdf->writeHTML($sal);
+        $pdf->output('producto.pdf');
+
+    }
 }
