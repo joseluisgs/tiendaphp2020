@@ -27,33 +27,30 @@ class ControladorVenta {
     }
 
     /**
-     * Lista los productos
-     * @param type $titulo
-     * @param type $descripcion
-     * devuelte: array de objetos
+     * Busca una venta por un id
+     * @param $id
+     * @return Venta|null
      */
-    public function listarVentas($filtro) {
-        // Creamos la conexión a la BD
-        $lista = [];
+    public function buscarVentaID($id) {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
-        // creamos la consulta
-        $consulta = "SELECT * FROM producto WHERE titulo LIKE '%" . $filtro . "%' or seccion LIKE '%" . $filtro . "%' or descripcion LIKE '%" . $filtro . "%'";
-        //echo "Consulta desde controlador".$consulta;
-        $filas = $bd->consultarBD($consulta);
 
-        if ($filas->rowCount() > 0) {
-            while ($fila = $filas->fetch()) {
-                $producto = new Producto($fila['id'], $fila['titulo'], $fila['descripcion'], $fila['seccion'], $fila['importe'], $fila['foto'], $fila['stock']);
-                // Lo añadimos
-                $lista[] = $producto;
-            }
-            //$filas->free();
+        $consulta = "select * from ventas where idVenta = :idVenta";
+        $parametros = array(':idVenta' => $id);
+
+        $res = $bd->consultarBD($consulta, $parametros);
+        $filas = $res->fetchAll(PDO::FETCH_OBJ);
+
+        if (count($filas) > 0) {
+            $venta = new Venta($filas[0]->idVenta, $filas[0]->fecha, $filas[0]->total,
+                $filas[0]->subtotal, $filas[0]->iva, $filas[0]->nombre, $filas[0]->email, $filas[0]->direccion,
+                $filas[0]->nombreTarjeta, $filas[0]->numTarjeta);
             $bd->cerrarBD();
-            return $lista;
+            return $venta;
         } else {
             return null;
         }
+
     }
 
     /**
@@ -101,22 +98,4 @@ class ControladorVenta {
         return $estado;
     }
 
-    // aquí debemos recorrer el array de sesion carrito e ir añadiendo las lineas
-    // tambien debemos controlar que hay que modificar el valor de stock en el producto correspondiente.
-    // sesion carrito: clave[id] -> [$producto->getTitulo(), $producto->getSeccion(), $producto->getImporte(), $uds]
-    // LIMPIAR CARRITO SESION
-    // LIMPIAR CARRITO COOKIE
-    public function almacenarLineasVenta() {
-
-        $conexion = ControladorBD::getControlador();
-        $conexion->abrirBD();
-
-        foreach ($_SESSION['carrito'] as $key => $value) {
-
-            $consulta = "INSERT INTO `lineaVenta` (`idVenta`, `idProducto`, `titulo`, `seccion`, `precio`, `cantidad`, `total`) "
-                . "VALUES ('" . $_SESSION['idCompra'] . "', '" . $key . "', '" . $value[0] . "', '" . htmlentities($value[1]) . "', '" . $value[2] . "', '" . $value[3] . "', '" . $value[2] * $value[3] . "')";
-            $estado = $conexion->actualizarBD($consulta);
-        }
-        $conexion->cerrarBD();
-    }
 }

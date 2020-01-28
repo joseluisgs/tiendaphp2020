@@ -31,8 +31,9 @@ if (isset($_POST['procesar_compra'])) {
         $nombre, $email, $direccion, $nombreTarjeta, $numeroTarjeta);
 
     $cv = ControladorVenta::getControlador();
-    if ($estado = $cv->insertarVenta($venta)) {
-        alerta("Venta procesada", "../index.php");
+    if ($cv->insertarVenta($venta)) {
+        $cs = ControladorSesion::getControlador();
+        alerta("Venta procesada", "../vistas/carrito_factura.php?venta=".encode($idVenta));
         exit();
     } else {
         alerta("Existe un error al procesar la venta");

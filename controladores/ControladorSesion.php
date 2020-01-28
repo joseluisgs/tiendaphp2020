@@ -10,6 +10,7 @@ class ControladorSesion
     // constructor--> Private por el patrón Singleton
     private function __construct()
     {
+        session_start();
         //echo "Conector creado";
     }
 
@@ -38,6 +39,7 @@ class ControladorSesion
         $_SESSION['email'] = $usuario->getEmail();
         $_SESSION['direccion'] = $usuario->getDireccion();
         $_SESSION['id_usuario'] = $usuario->getId();
+
         // Ponemos las unidades y el carrito a nulos
         $_SESSION['uds'] = 0;
         $_SESSION['carrito'] = array();
@@ -77,6 +79,12 @@ class ControladorSesion
     {
         setcookie($_SESSION['email'], '', time() - 100);
         exit();
+    }
+
+    public function reiniciarCarrito(){
+        $_SESSION['uds'] = 0;
+        $_SESSION['total'] = 0;
+        $_SESSION['carrito'] = array();
     }
 
     /**
