@@ -136,4 +136,10 @@ class ControladorCarrito {
         return $total;
     }
 
+    public function vaciarCarrito() {
+        //eliminamos esa linea del array completa y restamos las uds al total uds carrito
+        unset($_SESSION['carrito']);
+        $_SESSION['uds'] = 0;
+    }
+
 }
