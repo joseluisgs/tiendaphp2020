@@ -1,4 +1,5 @@
 <?php
+
     $cu = ControladorProducto::getControlador();
     $destacados = $cu->listarDestacados();
 
@@ -45,7 +46,7 @@
                                             // Si está logueado, vamos al carrito, si no a login
                                             if(isset($_SESSION['id_usuario'])){
                                                 // Metemos al carrito.
-                                                echo "<a href='/tienda/vistas/producto.php?id=" . encode($p->getId()) ."' class='hidden-sm'>Comprar</a>";
+                                                echo "<a href='/tienda/vistas/carrito_añadir.php?id=" . encode($p->getId()) ."&page=".encode("principal.php")."' class='hidden-sm'>Comprar</a>";
                                             }else{
                                                 echo "<a href='/tienda/vistas/login.php' class='hidden-sm'>Comprar</a>";
                                             }

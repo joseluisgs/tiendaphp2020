@@ -19,6 +19,22 @@ if (is_null($producto)) {
     alerta("Operación no permitida", "error.php");
     exit();
 }
+
+// si se ha pulsado añadir al carrito:
+// actualizamos carrito en sesiones
+// actualizamos carrito en cookies
+if (isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
+    echo "<br>";
+    $carrito = ControladorCarrito::getControlador();
+    if ($carrito->insertarLineaCarrito($producto, $_POST['uds'])) {
+        // si es correcto recarga la página y actualizamos la cookie
+        $sesion=ControladorSesion::getControlador();
+        $sesion->crearCookie();
+        header("location: producto.php?id=" . $_POST['id']);
+        exit();
+    }
+}
+
 ?>
 
 
@@ -74,17 +90,36 @@ if (is_null($producto)) {
                                 ?>
                                 </p>
                             </div>
+                            <?php
+                            // Si está logueado, vamos al carrito, si no a login
+                            if(isset($_SESSION['id_usuario']) && $producto->getDisponible()==1 && $producto->getStock()>0) {
+                                // Metemos al carrito.
+                                // Podemos indicar la cantidad
+                                ?>
+
+                                <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
+                                    <input type="number" name="uds" value="1" min="1" max="<?php echo $producto->getStock(); ?>"> Uds
+                                    <button type="submit" class="btn btn btn-default"><span class='glyphicon glyphicon-shopping-cart'></span> Añadir</button>
+                                    <input type="hidden" id="id" name="id" value="<?php echo $producto->getId(); ?>">
+                                    <input type="hidden" name="marca" value="<?php echo $producto->getMarca(); ?>">
+                                    <input type="hidden" name="modelo" value="<?php echo $producto->getModelo(); ?>">
+                                    <input type="hidden" name="tipo" value="<?php echo $producto->getTipo(); ?>">
+                                    <input type="hidden" name="precio" value="<?php echo $producto->getPrecio(); ?>">
+                                    <input type="hidden" name="oferta" value="<?php echo $producto->getOferta(); ?>">
+                                    <input type="hidden" name="stock" value="<?php echo $producto->getStock(); ?>">
+                                </form>
+
+
+
+                                <?php
+
+                            } // Cerramos el if
+                            ?>
+
                             <div>
                                 <!-- Button -->
-                                <div class="col-md-offset-3 col-md-9">
-                                    <p><a href="javascript:history.go(-1)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Aceptar</a>
-                                        <?php
-                                            // Si está logueado, vamos al carrito, si no a login
-                                            if(isset($_SESSION['id_usuario'])) {
-                                                // Metemos al carrito.
-                                                echo "<a href='#' class='btn btn-info'><span class='glyphicon glyphicon-shopping-cart'></span> Comprar</a>";
-                                            }
-                                            ?>
+                                <div class="col-md-offset-6 col-md-9">
+                                    <p><a href="catalogo.php" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Aceptar</a>
 
                                     </p>
                                 </div>

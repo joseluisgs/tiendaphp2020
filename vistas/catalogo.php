@@ -1,5 +1,6 @@
 <?php
 //Cabecera de la página web
+require_once $_SERVER['DOCUMENT_ROOT'] . "/tienda/dirs.php";
 require_once "cabecera.php";
 
 //Cuerpo de la página web
@@ -112,7 +113,7 @@ require_once "cabecera.php";
                                             // Si está logueado, vamos al carrito, si no a login
                                             if (isset($_SESSION['id_usuario'])) {
                                                 // Metemos al carrito.
-                                                echo "<a href='/tienda/vistas/producto.php?id=" . encode($p->ID) . "' class='hidden-sm'>Comprar</a>";
+                                                echo "<a href='/tienda/vistas/carrito_añadir.php?id=" . encode($p->ID) ."&page=".encode("catalogo.php")."' class='hidden-sm'>Comprar</a>";
                                             } else {
                                                 echo "<a href='/tienda/vistas/login.php' class='hidden-sm'>Comprar</a>";
                                             }
