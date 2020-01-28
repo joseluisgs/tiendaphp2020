@@ -2,7 +2,7 @@
 <?php
 
 // Para evitar notice errores y warnings
-//error_reporting(E_ALL & ~E_NOTICE);
+error_reporting(E_ALL & ~E_NOTICE);
 
 header("Content-Type: text/html; charset=utf-8");
 // Incluimos los directorios a trabajar

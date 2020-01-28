@@ -35,6 +35,7 @@ $secciones = $cp->mostrarSecciones();
                     <ul class="dropdown-menu">
                         <li><a href=<?php echo DIRECTORIO_PATH . "vistas/productos.php"; ?>>Productos</a></li>
                         <li><a href=<?php echo DIRECTORIO_PATH . "vistas/usuarios.php"; ?>>Usuarios</a></li>
+                        <li><a href=<?php echo DIRECTORIO_PATH . "vistas/ventas.php"; ?>>Ventas</a></li>
                     </ul>
                 </li>
 

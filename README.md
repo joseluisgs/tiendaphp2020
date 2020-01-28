@@ -16,6 +16,9 @@
 * 16/01/2020: Error, Zona privada de usuario
 * 17/01/2020: CRUD Productos: actualizar
 * 17/01/2020: Destacados, Catálogo
+* 28/01/2020: Carrito de compra
+* 28/01/2020: Factura
+* 29/01/2020: Gestión de Facturas
 
 
 ##### Ejecución
