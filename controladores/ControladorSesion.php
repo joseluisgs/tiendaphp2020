@@ -31,6 +31,7 @@ class ControladorSesion
      */
     public function crearSesion(Usuario $usuario){
         //valores de usuario
+        // Mejoras, meter el usuario completo en la sesion, pero no lo hago por el password
         $_SESSION['nombre'] = $usuario->getNombre();
         $_SESSION['alias'] = $usuario->getAlias();
         $_SESSION['rol'] = $usuario->getAdmin();

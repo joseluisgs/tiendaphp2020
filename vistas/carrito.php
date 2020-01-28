@@ -5,9 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/tienda/dirs.php";
 require_once VIEW_PATH . "cabecera.php";
 
 
-// como esta página está restringida a usuarios administradores si no está logueado como admin
-// lo remitirá a la pagina de inicio
-// rol:1 administrador
+// como esta página está restringida al usuario en cuestion
 if ((!isset($_SESSION['nombre']))) {
     header("location: error.php");
     exit();
@@ -148,8 +146,8 @@ if (isset($_POST['id']) && isset($_POST['uds'])) {
                                 <h4><strong><span id='iva'>TOTAL: </span></strong></h4>
                             <td class="col-sm-8 col-md-6 text-right">
                                 <h5><strong><span id='subTotal'><?php echo round(($total/1.21),2);?> €</span></strong></h5>
-                                <h5><strong><span id='iva'><?php echo round(($total-($total/1.21)),2);?>€</span></strong></h5>
-                                <h4><strong><span id='precioTotal'><?php echo round(($total),2);?>€</span></strong></h4>
+                                <h5><strong><span id='iva'><?php echo round(($total-($total/1.21)),2);?> €</span></strong></h5>
+                                <h4><strong><span id='precioTotal'><?php echo round(($total),2);?> €</span></strong></h4>
                             </td>
                             <td>   </td>
                         </tr>
@@ -176,7 +174,7 @@ if (isset($_POST['id']) && isset($_POST['uds'])) {
                             <td>   </td><td>   </td>
                             <td>
                                 <!-- Pagar Carrito -->
-                                <a href='../index.php' class='btn btn-success'><span class='glyphicon glyphicon-credit-card'></span> Pagar compra </a>
+                                <a href='carrito_resumen.php' class='btn btn-success'><span class='glyphicon glyphicon-credit-card'></span> Pagar compra </a>
                             </td>
                         </tr>
                     </tfoot>

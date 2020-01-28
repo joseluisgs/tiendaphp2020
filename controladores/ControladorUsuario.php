@@ -126,6 +126,9 @@ class ControladorUsuario {
 
     }
 
+
+
+
     /**
      * Realiza el login buscando un usuario en una base de datos
      * @param $email email de usuario
