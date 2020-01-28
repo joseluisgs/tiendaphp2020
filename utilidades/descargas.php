@@ -28,5 +28,8 @@ switch ($opcion) {
     case 'USR_PDF':
         $fichero->usuarioPDF($id);
         break;
+    case 'FAC_PDF':
+        $fichero->facturaPDF($id);
+        break;
 
 }

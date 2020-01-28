@@ -53,6 +53,32 @@ class ControladorVenta {
 
     }
 
+    public function buscarLineasID($id) {
+        $lista = [];
+
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
+
+        $consulta = "select * from lineasventas where idVenta = :idVenta";
+        $parametros = array(':idVenta' => $id);
+
+        $res = $bd->consultarBD($consulta, $parametros);
+        $filas = $res->fetchAll(PDO::FETCH_OBJ);
+
+        if (count($filas) > 0) {
+            foreach ($filas as $venta) {
+                $venta = new LineaVenta($venta->idVenta, $venta->idProducto, $venta->marca,
+                    $venta->modelo, $venta->precio, $venta->cantidad);
+                $bd->cerrarBD();
+                $lista[] = $venta;
+            }
+            return $lista;
+        } else {
+            return null;
+        }
+
+    }
+
     /**
      * Almacena una venta en la línea de venta
      * @return mixed

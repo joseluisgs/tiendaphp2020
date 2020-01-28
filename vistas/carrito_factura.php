@@ -8,7 +8,9 @@ $cs = ControladorSesion::getControlador();
 $cs->reiniciarCarrito();
 //$cs->destruirCookie();
 
-require_once VIEW_PATH . "cabecera.php";
+//require_once VIEW_PATH . "cabecera.php";
+require_once UTILITY_PATH . "funciones.php";
+require_once CONTROLLER_PATH . "ControladorVenta.php";
 
 // Solo entramos si somos el usuario y hay items
 if ((!isset($_SESSION['nombre']))) {
@@ -25,10 +27,57 @@ if ((!isset($_GET['venta']))) {
 $idVenta = decode($_GET['venta']);
 $cv = ControladorVenta::getControlador();
 $venta = $cv->buscarVentaID($idVenta);
-
+$lineas = $cv->buscarLineasID($idVenta);
 
 
 ?>
+
+    <!DOCTYPE html>
+    <html lang="es">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Factura <?php echo $idVenta; ?></title>
+    <!--
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <script src="script/jquery.min.js"></script>
+    <script src="script/bootstrap.js"></script>
+    -->
+    <link rel="icon" type="image/png" href='favicon.png'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+
+    <!-- Estilos de la factura -->
+    <style>
+        .invoice-title h2, .invoice-title h3 {
+            display: inline-block;
+        }
+        .table > tbody > tr > .no-line {
+            border-top: none;
+        }
+        .table > thead > tr > .no-line {
+            border-bottom: none;
+        }
+        .table > tbody > tr > .thick-line {
+            border-top: 2px solid;
+        }
+    </style>
+    <!-- Para imprimir -->
+    <style type="text/css" media="print">
+        @media print {
+            .nover{
+                visibility:hidden
+            }
+        }
+    </style>
+</head>
+
+
+
 <main role="main">
     <div class="container">
     <div class="row">
@@ -38,6 +87,7 @@ $venta = $cv->buscarVentaID($idVenta);
                     <h3 class="pull-right">Pedido nº: <?php echo $venta->getId(); ?></h3>
 </section>
 </div>
+
 <hr>
 <div class="row">
     <div class="col-xs-6">
@@ -59,7 +109,7 @@ $venta = $cv->buscarVentaID($idVenta);
     <div class="col-xs-6">
         <address>
             <strong>Método de pago:</strong><br>
-            Tarejta de Credito/debito: **** <?php echo substr($venta->getNumTarjeta(),-4); ?><br>
+            Tarjeta de crédito/debito: **** <?php echo substr($venta->getNumTarjeta(),-4); ?><br>
         </address>
     </div>
     <div class="col-xs-6 text-right">
@@ -73,7 +123,7 @@ $venta = $cv->buscarVentaID($idVenta);
 </div>
 </div>
 </div>
-
+    <div class="content content_content" style="width: 95%; margin: auto;">
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
@@ -92,19 +142,15 @@ $venta = $cv->buscarVentaID($idVenta);
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- foreach ($order->lineItems as $line) or some such thing here -->
                         <?php
-                        /*
-                        $lineas = $contCarrito->getVenta()->getLineas();
                         foreach ($lineas as $linea) {
                             echo "<tr>";
                             echo "<td>".$linea->getMarca()." ".$linea->getModelo()."</td>";
                             echo "<td class='text-center'>".$linea->getPrecio()." €</td>";
                             echo "<td class='text-center'>".$linea->getCantidad()."</td>";
-                            echo "<td class='text-right'>".$linea->getTotal()." €</td>";
+                            echo "<td class='text-right'>".($linea->getPrecio()*$linea->getCantidad())." €</td>";
                             echo "</tr>";
                         }
-                        */
                         ?>
 
                         <tr>
@@ -133,15 +179,21 @@ $venta = $cv->buscarVentaID($idVenta);
     </div>
 </div>
 </div>
-    <div class="form-group">
+    </div>
+    <div class="row no-print nover">
         <div class='text-center'>
-            <button type="button" class="btn btn-info" name="finalizar" onclick="window.print()"> <span class="glyphicon glyphicon-print"></span> Imprimir</button>
-            <button type="submit" class="btn btn-success" name="finalizar"> <span class="glyphicon glyphicon-ok"></span>  Finalizar</button>
+            <a href="javascript:window.print()" class='btn btn-info'><span class='glyphicon glyphicon-print'></span> Imprimir </a>
+            <a href="../index.php" class='btn btn-success'><span class='glyphicon glyphicon-ok'></span> Finalizar </a>
+            <?php
+            echo "<a href='/tienda/utilidades/descargas.php?opcion=FAC_PDF&id=".encode($idVenta). " ' target='_blank' class='btn btn-primary'><span class='glyphicon glyphicon-download'></span>  PDF</a>";
+            ?>
+
         </div>
     </div>
 
 </main>
 
+
 <?php
-require_once VIEW_PATH . "pie.php";
+//require_once VIEW_PATH . "pie.php";
 ?>
