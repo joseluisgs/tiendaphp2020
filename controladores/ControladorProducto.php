@@ -169,16 +169,20 @@ class ControladorProducto {
 
     }
 
-    // restamos las unidades que se han comprado al stock del producto
-    public function actualizarLineasStock() {
+    /**
+     * Actualiza el Stock
+     * @return mixed
+     */
+    public function actualizarStock($id, $stock) {
+        $bd = ControladorBD::getControlador();
+        $bd->abrirBD();
 
-        $conexion = ControladorBD::getControlador();
-        $conexion->abrirBD();
+        $consulta = "update productos set stock=:stock where id=:id";
+        $parametros = array(':id'=>$id, ':stock'=>$stock);
+        $estado = $bd->actualizarBD($consulta, $parametros);
+        $bd->cerrarBD();
+        return $estado;
 
-        foreach ($_SESSION['carrito'] as $key => $value) {
-            $consulta = "UPDATE producto set stock=stock-" . $value[3] . " where id= '" . $key . "'";
-            $estado = $conexion->consultarBD($consulta);
-        }
         $conexion->cerrarBD();
         return $estado;
     }

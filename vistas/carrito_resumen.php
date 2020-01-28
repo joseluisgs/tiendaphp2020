@@ -17,6 +17,28 @@ $total =  $_SESSION['total'];
     $email =  $_SESSION['email'];
     $direccion =  $_SESSION['direccion'];
 
+    // Procesamos la venta
+if (isset($_POST['procesar_compra'])) {
+    // Generamos el id de la compra
+    $idVenta = date('ymd-his');
+    $nombre = $_POST['nombre'];
+    $email = $_POST['email'];
+    $direccion = $_POST['direccion'];
+    $nombreTarjeta = $_POST['tTitular'];
+    $numeroTarjeta = $_POST['tNumero'];
+
+    $venta = new Venta($idVenta, "", $total, round(($total / 1.21), 2), round(($total - ($total / 1.21)), 2),
+        $nombre, $email, $direccion, $nombreTarjeta, $numeroTarjeta);
+
+    $cv = ControladorVenta::getControlador();
+    if ($estado = $cv->insertarVenta($venta)) {
+        alerta("Venta procesada", "../index.php");
+        exit();
+    } else {
+        alerta("Existe un error al procesar la venta");
+    }
+}
+
 ?>
 
 <!-- Iniciamos la interfaz -->
@@ -107,9 +129,9 @@ Subtotal:
                         <label for="name" class="col-md-3 control-label">Email:</label>
                     </div>
                     <div class="col-md-12">
-                        <input type="email" class="form-control" name="nombre" placeholder="Email" required
+                        <input type="email" class="form-control" name="email" placeholder="Email" required
                                value="<?php echo $email; ?>"
-                               >
+                        >
                     </div>
                 </div>
 
@@ -167,7 +189,7 @@ Subtotal:
                 <!-- Numero -->
                 <div class="form-group">
                     <div class="col-md-2">
-                        <label for="name" class="col-md-3 control-label">Titular:</label>
+                        <label for="name" class="col-md-3 control-label">Nº:</label>
                     </div>
                     <div class="col-md-12">
                         <input type="text" class="form-control" name="tNumero" placeholder="Nº de la tarjeta" required

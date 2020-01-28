@@ -12,7 +12,7 @@ require_once CONTROLLER_PATH . "ControladorUsuario.php";
 require_once CONTROLLER_PATH . "ControladorImagen.php";
 require_once CONTROLLER_PATH . "Paginador.php";
 require_once CONTROLLER_PATH . "ControladorCarrito.php";
-//require_once CONTROLLER_PATH . "ControladorVenta.php";
+require_once CONTROLLER_PATH . "ControladorVenta.php";
 
 
 require_once UTILITY_PATH . "funciones.php";

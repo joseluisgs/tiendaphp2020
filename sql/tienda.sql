@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 17-01-2020 a las 17:47:27
+-- Tiempo de generación: 28-01-2020 a las 14:20:58
 -- Versión del servidor: 10.4.6-MariaDB
 -- Versión de PHP: 7.3.9
 
@@ -29,6 +29,9 @@ USE `tienda`;
 --
 -- Estructura de tabla para la tabla `lineasventas`
 --
+-- Creación: 28-01-2020 a las 12:15:16
+-- Última actualización: 28-01-2020 a las 13:20:29
+--
 
 DROP TABLE IF EXISTS `lineasventas`;
 CREATE TABLE `lineasventas` (
@@ -37,14 +40,16 @@ CREATE TABLE `lineasventas` (
   `marca` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `modelo` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `precio` float NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `total` float NOT NULL
+  `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `productos`
+--
+-- Creación: 17-01-2020 a las 16:34:24
+-- Última actualización: 28-01-2020 a las 13:20:02
 --
 
 DROP TABLE IF EXISTS `productos`;
@@ -67,7 +72,7 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`ID`, `TIPO`, `MARCA`, `MODELO`, `DESCRIPCION`, `PRECIO`, `STOCK`, `OFERTA`, `IMAGEN`, `DISPONIBLE`, `FECHA`) VALUES
-(1, 'Otros', 'Seagate', 'BarraCuda', 'Capacidad de disco duro: 3000 GB\r\nInterfaz del disco duro: Serial ATA III\r\nVelocidad de rotaciÃ³n de disco duro: 7200 RPM\r\nTamaÃ±oo de disco duro: 3.5', 72.56, 1, 5, '2e888819f42d735177a1dcc39a5e48b.jpg', 0, '2020-01-06 00:00:00'),
+(1, 'Otros', 'Seagate', 'BarraCuda', 'Capacidad de disco duro: 3000 GB\r\nInterfaz del disco duro: Serial ATA III\r\nVelocidad de rotaciÃ³n de disco duro: 7200 RPM\r\nTamaÃ±oo de disco duro: 3.5', 72.56, 5, 5, '2e888819f42d735177a1dcc39a5e48b.jpg', 1, '2020-01-06 00:00:00'),
 (2, 'Otros', 'Seagate', 'BarraCuda', 'Capacidad de disco duro: 2000 GB.\r\n Interfaz del disco duro: Serial ATA III.\r\n Velocidad de rotaciÃ³n de disco duro: 7200 RPM.\r\n TamaÃ±oo de disco duro: 3.5.', 69.59, 0, 10, '3e888819f42d735177a1dcc39a5e48b.jpg', 1, '2020-01-06 00:00:00'),
 (3, 'Otros', 'Wenster Digital', 'Blue', 'Capacidad de disco duro: 2000 GB.\r\n Interfaz del disco duro: Serial ATA III.\r\n Velocidad de rotaciÃ³n de disco duro: 7200 RPM.\r\n TamaÃ±o de disco duro: 3.5.', 60, 3, 0, '81INYQ6K4JL._SL1500_.jpg', 1, '2020-01-06 00:00:00'),
 (5, 'Monitor', 'Lacie', 'E2470SWH', 'General.\r\nLÃ­nea monitor Value-line.\r\nTamaÃ±o monitor 23.6 Inch.\r\nTamaÃ±o visible de pantalla 521.28x293.32.\r\nFormato de pantalla 16:9.\r\nResoluciÃ³n ResoluciÃ³n mÃ¡xima 1920x1080@60Hz.\r\nResoluciÃ³n recomendada 1920x1080@60Hz.\r\nColores 16.7 Million', 125, 5, 15, '324i-3Qtr.jpg', 1, '2020-01-06 00:00:00'),
@@ -85,6 +90,8 @@ INSERT INTO `productos` (`ID`, `TIPO`, `MARCA`, `MODELO`, `DESCRIPCION`, `PRECIO
 
 --
 -- Estructura de tabla para la tabla `producto_tipo`
+--
+-- Creación: 15-01-2020 a las 14:16:22
 --
 
 DROP TABLE IF EXISTS `producto_tipo`;
@@ -105,6 +112,8 @@ INSERT INTO `producto_tipo` (`TIPO`) VALUES
 
 --
 -- Estructura de tabla para la tabla `usuarios`
+--
+-- Creación: 15-01-2020 a las 14:16:22
 --
 
 DROP TABLE IF EXISTS `usuarios`;
@@ -132,20 +141,22 @@ INSERT INTO `usuarios` (`ID`, `NOMBRE`, `ALIAS`, `PASS`, `EMAIL`, `DIRECCION`, `
 --
 -- Estructura de tabla para la tabla `ventas`
 --
+-- Creación: 28-01-2020 a las 12:55:11
+-- Última actualización: 28-01-2020 a las 13:20:36
+--
 
 DROP TABLE IF EXISTS `ventas`;
 CREATE TABLE `ventas` (
   `idVenta` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `fecha` varchar(14) COLLATE utf8_unicode_ci NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
   `total` float NOT NULL,
   `subtotal` float NOT NULL,
   `iva` float NOT NULL,
-  `idUsuario` int(11) NOT NULL,
   `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `direccion` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `nombreTarjeta` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `numTarejta` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+  `numTarjeta` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --

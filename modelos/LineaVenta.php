@@ -5,76 +5,126 @@ class LineaVenta {
 
     private $idVenta;
     private $idProducto;
-    private $titulo; //linea descriptiva del producto
-    private $seccion; // en mi tabla no he incluido ni modelo ni marca
+    private $marca;
+    private $modelo;
     private $precio;
     private $cantidad;
-    private $total;
 
-    function __construct($idVenta, $idProducto, $titulo, $seccion, $precio, $cantidad, $total) {
+    /**
+     * LineaVenta constructor.
+     * @param $idVenta
+     * @param $idProducto
+     * @param $marca
+     * @param $modelo
+     * @param $precio
+     * @param $cantidad
+     */
+    public function __construct($idVenta, $idProducto, $marca, $modelo, $precio, $cantidad)
+    {
         $this->idVenta = $idVenta;
         $this->idProducto = $idProducto;
-        $this->titulo = $titulo;
-        $this->seccion = $seccion;
+        $this->marca = $marca;
+        $this->modelo = $modelo;
         $this->precio = $precio;
         $this->cantidad = $cantidad;
-        $this->total = $total;
     }
-    function getIdVenta() {
+
+    /**
+     * @return mixed
+     */
+    public function getIdVenta()
+    {
         return $this->idVenta;
     }
 
-    function getIdProducto() {
-        return $this->idProducto;
-    }
-
-    function getTitulo() {
-        return $this->titulo;
-    }
-
-    function getSeccion() {
-        return $this->seccion;
-    }
-
-    function getPrecio() {
-        return $this->precio;
-    }
-
-    function getCantidad() {
-        return $this->cantidad;
-    }
-
-    function getTotal() {
-        return $this->total;
-    }
-
-    function setIdVenta($idVenta) {
+    /**
+     * @param mixed $idVenta
+     */
+    public function setIdVenta($idVenta): void
+    {
         $this->idVenta = $idVenta;
     }
 
-    function setIdProducto($idProducto) {
+    /**
+     * @return mixed
+     */
+    public function getIdProducto()
+    {
+        return $this->idProducto;
+    }
+
+    /**
+     * @param mixed $idProducto
+     */
+    public function setIdProducto($idProducto): void
+    {
         $this->idProducto = $idProducto;
     }
 
-    function setTitulo($titulo) {
-        $this->titulo = $titulo;
+    /**
+     * @return mixed
+     */
+    public function getMarca()
+    {
+        return $this->marca;
     }
 
-    function setSeccion($seccion) {
-        $this->seccion = $seccion;
+    /**
+     * @param mixed $marca
+     */
+    public function setMarca($marca): void
+    {
+        $this->marca = $marca;
     }
 
-    function setPrecio($precio) {
+    /**
+     * @return mixed
+     */
+    public function getModelo()
+    {
+        return $this->modelo;
+    }
+
+    /**
+     * @param mixed $modelo
+     */
+    public function setModelo($modelo): void
+    {
+        $this->modelo = $modelo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrecio()
+    {
+        return $this->precio;
+    }
+
+    /**
+     * @param mixed $precio
+     */
+    public function setPrecio($precio): void
+    {
         $this->precio = $precio;
     }
 
-    function setCantidad($cantidad) {
+    /**
+     * @return mixed
+     */
+    public function getCantidad()
+    {
+        return $this->cantidad;
+    }
+
+    /**
+     * @param mixed $cantidad
+     */
+    public function setCantidad($cantidad): void
+    {
         $this->cantidad = $cantidad;
     }
 
-    function setTotal($total) {
-        $this->total = $total;
-    }
 
 
 

@@ -7,23 +7,25 @@ class Venta {
     private $total;
     private $subtotal;
     private $iva;
+    private $nombre;
     private $email; //identificador que he usado para el usuario
     private $direccion;
     private $nombreTarjeta;
     private $numTarjeta;
 
-    function __construct($idventa, $fecha, $total, $subtotal, $iva, $email, $direccion, $nombreTarjeta, $numTarjeta) {
+    function __construct($idventa, $fecha, $total, $subtotal, $iva, $nombre, $email, $direccion, $nombreTarjeta, $numTarjeta) {
         $this->idventa = $idventa;
         $this->fecha = $fecha;
         $this->total = $total;
         $this->subtotal = $subtotal;
         $this->iva = $iva;
+        $this->nombre = $nombre;
         $this->email = $email;
         $this->direccion = $direccion;
         $this->nombreTarjeta = $nombreTarjeta;
         $this->numTarjeta = $numTarjeta;
     }
-    function getIdVenta() {
+    function getId() {
         return $this->idventa;
     }
 
@@ -43,6 +45,10 @@ class Venta {
         return $this->iva;
     }
 
+    function getNombre() {
+        return $this->nombre;
+    }
+
     function getEmail() {
         return $this->email;
     }
@@ -59,7 +65,7 @@ class Venta {
         return $this->numTarjeta;
     }
 
-    function setIdVenta($idventa) {
+    function setId($idventa) {
         $this->idventa = $idventa;
     }
 
@@ -77,6 +83,10 @@ class Venta {
 
     function setIva($iva) {
         $this->iva = $iva;
+    }
+
+    function setNombre($nombre) {
+        $this->nombre = $nombre;
     }
 
     function setEmail($email) {
