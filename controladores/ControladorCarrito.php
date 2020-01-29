@@ -54,7 +54,7 @@ class ControladorCarrito {
             $_SESSION['uds'] += $uds;
 
             // si el artículo existe el total de unidades es lo que había + las nuevas
-            if (array_key_exists($producto->getId(), $_SESSION['carrito'])) {
+            if (array_key_exists($producto->getId(), $_SESSION['carrito']) && ($_SESSION['carrito'][$producto->getId()][0]!=null)) {
                 echo "<br><br><br>Existe";
                 $uds = $_SESSION['carrito'][$producto->getId()][1] + $uds;
             }
@@ -120,6 +120,7 @@ class ControladorCarrito {
      */
     public function borrarLineaCarrito($id, $uds) {
         //eliminamos esa linea del array completa y restamos las uds al total uds carrito
+        //$_SESSION['carrito'][$id]=null;
         unset($_SESSION['carrito'][$id]);
         $_SESSION['uds'] -= $uds;
     }
@@ -130,8 +131,16 @@ class ControladorCarrito {
      */
     public function unidadesEnCarrito(){
         $total=0;
-        foreach ($_SESSION['carrito'] as $key => $value) {
-            $total += $value[1];
+        if(isset($_SESSION['carrito'])){
+            foreach ($_SESSION['carrito'] as $key => $value) {
+                if($value[0]!=null) {
+                    $total += $value[1];
+                }
+            }
+        }
+        if($total==0){
+            unset($_SESSION['carrito']);
+            $_SESSION['uds'] = 0;
         }
         return $total;
     }

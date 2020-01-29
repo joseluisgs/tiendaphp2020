@@ -4,27 +4,17 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/tienda/dirs.php";
 require_once VIEW_PATH . "cabecera.php";
 
 
-// Compramos la existencia del parámetro id antes de usarlo
-if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
-    $id = decode($_GET["id"]);
-    // Cargamos el controlador
-    $controlador = ControladorProducto::getControlador();
-    $producto= $controlador->buscarProductoID($id);
-
-}
-
-//si no existe el usuario lo enviamos a error para que no haga nada
-if (is_null($producto)) {
-    // hay un error
-    alerta("Operación no permitida", "error.php");
-    exit();
-}
-
 // si se ha pulsado añadir al carrito:
 // actualizamos carrito en sesiones
 // actualizamos carrito en cookies
 if (isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
-    echo "<br>";
+    // Busco el producto
+    $id = decode($_POST["id"]);
+    $controlador = ControladorProducto::getControlador();
+    $producto= $controlador->buscarProductoID($id);
+
+    
+
     $carrito = ControladorCarrito::getControlador();
     if ($carrito->insertarLineaCarrito($producto, $_POST['uds'])) {
         // si es correcto recarga la página y actualizamos la cookie
@@ -34,6 +24,25 @@ if (isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
         exit();
     }
 }
+
+// Compramos la existencia del parámetro id antes de usarlo
+if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
+    $id = decode($_GET["id"]);
+    // Cargamos el controlador
+    $controlador = ControladorProducto::getControlador();
+    $producto= $controlador->buscarProductoID($id);
+    //si no existe el usuario lo enviamos a error para que no haga nada
+    if (is_null($producto)) {
+        // hay un error
+        alerta("Operación no permitida", "error.php");
+        exit();
+    }
+
+}
+
+
+
+
 
 ?>
 
@@ -100,7 +109,7 @@ if (isset($_POST["id"]) && !empty(trim($_POST["id"]))) {
                                 <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                                     <input type="number" name="uds" value="1" min="1" max="<?php echo $producto->getStock(); ?>"> Uds
                                     <button type="submit" class="btn btn btn-default"><span class='glyphicon glyphicon-shopping-cart'></span> Añadir</button>
-                                    <input type="hidden" id="id" name="id" value="<?php echo $producto->getId(); ?>">
+                                    <input type="hidden" id="id" name="id" value="<?php echo encode($producto->getId()); ?>">
                                     <input type="hidden" name="marca" value="<?php echo $producto->getMarca(); ?>">
                                     <input type="hidden" name="modelo" value="<?php echo $producto->getModelo(); ?>">
                                     <input type="hidden" name="tipo" value="<?php echo $producto->getTipo(); ?>">

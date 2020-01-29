@@ -10,8 +10,6 @@ if ((!isset($_SESSION['nombre']))) {
     header("location: error.php");
     exit();
 }
-$total =0;
-
 
 // Borramos todos los items, vaciar carrito
 if (isset($_POST['vaciar_carrito'])) {
@@ -75,61 +73,67 @@ if (isset($_POST['id']) && isset($_POST['uds'])) {
                             <tbody>
 
                             <?php
-
+                            $total =0;
                             foreach ($_SESSION['carrito'] as $key => $value) {
-                                $id = $key;
-                                $producto = $value[0];
-                                $cantidad = $value[1];
-                                $total += $producto->getPrecio() * $cantidad;
-                                ?>
-                                <!-- Inicio de fila -->
-                                <tr>
-                                    <!-- Imagen -->
-                                    <td class='col-sm-1 col-md-1'><img
-                                                src='../img_productos/<?php echo $producto->getImagen(); ?>'
-                                                class='avatar img-thumbnail' alt='imagen' width='60'>
-                                        <!-- Nombre -->
-                                    <td class='col-sm-8 col-md-6 text-left'>
-                                        <h4><?php echo $producto->getModelo(); ?></h4>
-                                        <h5><?php echo $producto->getMarca(); ?></h5>
-                                    </td>
-                                    <!-- precio -->
-                                    <td class="col-sm-1 col-md-1 text-right"><h5><?php echo $producto->getPrecio(); ?>
-                                            €</h5></td>
-                                    <!-- Cantidad -->
-                                    <td class="col-sm-1 col-md-1 text-center">
-                                        <!-- Para actualizar -->
-                                        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>"
-                                              method="post">
-                                            <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
-                                            <input type="number" name="uds" value="<?php echo $cantidad; ?>"
-                                                   step="1" min="1"
-                                                   max="<?php echo $producto->getStock(); ?>"
-                                                   onchange="submit()">
-                                        </form>
-                                    </td>
-                                    <!-- Total -->
-                                    <td class="col-sm-1 col-md-1 text-right"><h5>
-                                            <strong><?php echo $producto->getPrecio() * $cantidad; ?> €</strong></h5>
-                                    </td>
-                                    <!-- Eliminar -->
-                                    <td class="col-sm-1 col-md-1 text-right">
-                                        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>"
-                                              method="post">
-                                            <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
-                                            <input type="hidden" id="uds" name="uds" value="<?php echo $cantidad; ?>">
-                                            <button class="btn btn-danger" type="submit" name="borrar_item"
-                                                  title='Borar Producto' data-toggle='tooltip'
-                                                  onclick="return confirm('¿Seguro que desea borrar a este producto?')">
-                                                <span class='glyphicon glyphicon-trash'></span>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <!-- Fin de fila de fila -->
-                                <?php
-                                // lo guardo en un valor de sesión tb
-                                $_SESSION['total'] = $total;
+
+                                    $id = $key;
+                                    if($value[0]!=null) {
+                                        $producto = $value[0];
+                                        $cantidad = $value[1];
+                                        $total += $producto->getPrecio() * $cantidad;
+                                        ?>
+                                        <!-- Inicio de fila -->
+                                        <tr>
+                                            <!-- Imagen -->
+                                            <td class='col-sm-1 col-md-1'><img
+                                                        src='../img_productos/<?php echo $producto->getImagen(); ?>'
+                                                        class='avatar img-thumbnail' alt='imagen' width='60'>
+                                                <!-- Nombre -->
+                                            <td class='col-sm-8 col-md-6 text-left'>
+                                                <h4><?php echo $producto->getModelo(); ?></h4>
+                                                <h5><?php echo $producto->getMarca(); ?></h5>
+                                            </td>
+                                            <!-- precio -->
+                                            <td class="col-sm-1 col-md-1 text-right">
+                                                <h5><?php echo $producto->getPrecio(); ?>
+                                                    €</h5></td>
+                                            <!-- Cantidad -->
+                                            <td class="col-sm-1 col-md-1 text-center">
+                                                <!-- Para actualizar -->
+                                                <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>"
+                                                      method="post">
+                                                    <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
+                                                    <input type="number" name="uds" value="<?php echo $cantidad; ?>"
+                                                           step="1" min="1"
+                                                           max="<?php echo $producto->getStock(); ?>"
+                                                           onchange="submit()">
+                                                </form>
+                                            </td>
+                                            <!-- Total -->
+                                            <td class="col-sm-1 col-md-1 text-right"><h5>
+                                                    <strong><?php echo $producto->getPrecio() * $cantidad; ?> €</strong>
+                                                </h5>
+                                            </td>
+                                            <!-- Eliminar -->
+                                            <td class="col-sm-1 col-md-1 text-right">
+                                                <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>"
+                                                      method="post">
+                                                    <input type="hidden" id="id" name="id" value="<?php echo $id; ?>">
+                                                    <input type="hidden" id="uds" name="uds"
+                                                           value="<?php echo $cantidad; ?>">
+                                                    <button class="btn btn-danger" type="submit" name="borrar_item"
+                                                            title='Borar Producto' data-toggle='tooltip'
+                                                            onclick="return confirm('¿Seguro que desea borrar a este producto?')">
+                                                        <span class='glyphicon glyphicon-trash'></span>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <!-- Fin de fila de fila -->
+                                        <?php
+                                        // lo guardo en un valor de sesión tb
+                                        $_SESSION['total'] = $total;
+                                    }
                             }
                             ?>
 

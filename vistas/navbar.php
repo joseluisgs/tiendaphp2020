@@ -50,7 +50,9 @@ $secciones = $cp->mostrarSecciones();
 
 
             if (isset($_SESSION['nombre'])) {
-
+                // Obtenemos las unidades del carrito
+                $cc = ControladorCarrito::getControlador();
+                $_SESSION['uds'] = $cc->unidadesEnCarrito();
                 $itemscarrito = $_SESSION['uds'] != 0 ? "<font color='darksalmon'> ".$_SESSION['uds']."</font>":"";
                 echo "<li><a href='/tienda/vistas/carrito.php' class='cart-link' title='Ver Carrito'> <b>".$itemscarrito."</b> <span class='glyphicon glyphicon-shopping-cart'></span></a></li>";
                 echo "<li><a href='/tienda/vistas/usuario.php?id=". encode($_SESSION['id_usuario'])."&email=".encode($_SESSION['email'])."'><span class='glyphicon glyphicon-user'></span> ". $_SESSION['alias']. " </a></li>";
