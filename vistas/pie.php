@@ -5,13 +5,15 @@
         <div class="container">
             <!-- Copyright -->
 
-            <div class="footer-copyright text-center py-3" style="color:#9d9d9d";>2019-2020 Implatación de Aplicaciones Web:
-                <a style="color:#9d9d9d"; href="https://twitter.com/joseluisgonsan"> José Luis González Sánchez</a>
+            <div class="footer-copyright text-center py-3" style="color:#9d9d9d" ;>2019-2020 Implatación de Aplicaciones
+                Web:
+                <a style="color:#9d9d9d" ; href="https://twitter.com/joseluisgonsan"> José Luis González Sánchez</a>
             </div>
             <div class="footer-copyright text-center py-3">
-                <a style="color:#9d9d9d"; href="http://www.cifpvirgendegracia.com/"> CIFP Virgen de Gracia</a>
+                <a style="color:#9d9d9d" ; href="http://www.cifpvirgendegracia.com/"> CIFP Virgen de Gracia</a>
             </div>
-            <div class="footer-copyright text-center py-3" style="color:#9d9d9d";>Paseo de San Gragorio 82b. 13500 Puertollano (Ciudad Real).
+            <div class="footer-copyright text-center py-3" style="color:#9d9d9d" ;>Paseo de San Gragorio 82b. 13500
+                Puertollano (Ciudad Real).
             </div>
             <!-- Copyright -->
         </div>

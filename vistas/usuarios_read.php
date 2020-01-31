@@ -1,4 +1,3 @@
-
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/tienda/dirs.php";
 require_once VIEW_PATH . "cabecera.php";
@@ -37,15 +36,16 @@ if (is_null($usuario)) {
             <div class="panel-heading">
                 <div class="panel-title">Ficha de usuario/a</div>
             </div>
-            <div class="panel-body" >
+            <div class="panel-body">
 
 
-                    <!-- Imagen -->
-                    <div class="form-group">
-                        <img src='../img_usuarios/<?php echo $usuario->getImagen();?>' class='center-block' class='rounded' class='img-thumbnail' width='80' height='auto' enctype="multipart/form-data">
-                    </div>
+                <!-- Imagen -->
+                <div class="form-group">
+                    <img src='../img_usuarios/<?php echo $usuario->getImagen(); ?>' class='center-block' class='rounded'
+                         class='img-thumbnail' width='80' height='auto' enctype="multipart/form-data">
+                </div>
 
-                    <!-- ID -->
+                <!-- ID -->
                 <div class="form-group">
                     <label for="name" class="col-md-3 control-label">ID:</label>
                     <div class="col-md-9">
@@ -53,67 +53,67 @@ if (is_null($usuario)) {
                     </div>
                 </div>
 
-                    <!-- Nombre -->
-                    <div class="form-group">
-                        <label for="name" class="col-md-3 control-label">Nombre:</label>
-                        <div class="col-md-9">
-                            <label for="name" class="col-md-3 control-label"><?php echo $usuario->getNombre(); ?></label>
-                        </div>
+                <!-- Nombre -->
+                <div class="form-group">
+                    <label for="name" class="col-md-3 control-label">Nombre:</label>
+                    <div class="col-md-9">
+                        <label for="name" class="col-md-3 control-label"><?php echo $usuario->getNombre(); ?></label>
                     </div>
+                </div>
 
-                    <!-- Alias -->
-                    <div class="form-group">
-                        <label for="name" class="col-md-3 control-label">Alias:</label>
-                        <div class="col-md-9">
-                            <label for="name" class="col-md-3 control-label"><?php echo $usuario->getAlias(); ?></label>
-                        </div>
+                <!-- Alias -->
+                <div class="form-group">
+                    <label for="name" class="col-md-3 control-label">Alias:</label>
+                    <div class="col-md-9">
+                        <label for="name" class="col-md-3 control-label"><?php echo $usuario->getAlias(); ?></label>
                     </div>
+                </div>
 
-                    <!-- Email -->
-                    <div class="form-group">
-                        <label for="mail" class="col-md-3 control-label">Email:</label>
-                        <div class="col-md-9">
-                            <label for="name" class="col-md-3 control-label"><?php echo $usuario->getEmail(); ?></label>
-                        </div>
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="mail" class="col-md-3 control-label">Email:</label>
+                    <div class="col-md-9">
+                        <label for="name" class="col-md-3 control-label"><?php echo $usuario->getEmail(); ?></label>
                     </div>
+                </div>
 
                 <!-- ROL -->
                 <div class="form-group">
                     <label for="mail" class="col-md-3 control-label">Rols:</label>
                     <div class="col-md-9">
                         <?php
-                            if($usuario->getAdmin()==0)
-                                echo "<label for='name' class='col-md-3 control-label'><span class='label label-info'>Normal</span></label>";
+                        if ($usuario->getAdmin() == 0)
+                            echo "<label for='name' class='col-md-3 control-label'><span class='label label-info'>Normal</span></label>";
                         else
-                                echo "<label for='name' class='col-md-3 control-label'><span class='label label-warning'>Admin</span></label>";
+                            echo "<label for='name' class='col-md-3 control-label'><span class='label label-warning'>Admin</span></label>";
                         ?>
 
                     </div>
                 </div>
 
-                    <!-- Direccion -->
-                    <div class="form-group" <?php echo (!empty($direErrErr)) ? 'error: ' : ''; ?>>
-                        <label for="password" class="col-md-3 control-label">Dirección:</label>
-                        <div class="col-md-9">
-                            <label for="name" class="col-md-3 control-label"><?php echo $usuario->getDireccion(); ?></label>
-                        </div>
+                <!-- Direccion -->
+                <div class="form-group" <?php echo (!empty($direErrErr)) ? 'error: ' : ''; ?>>
+                    <label for="password" class="col-md-3 control-label">Dirección:</label>
+                    <div class="col-md-9">
+                        <label for="name" class="col-md-3 control-label"><?php echo $usuario->getDireccion(); ?></label>
                     </div>
-
+                </div>
 
 
                 <div class="form-group">
-                <!-- Button -->
-                <div class="col-md-offset-3 col-md-9">
-                    <p><a href="javascript:history.go(-1)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Aceptar</a></p>
-                    <?php
-                        echo "<a href='/tienda/utilidades/descargas.php?opcion=USR_PDF&id=".encode($usuario->getId()). " ' class='btn pull-right' target='_blank'><span class='glyphicon glyphicon-download'></span>  PDF</a>";
-                    ?>
+                    <!-- Button -->
+                    <div class="col-md-offset-3 col-md-9">
+                        <p><a href="javascript:history.go(-1)" class="btn btn-primary"><span
+                                        class="glyphicon glyphicon-ok"></span> Aceptar</a></p>
+                        <?php
+                        echo "<a href='/tienda/utilidades/descargas.php?opcion=USR_PDF&id=" . encode($usuario->getId()) . " ' class='btn pull-right' target='_blank'><span class='glyphicon glyphicon-download'></span>  PDF</a>";
+                        ?>
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <br>

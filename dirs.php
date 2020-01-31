@@ -29,12 +29,12 @@ if (!defined('IMAGES_PATH'))
     define('IMAGES_PATH', ROOT_PATH . "images/");
 
 if (!defined('PRODUCTS_IMAGES_PATH'))
-    define('PRODUCTS_IMAGES_PATH', ROOT_PATH. "img_productos/");
+    define('PRODUCTS_IMAGES_PATH', ROOT_PATH . "img_productos/");
 
 if (!defined('USERS_IMAGES_PATH'))
-    define('USERS_IMAGES_PATH', ROOT_PATH. "img_usuarios/");
+    define('USERS_IMAGES_PATH', ROOT_PATH . "img_usuarios/");
 
-if ( !defined('VENDOR_PATH') )
-    define('VENDOR_PATH', ROOT_PATH."vendor/");
+if (!defined('VENDOR_PATH'))
+    define('VENDOR_PATH', ROOT_PATH . "vendor/");
 
 ?>

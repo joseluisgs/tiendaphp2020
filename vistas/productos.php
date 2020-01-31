@@ -6,7 +6,7 @@ require_once VIEW_PATH . "cabecera.php";
 // como esta página está restringida a usuarios administradores si no está logueado como admin
 // lo remitirá a la pagina de inicio
 // rol:1 administrador
-if ((($_SESSION['rol'])!=1) || (!isset($_SESSION['nombre']))){
+if ((($_SESSION['rol']) != 1) || (!isset($_SESSION['nombre']))) {
     alerta("Operación no permitida", "error.php");
     exit();
 }
@@ -28,13 +28,19 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                 <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="form-group mx-sm-5 mb-2">
                         <label for="buscar" class="sr-only">Titulo o descripcion</label>
-                        <input type="text" class="form-control" id="buscar" name="filter" value="<?php echo $filtro ?>" placeholder="marca o modelo">
+                        <input type="text" class="form-control" id="buscar" name="filter" value="<?php echo $filtro ?>"
+                               placeholder="marca o modelo">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2"> <span class="glyphicon glyphicon-search"></span>  Buscar</button>
+                    <button type="submit" class="btn btn-primary mb-2"><span class="glyphicon glyphicon-search"></span>
+                        Buscar
+                    </button>
 
-                    <a href="/tienda/utilidades/descargas.php?opcion=P_JSON" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  JSON</a>
-                    <a href="/tienda/utilidades/descargas.php?opcion=P_PDF" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  PDF</a>
-                    <a href="/tienda/vistas/productos_create.php" class="btn btn-success pull-right"><span class="glyphicon glyphicon-phone"></span>  Añadir Producto</a>
+                    <a href="/tienda/utilidades/descargas.php?opcion=P_JSON" class="btn pull-right"
+                       target="_blank"><span class="glyphicon glyphicon-download"></span> JSON</a>
+                    <a href="/tienda/utilidades/descargas.php?opcion=P_PDF" class="btn pull-right" target="_blank"><span
+                                class="glyphicon glyphicon-download"></span> PDF</a>
+                    <a href="/tienda/vistas/productos_create.php" class="btn btn-success pull-right"><span
+                                class="glyphicon glyphicon-phone"></span> Añadir Producto</a>
 
                 </form>
             </div>
@@ -43,18 +49,18 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
             </div>
             <?php
             $controlador = ControladorProducto::getControlador();
-            $pagina = ( isset($_GET['page']) ) ? $_GET['page'] : 1;
-            $enlaces = ( isset($_GET['enlaces']) ) ? $_GET['enlaces'] : 10;
+            $pagina = (isset($_GET['page'])) ? $_GET['page'] : 1;
+            $enlaces = (isset($_GET['enlaces'])) ? $_GET['enlaces'] : 10;
 
             // Consulta a realizar filtraremos o bien por email o por nombre y configuramos el paginador
             $consulta = "SELECT * FROM productos WHERE marca LIKE :marca OR modelo LIKE :modelo";
-            $parametros = array(':marca' => "%".$filtro."%", ':modelo'=>"%".$filtro."%");
+            $parametros = array(':marca' => "%" . $filtro . "%", ':modelo' => "%" . $filtro . "%");
             $limite = 5; // Limite del paginador
 
-            $paginador  = new Paginador($consulta, $parametros, $limite);
+            $paginador = new Paginador($consulta, $parametros, $limite);
             $resultados = $paginador->getDatos($pagina);
 
-            if(count( $resultados->datos)>0){
+            if (count($resultados->datos) > 0) {
 
                 // Pintamos la tabla el pass como está codificado no se mostrará
                 echo "<table class='table table-bordered table-striped'>";
@@ -83,23 +89,23 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                     echo "<td>" . $p->MARCA . "</td>";
                     echo "<td>" . $p->MODELO . "</td>";
                     echo "<td>" . $p->PRECIO . " €</td>";
-                    if($p->STOCK==0)
-                        echo "<td><span class='label label-danger'>". $p->STOCK . "</span></td>";
-                    else if($p->STOCK>0 && $p->STOCK<5)
-                        echo "<td><span class='label label-warning'>" .$p->STOCK . "</span></td>";
+                    if ($p->STOCK == 0)
+                        echo "<td><span class='label label-danger'>" . $p->STOCK . "</span></td>";
+                    else if ($p->STOCK > 0 && $p->STOCK < 5)
+                        echo "<td><span class='label label-warning'>" . $p->STOCK . "</span></td>";
                     else
-                        echo "<td><span class='label label-info'>" .$p->STOCK . "</span></td>";
+                        echo "<td><span class='label label-info'>" . $p->STOCK . "</span></td>";
                     echo "<td>" . $p->TIPO . "</td>";
                     $date = new DateTime($p->FECHA);
-                    echo "<td>" . $date->format('d/m/Y'). "</td>";
-                    if($p->DISPONIBLE!=0)
+                    echo "<td>" . $date->format('d/m/Y') . "</td>";
+                    if ($p->DISPONIBLE != 0)
                         echo "<td><span class='label label-success'>Sí</span></td>";
                     else
                         echo "<td><span class='label label-danger'>No</span></td>";
-                    if($p->OFERTA==0)
+                    if ($p->OFERTA == 0)
                         echo "<td><span class='label label-info'>No</span></td>";
                     else
-                        echo "<td><span class='label label-success'>-".$p->OFERTA."%</span></td>";
+                        echo "<td><span class='label label-success'>-" . $p->OFERTA . "%</span></td>";
                     echo "<td>";
                     echo "<a href='productos_read.php?id=" . encode($p->ID) . "' title='Ver Producto' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
                     echo "<a href='productos_update.php?id=" . encode($p->ID) . "' title='Actualizar Producto' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a>";

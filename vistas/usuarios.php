@@ -6,7 +6,7 @@ require_once VIEW_PATH . "cabecera.php";
 // como esta página está restringida a usuarios administradores si no está logueado como admin
 // lo remitirá a la pagina de inicio
 // rol:1 administrador
-if ((($_SESSION['rol'])!=1) || (!isset($_SESSION['nombre']))){
+if ((($_SESSION['rol']) != 1) || (!isset($_SESSION['nombre']))) {
     alerta("Operación no permitida", "error.php");
     exit();
 }
@@ -28,13 +28,19 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                 <form class="form-inline" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="form-group mx-sm-5 mb-2">
                         <label for="buscar" class="sr-only">Titulo o descripcion</label>
-                        <input type="text" class="form-control" id="buscar" name="filter" value="<?php echo $filtro ?>" placeholder="nombre o email">
+                        <input type="text" class="form-control" id="buscar" name="filter" value="<?php echo $filtro ?>"
+                               placeholder="nombre o email">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2"> <span class="glyphicon glyphicon-search"></span>  Buscar</button>
+                    <button type="submit" class="btn btn-primary mb-2"><span class="glyphicon glyphicon-search"></span>
+                        Buscar
+                    </button>
 
-                    <a href="/tienda/utilidades/descargas.php?opcion=U_JSON" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  JSON</a>
-                    <a href="/tienda/utilidades/descargas.php?opcion=U_PDF" class="btn pull-right" target="_blank"><span class="glyphicon glyphicon-download"></span>  PDF</a>
-                    <a href="/tienda/vistas/usuarios_create.php" class="btn btn-success pull-right"><span class="glyphicon glyphicon-user"></span>  Añadir Usuario</a>
+                    <a href="/tienda/utilidades/descargas.php?opcion=U_JSON" class="btn pull-right"
+                       target="_blank"><span class="glyphicon glyphicon-download"></span> JSON</a>
+                    <a href="/tienda/utilidades/descargas.php?opcion=U_PDF" class="btn pull-right" target="_blank"><span
+                                class="glyphicon glyphicon-download"></span> PDF</a>
+                    <a href="/tienda/vistas/usuarios_create.php" class="btn btn-success pull-right"><span
+                                class="glyphicon glyphicon-user"></span> Añadir Usuario</a>
 
                 </form>
             </div>
@@ -43,18 +49,18 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
             </div>
             <?php
             $controlador = ControladorUsuario::getControlador();
-            $pagina = ( isset($_GET['page']) ) ? $_GET['page'] : 1;
-            $enlaces = ( isset($_GET['enlaces']) ) ? $_GET['enlaces'] : 10;
+            $pagina = (isset($_GET['page'])) ? $_GET['page'] : 1;
+            $enlaces = (isset($_GET['enlaces'])) ? $_GET['enlaces'] : 10;
 
             // Consulta a realizar filtraremos o bien por email o por nombre y configuramos el paginador
             $consulta = "SELECT * FROM usuarios WHERE nombre LIKE :nombre OR email LIKE :email";
-            $parametros = array(':nombre' => "%".$filtro."%", ':email'=>"%".$filtro."%");
+            $parametros = array(':nombre' => "%" . $filtro . "%", ':email' => "%" . $filtro . "%");
             $limite = 5; // Limite del paginador
 
-            $paginador  = new Paginador($consulta, $parametros, $limite);
+            $paginador = new Paginador($consulta, $parametros, $limite);
             $resultados = $paginador->getDatos($pagina);
 
-            if(count( $resultados->datos)>0){
+            if (count($resultados->datos) > 0) {
 
                 // Pintamos la tabla el pass como está codificado no se mostrará
                 echo "<table class='table table-bordered table-striped'>";
@@ -79,7 +85,7 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                     echo "<td>" . $u->NOMBRE . "</td>";
                     echo "<td>" . $u->ALIAS . "</td>";
                     echo "<td>" . $u->EMAIL . "</td>";
-                    if($u->ADMIN==0)
+                    if ($u->ADMIN == 0)
                         echo "<td><span class='label label-info'>Normal</span></td>";
                     else
                         echo "<td><span class='label label-warning'>Admin</span></td>";

@@ -47,22 +47,24 @@ session_start();
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 
     <style type="text/css">
-        .wrapper{
+        .wrapper {
             width: 950px;
             margin: 0 auto;
         }
-        .page-header h2{
+
+        .page-header h2 {
             margin-top: 0;
         }
-        table tr td:last-child a{
+
+        table tr td:last-child a {
             margin-right: 15px;
         }
 
         body {
             margin: 0;
             background: url('<?php echo DIRECTORIO_PATH . "images/fondo.jpg"; ?>');
-            background-size:     cover;
-            background-repeat:yes-repeat;
+            background-size: cover;
+            background-repeat: yes-repeat;
             display: compact;
         }
 
@@ -74,12 +76,15 @@ session_start();
         .invoice-title h2, .invoice-title h3 {
             display: inline-block;
         }
+
         .table > tbody > tr > .no-line {
             border-top: none;
         }
+
         .table > thead > tr > .no-line {
             border-bottom: none;
         }
+
         .table > tbody > tr > .thick-line {
             border-top: 2px solid;
         }
@@ -87,8 +92,8 @@ session_start();
     <!-- Para imprimir -->
     <style type="text/css" media="print">
         @media print {
-            .nover{
-                visibility:hidden
+            .nover {
+                visibility: hidden
             }
         }
     </style>

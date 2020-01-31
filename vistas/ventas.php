@@ -6,7 +6,7 @@ require_once VIEW_PATH . "cabecera.php";
 // como esta página está restringida a usuarios administradores si no está logueado como admin
 // lo remitirá a la pagina de inicio
 // rol:1 administrador
-if ((($_SESSION['rol'])!=1) || (!isset($_SESSION['nombre']))){
+if ((($_SESSION['rol']) != 1) || (!isset($_SESSION['nombre']))) {
     alerta("Operación no permitida", "error.php");
     exit();
 }
@@ -28,9 +28,12 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                 <form class="form-inline">
                     <div class="form-group mx-sm-5 mb-2">
                         <label for="buscar" class="sr-only">Titulo o descripcion</label>
-                        <input type="text" class="form-control" id="buscar" name="filter" value="<?php echo $filtro ?>" placeholder="Nombre o email">
+                        <input type="text" class="form-control" id="buscar" name="filter" value="<?php echo $filtro ?>"
+                               placeholder="Nombre o email">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2"> <span class="glyphicon glyphicon-search"></span>  Buscar</button>
+                    <button type="submit" class="btn btn-primary mb-2"><span class="glyphicon glyphicon-search"></span>
+                        Buscar
+                    </button>
                 </form>
             </div>
             <!-- Linea para dividir -->
@@ -38,18 +41,18 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
             </div>
             <?php
             $controlador = ControladorProducto::getControlador();
-            $pagina = ( isset($_GET['page']) ) ? $_GET['page'] : 1;
-            $enlaces = ( isset($_GET['enlaces']) ) ? $_GET['enlaces'] : 10;
+            $pagina = (isset($_GET['page'])) ? $_GET['page'] : 1;
+            $enlaces = (isset($_GET['enlaces'])) ? $_GET['enlaces'] : 10;
 
             // Consulta a realizar filtraremos o bien por email o por nombre y configuramos el paginador
             $consulta = "SELECT * FROM ventas WHERE nombre LIKE :nombre OR email LIKE :email";
-            $parametros = array(':nombre' => "%".$filtro."%", ':email'=>"%".$filtro."%");
+            $parametros = array(':nombre' => "%" . $filtro . "%", ':email' => "%" . $filtro . "%");
             $limite = 5; // Limite del paginador
 
-            $paginador  = new Paginador($consulta, $parametros, $limite);
+            $paginador = new Paginador($consulta, $parametros, $limite);
             $resultados = $paginador->getDatos($pagina);
 
-            if(count( $resultados->datos)>0){
+            if (count($resultados->datos) > 0) {
 
                 // Pintamos la tabla el pass como está codificado no se mostrará
                 echo "<table class='table table-bordered table-striped'>";
@@ -71,14 +74,14 @@ $seccion = ""; // aquí no filtraremos por sección como en el navbar
                     echo "<tr>";
                     echo "<td>" . $p->idVenta . "</td>";
                     $date = new DateTime($p->fecha);
-                    echo "<td>" . $date->format('d/m/Y'). "</td>";
+                    echo "<td>" . $date->format('d/m/Y') . "</td>";
                     echo "<td>" . $p->nombre . "</td>";
                     echo "<td>" . $p->email . "</td>";
                     echo "<td>" . $p->total . " €</td>";
                     echo "<td>" . $p->iva . " €</td>";
                     echo "<td>";
                     echo "<a href='ventas_read.php?id=" . encode($p->idVenta) . "' title='Ver Venta' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a>";
-                    echo "<a href='/tienda/utilidades/descargas.php?opcion=FAC_PDF&id=".encode($p->idVenta). " ' title='Descargar en PDF' data-toggle='tooltip'><span class='glyphicon glyphicon-download'></span></a>";
+                    echo "<a href='/tienda/utilidades/descargas.php?opcion=FAC_PDF&id=" . encode($p->idVenta) . " ' title='Descargar en PDF' data-toggle='tooltip'><span class='glyphicon glyphicon-download'></span></a>";
                     echo "</td>";
                     echo "</tr>";
                 }

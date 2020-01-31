@@ -73,28 +73,29 @@ require_once "cabecera.php";
             $max = count($resultados->datos);
 
             // Recorro todas las filas
-            for ($i = 0; $i < $filas && $item<$max; $i++) {
+            for ($i = 0; $i < $filas && $item < $max; $i++) {
                 ?>
                 <!-- Fila -->
                 <div class="row">
                     <?php
                     // Recorremos todas las columnas
-                    for ($j = 0; $j < $columnas && $item<$max; $j++) {
+                    for ($j = 0; $j < $columnas && $item < $max; $j++) {
                         $p = $resultados->datos[$item];
                         ?>
                         <!-- Item -->
                         <div class="col-xs-12 col-sm-6 col-md-3">
                             <div class="col-item col-md-12">
                                 <div class="post-img-content">
-                                    <a href ='<?php echo "/tienda/vistas/producto.php?id=" . encode($p->ID)?>'><img src='../img_productos/<?php echo $p->IMAGEN; ?>' class="center-block"
-                                                     class="img-responsive" width='100%' height='100%'/></a>
+                                    <a href='<?php echo "/tienda/vistas/producto.php?id=" . encode($p->ID) ?>'><img
+                                                src='../img_productos/<?php echo $p->IMAGEN; ?>' class="center-block"
+                                                class="img-responsive" width='100%' height='100%'/></a>
                                     <span class="post-title">
                         <b><?php echo $p->TIPO; ?></b>
                                         </span>
-                                        <?php
-                                            if($p->OFERTA>0)
-                                                echo "<span class='round-tag'>-".$p->OFERTA."%</span>";
-                                        ?>
+                                    <?php
+                                    if ($p->OFERTA > 0)
+                                        echo "<span class='round-tag'>-" . $p->OFERTA . "%</span>";
+                                    ?>
 
                                 </div>
                                 <div class="info">
@@ -110,13 +111,13 @@ require_once "cabecera.php";
                                         <p class="btn-add">
                                             <i class="fa fa-shopping-cart"></i>
                                             <?php
-                                            // Si está logueado, vamos al carrito, si no a login
-                                            if (isset($_SESSION['id_usuario'])) {
-                                                // Metemos al carrito.
-                                                echo "<a href='/tienda/vistas/carrito_añadir.php?id=" . encode($p->ID) ."&page=".encode("catalogo.php")."' class='hidden-sm'>Comprar</a>";
-                                            } else {
-                                                echo "<a href='/tienda/vistas/login.php' class='hidden-sm'>Comprar</a>";
-                                            }
+                                                // Si está logueado, vamos al carrito, si no a login
+                                                if (isset($_SESSION['id_usuario'])) {
+                                                    // Metemos al carrito.
+                                                    echo "<a href='/tienda/vistas/carrito_añadir.php?id=" . encode($p->ID) . "&page=" . encode("catalogo.php") . "' class='hidden-sm'>Comprar</a>";
+                                                } else {
+                                                    echo "<a href='/tienda/vistas/login.php' class='hidden-sm'>Comprar</a>";
+                                                }
                                             ?>
 
 

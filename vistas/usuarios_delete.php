@@ -21,7 +21,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     //si no existe el usuario lo enviamos a error para que no haga nada
     if (is_null($usuario)) {
         // hay un error
-       alerta("Operación no permitida", "error.php");
+        alerta("Operación no permitida", "error.php");
         exit();
     }
 
@@ -137,7 +137,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <button type="submit" class="btn btn btn-danger"><span
                                         class="glyphicon glyphicon-remove"></span> Eliminar
                             </button>
-                            <a href="javascript:history.go(-1)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span>
+                            <a href="javascript:history.go(-1)" class="btn btn-primary"><span
+                                        class="glyphicon glyphicon-ok"></span>
                                 Volver</a>
                         </div>
                     </div>

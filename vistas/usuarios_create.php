@@ -9,9 +9,9 @@ if ((($_SESSION['rol']) != 1) || (!isset($_SESSION['nombre']))) {
 }
 
 // Variables temporales
-$nombre = $alias= $email = $pass = $dire = $rol= $imagen ="";
-$nombreErr = $aliasErr = $emailErr = $passErr = $direErr= $rolErr= $imagenErr= "";
-$errores=[];
+$nombre = $alias = $email = $pass = $dire = $rol = $imagen = "";
+$nombreErr = $aliasErr = $emailErr = $passErr = $direErr = $rolErr = $imagenErr = "";
+$errores = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Filtramos el nombre
@@ -57,9 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Procesamos el rol
-    if(isset($_POST["rol"])){
+    if (isset($_POST["rol"])) {
         $rol = filtrado($_POST["rol"]);
-    }else{
+    } else {
         $rolErr = "Debe elegir un rol obligatoriamente";
     }
 
@@ -72,14 +72,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $imagen = md5($_FILES['imagen']['tmp_name'] . $_FILES['imagen']['name'] . time()) . "." . $extension;
         $ci = ControladorImagen::getControlador();
-        if (!$ci->salvarImagen($_FILES['imagen']['tmp_name'], USERS_IMAGES_PATH.$imagen)) {
+        if (!$ci->salvarImagen($_FILES['imagen']['tmp_name'], USERS_IMAGES_PATH . $imagen)) {
             $imagenErr = "No se ha podido subir la imagen en el servidor";
             $errores[] = $imagenErr;
 
 
         }
     }
-
 
 
     // Si no hay errores insertamos
@@ -91,8 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             alerta("Usuario/a registrado/a correctamente", "usuarios.php");
             exit();
         }
-    }else{
-        alerta("Existen errores en el formulario: ". $errores[0]);
+    } else {
+        alerta("Existen errores en el formulario: " . $errores[0]);
     }
 }
 
@@ -105,8 +104,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="panel-heading">
                     <div class="panel-title">Crear usuario/a</div>
                 </div>
-                <div class="panel-body" >
-                    <form id="signupform" class="form-horizontal" role="form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+                <div class="panel-body">
+                    <form id="signupform" class="form-horizontal" role="form"
+                          action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"
+                          enctype="multipart/form-data">
 
                         <div id="signupalert" style="display:none" class="alert alert-danger">
                             <p>Error:</p>
@@ -116,19 +117,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <!-- Imagen -->
                         <div class="form-group">
-                            <img src='../images/sinfoto.png' class='center-block' class='rounded' class='img-thumbnail' width='50' height='auto' enctype="multipart/form-data">
+                            <img src='../images/sinfoto.png' class='center-block' class='rounded' class='img-thumbnail'
+                                 width='50' height='auto' enctype="multipart/form-data">
                         </div>
 
                         <!-- Nombre -->
                         <div class="form-group" <?php echo (!empty($nombreErr)) ? 'error: ' : ''; ?>>
                             <label for="name" class="col-md-3 control-label">Nombre:</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="nombre" placeholder="Nombre y apellidos" required
+                                <input type="text" class="form-control" name="nombre" placeholder="Nombre y apellidos"
+                                       required
                                        value="<?php echo $nombre; ?>"
                                        pattern="([^\s][A-zÀ-ž\s]+)"
                                        title="El nombre no puede contener números"
                                        minlength="3">
-                                <span class="help-block"><?php echo $nombreErr;?></span>
+                                <span class="help-block"><?php echo $nombreErr; ?></span>
                             </div>
                         </div>
 
@@ -138,7 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="alias" placeholder="Alias" required
                                        value="<?php echo $alias; ?>">
-                                <span class="help-block"><?php echo $aliasErr;?></span>
+                                <span class="help-block"><?php echo $aliasErr; ?></span>
                             </div>
                         </div>
 
@@ -148,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="col-md-9">
                                 <input type="email" class="form-control" name="email" placeholder="Email" required
                                        value="<?php echo $email; ?>">
-                                <span class="help-block"><?php echo $emailErr;?></span>
+                                <span class="help-block"><?php echo $emailErr; ?></span>
 
 
                             </div>
@@ -161,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <input type="password" class="form-control" name="pass" placeholder="Password" required
                                        minlength="5"
                                        value="">
-                                <span class="help-block"><?php echo $passErr;?></span>
+                                <span class="help-block"><?php echo $passErr; ?></span>
                             </div>
                         </div>
 
@@ -170,8 +173,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label for="rol" class="col-md-3 control-label">Rol:</label>
                             <div class="col-md-9">
                                 <select name="rol">
-                                    <option value="0" <?php echo (strstr($rol, '0')) ? 'selected' : ''; ?>>Normal</option>
-                                    <option value="1" <?php echo (strstr($rol, '1')) ? 'selected' : ''; ?>>Administrador</option>
+                                    <option value="0" <?php echo (strstr($rol, '0')) ? 'selected' : ''; ?>>Normal
+                                    </option>
+                                    <option value="1" <?php echo (strstr($rol, '1')) ? 'selected' : ''; ?>>
+                                        Administrador
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -182,7 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="col-md-9">
                             <textarea type="text" class="form-control" name="direccion" placeholder="Direccion"
                                       required><?php echo $dire; ?></textarea>
-                                <span class="help-block"><?php echo $direErr;?></span>
+                                <span class="help-block"><?php echo $direErr; ?></span>
                             </div>
                         </div>
 
@@ -190,18 +196,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="form-group" <?php echo (!empty($imagenErr)) ? 'error: ' : ''; ?>">
                         <label for="imagen" class="col-md-3 control-label">Imagen:</label>
                         <div class="col-md-9">
-                            <input type="file" required name="imagen" class="form-control-file" id="imagen" accept="image/jpeg">
-                            <span class="help-block"><?php echo $imagenErr;?></span>
+                            <input type="file" required name="imagen" class="form-control-file" id="imagen"
+                                   accept="image/jpeg">
+                            <span class="help-block"><?php echo $imagenErr; ?></span>
                         </div>
                 </div>
-
 
 
                 <div class="form-group">
                     <!-- Button -->
                     <div class="col-md-offset-3 col-md-9">
-                        <button type="submit" class="btn btn btn-success"> <span class="glyphicon glyphicon-saved"></span>  Aceptar</button>
-                        <a href="javascript:history.go(-1)" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Volver</a>
+                        <button type="submit" class="btn btn btn-success"><span
+                                    class="glyphicon glyphicon-saved"></span> Aceptar
+                        </button>
+                        <a href="javascript:history.go(-1)" class="btn btn-primary"><span
+                                    class="glyphicon glyphicon-ok"></span> Volver</a>
 
                     </div>
                 </div>

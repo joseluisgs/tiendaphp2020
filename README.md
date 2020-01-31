@@ -19,6 +19,7 @@
 * 28/01/2020: Carrito de compra
 * 28/01/2020: Factura
 * 29/01/2020: Gestión de Facturas
+* 31/01/2020: Limpieza, competario y formateo de código
 
 
 ##### Ejecución
