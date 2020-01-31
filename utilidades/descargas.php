@@ -6,8 +6,11 @@ require_once UTILITY_PATH . "funciones.php";
 // Filtrado por rol
 
 $opcion = $_GET["opcion"];
-$id= decode($_GET["id"]);
+$id = decode($_GET["id"]);
 
+/**
+ * Filtra la descargas según lo que necesite
+ */
 $fichero = ControladorDescargas::getControlador();
 switch ($opcion) {
     case 'U_JSON':
@@ -16,13 +19,13 @@ switch ($opcion) {
     case 'U_PDF':
         $fichero->usuariosPDF();
         break;
-        case 'P_JSON':
+    case 'P_JSON':
         $fichero->productosJSON();
         break;
     case 'P_PDF':
         $fichero->productosPDF();
         break;
-        case 'PROD_PDF':
+    case 'PROD_PDF':
         $fichero->productoPDF($id);
         break;
     case 'USR_PDF':
