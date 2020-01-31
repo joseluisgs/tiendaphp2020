@@ -63,30 +63,38 @@ if (isset($_POST['procesar_compra'])) {
                <?php
 
                             foreach ($_SESSION['carrito'] as $key => $value) {
-                                $id = $key;
-                                $producto = $value[0];
-                                $cantidad = $value[1];
-                                ?>
-                    <div class="form-group">
-                            <div class="col-sm-3 col-xs-3">
-                               <!-- imagen -->
-                                <img class="img-responsive" src='../img_productos/<?php echo $producto->getImagen(); ?>' alt='imagen' width='70'>
-                            </div>
+                                if(($value[0]!=null)) {
+                                    $id = $key;
+                                    $producto = $value[0];
+                                    $cantidad = $value[1];
+                                    ?>
+                                    <div class="form-group">
+                                        <div class="col-sm-3 col-xs-3">
+                                            <!-- imagen -->
+                                            <img class="img-responsive"
+                                                 src='../img_productos/<?php echo $producto->getImagen(); ?>'
+                                                 alt='imagen' width='70'>
+                                        </div>
 
-                            <div class="col-sm-6 col-xs-6">
-                                <div class="col-xs-12"><?php echo $producto->getModelo(); ?></div>
-                                 <div class="col-xs-12"><?php echo $producto->getMarca(); ?></div>
-                                <div class="col-xs-12"><small>Precio: <span><?php echo $producto->getPrecio(); ?> €</span></small></div>
-                                <div class="col-xs-12"><small>Cantidad: <span><?php echo $cantidad; ?></span></small></div>
-                            </div>
-                            <div class="col-sm-3 col-xs-3 text-right">
-                                <h6><?php echo $producto->getPrecio() * $cantidad; ?> €</h6>
-                            </div>
-                        </div>
-                    <div class="form-group"><hr></div>
-                                <?php
-                                // lo guardo en un valor de sesión tb
-                            }
+                                        <div class="col-sm-6 col-xs-6">
+                                            <div class="col-xs-12"><?php echo $producto->getModelo(); ?></div>
+                                            <div class="col-xs-12"><?php echo $producto->getMarca(); ?></div>
+                                            <div class="col-xs-12"><small>Precio:
+                                                    <span><?php echo $producto->getPrecio(); ?> €</span></small></div>
+                                            <div class="col-xs-12"><small>Cantidad:
+                                                    <span><?php echo $cantidad; ?></span></small></div>
+                                        </div>
+                                        <div class="col-sm-3 col-xs-3 text-right">
+                                            <h6><?php echo $producto->getPrecio() * $cantidad; ?> €</h6>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <hr>
+                                    </div>
+                                    <?php
+                                    // lo guardo en un valor de sesión tb
+                                }// if
+                            }// For
                ?>
                 <!-- Subtotales y totales -->
                 <div class="form-group">

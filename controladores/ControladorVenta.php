@@ -100,27 +100,28 @@ class ControladorVenta {
 
         // Procesamos cada línea del carrito
         foreach ($_SESSION['carrito'] as $key => $value) {
+            if (($value[0] != null)) {
+                $producto = $value[0];
+                $cantidad = $value[1];
 
-            $producto = $value[0];
-            $cantidad = $value[1];
+                $conexion->abrirBD();
 
-            $conexion->abrirBD();
-
-            $consulta = "insert into lineasventas (idVenta, idProducto, marca, modelo, precio, cantidad) 
+                $consulta = "insert into lineasventas (idVenta, idProducto, marca, modelo, precio, cantidad) 
                     values (:idVenta, :idProducto, :marca, :modelo, :precio, :cantidad)";
 
-            $parametros = array(':idVenta' => $venta->getId(), ':idProducto' => $producto->getId(),
-                ':marca'=>$producto->getMarca(), ':modelo'=>$producto->getModelo(), ':precio'=>$producto->getPrecio(),
-                ':cantidad'=>$cantidad);
+                $parametros = array(':idVenta' => $venta->getId(), ':idProducto' => $producto->getId(),
+                    ':marca' => $producto->getMarca(), ':modelo' => $producto->getModelo(), ':precio' => $producto->getPrecio(),
+                    ':cantidad' => $cantidad);
 
-            $estado = $conexion->actualizarBD($consulta, $parametros);
+                $estado = $conexion->actualizarBD($consulta, $parametros);
 
-            // Actualizo el stock
-            $cp = ControladorProducto::getControlador();
-            $estado = $cp->actualizarStock($producto->getId(), ($producto->getStock()-$cantidad));
+                // Actualizo el stock
+                $cp = ControladorProducto::getControlador();
+                $estado = $cp->actualizarStock($producto->getId(), ($producto->getStock() - $cantidad));
+
+            $conexion->cerrarBD();
         }
-
-        $conexion->cerrarBD();
+    }
         return $estado;
     }
 

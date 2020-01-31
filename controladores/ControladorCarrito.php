@@ -54,7 +54,7 @@ class ControladorCarrito {
             $_SESSION['uds'] += $uds;
 
             // si el artículo existe el total de unidades es lo que había + las nuevas
-            if (array_key_exists($producto->getId(), $_SESSION['carrito']) && ($_SESSION['carrito'][$producto->getId()][0]!=null)) {
+            if (array_key_exists($producto->getId(), $_SESSION['carrito'])&& ($_SESSION['carrito'][$producto->getId()][0]!=null)) {
                 echo "<br><br><br>Existe";
                 $uds = $_SESSION['carrito'][$producto->getId()][1] + $uds;
             }
