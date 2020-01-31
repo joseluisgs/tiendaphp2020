@@ -18,6 +18,7 @@ require_once UTILITY_PATH . "funciones.php";
 
 // Para PDF
 require_once VENDOR_PATH . "autoload.php";
+
 use Spipu\Html2Pdf\HTML2PDF;
 
 
@@ -108,47 +109,48 @@ class ControladorDescargas
      * Descarga los Usuarios en PDF
      * @throws \Spipu\Html2Pdf\Exception\Html2PdfException
      */
-    public function usuariosPDF(){
-        $sal ='<h2 class="pull-left">Lista de Usuarios/as</h2>';
+    public function usuariosPDF()
+    {
+        $sal = '<h2 class="pull-left">Lista de Usuarios/as</h2>';
         $lista = $controlador = ControladorUsuario::getControlador();
         $lista = $controlador->listarUsuarios("");
         if (!is_null($lista) && count($lista) > 0) {
-            $sal.= "<table class='table table-bordered table-striped'>";
-            $sal.= "<thead>";
-            $sal.="<tr>";
-            $sal.="<th>Imagen</th>";
-            $sal.="<th>ID</th>";
-            $sal.="<th>Nombre</th>";
-            $sal.="<th>Alias</th>";
-            $sal.="<th>E-Mail</th>";
-            $sal.="<th>Rol</th>";
-            $sal.="</tr>";
-            $sal.= "</thead>";
-            $sal.= "<tbody>";
+            $sal .= "<table class='table table-bordered table-striped'>";
+            $sal .= "<thead>";
+            $sal .= "<tr>";
+            $sal .= "<th>Imagen</th>";
+            $sal .= "<th>ID</th>";
+            $sal .= "<th>Nombre</th>";
+            $sal .= "<th>Alias</th>";
+            $sal .= "<th>E-Mail</th>";
+            $sal .= "<th>Rol</th>";
+            $sal .= "</tr>";
+            $sal .= "</thead>";
+            $sal .= "<tbody>";
             // Recorremos los registros encontrados
             foreach ($lista as $u) {
                 // Pintamos cada fila
                 // Pintamos cada fila
-                $sal.= "<tr>";
-                $sal.="<td><img src='".$_SERVER['DOCUMENT_ROOT'] . "/tienda/img_usuarios/".$u->getImagen()."'  style='max-width: 12mm; max-height: 12mm'></td>";
-                $sal.="<td>" . $u->getId() . "</td>";
-                $sal.="<td>" . $u->getNombre() . "</td>";
-                $sal.="<td>" . $u->getAlias() . "</td>";
-                $sal.="<td>" . $u->getEmail() . "</td>";
-                if($u->getAdmin()==0)
-                    $sal.= "<td><span class='label label-info'>Normal</span></td>";
+                $sal .= "<tr>";
+                $sal .= "<td><img src='" . $_SERVER['DOCUMENT_ROOT'] . "/tienda/img_usuarios/" . $u->getImagen() . "'  style='max-width: 12mm; max-height: 12mm'></td>";
+                $sal .= "<td>" . $u->getId() . "</td>";
+                $sal .= "<td>" . $u->getNombre() . "</td>";
+                $sal .= "<td>" . $u->getAlias() . "</td>";
+                $sal .= "<td>" . $u->getEmail() . "</td>";
+                if ($u->getAdmin() == 0)
+                    $sal .= "<td><span class='label label-info'>Normal</span></td>";
                 else
-                    $sal.= "<td><span class='label label-warning'>Admin</span></td>";
-                $sal.="</tr>";
+                    $sal .= "<td><span class='label label-warning'>Admin</span></td>";
+                $sal .= "</tr>";
             }
-            $sal.="</tbody>";
-            $sal.="</table>";
+            $sal .= "</tbody>";
+            $sal .= "</table>";
         } else {
             // Si no hay nada seleccionado
-            $sal.="<p class='lead'><em>No se ha encontrado datos de usuarios/as.</em></p>";
+            $sal .= "<p class='lead'><em>No se ha encontrado datos de usuarios/as.</em></p>";
         }
         //https://github.com/spipu/html2pdf/blob/master/doc/basic.md
-        $pdf=new HTML2PDF('L','A4','es','true','UTF-8');
+        $pdf = new HTML2PDF('L', 'A4', 'es', 'true', 'UTF-8');
         $pdf->writeHTML($sal);
         $pdf->output('listado.pdf');
 
@@ -158,167 +160,174 @@ class ControladorDescargas
      * Descarga los Productos en PDF
      * @throws \Spipu\Html2Pdf\Exception\Html2PdfException
      */
-    public function productosPDF(){
-        $sal ='<h2 class="pull-left">Lista de Productos</h2>';
+    public function productosPDF()
+    {
+        $sal = '<h2 class="pull-left">Lista de Productos</h2>';
         $lista = $controlador = ControladorProducto::getControlador();
         $lista = $controlador->listarProductos("");
         if (!is_null($lista) && count($lista) > 0) {
-            $sal.= "<table class='table table-bordered table-striped'>";
-            $sal.= "<thead>";
-            $sal.= "<tr>";
-            $sal.= "<th>Imagen</th>";
-            $sal.= "<th>ID</th>";
-            $sal.= "<th>Marca</th>";
-            $sal.= "<th>Modelo</th>";
-            $sal.= "<th>Precio</th>";
-            $sal.= "<th>Unidades</th>";
-            $sal.= "<th>Tipo</th>";
-            $sal.= "<th>Fecha</th>";
-            $sal.= "<th>Dispo.</th>";
-            $sal.= "<th>Oferta</th>";
-            $sal.= "</tr>";
-            $sal.= "</thead>";
-            $sal.= "<tbody>";
+            $sal .= "<table class='table table-bordered table-striped'>";
+            $sal .= "<thead>";
+            $sal .= "<tr>";
+            $sal .= "<th>Imagen</th>";
+            $sal .= "<th>ID</th>";
+            $sal .= "<th>Marca</th>";
+            $sal .= "<th>Modelo</th>";
+            $sal .= "<th>Precio</th>";
+            $sal .= "<th>Unidades</th>";
+            $sal .= "<th>Tipo</th>";
+            $sal .= "<th>Fecha</th>";
+            $sal .= "<th>Dispo.</th>";
+            $sal .= "<th>Oferta</th>";
+            $sal .= "</tr>";
+            $sal .= "</thead>";
+            $sal .= "<tbody>";
             // Recorremos los registros encontrados
             foreach ($lista as $p) {
                 // Pintamos cada fila
-                $sal.= "<tr>";
-                $sal.="<td><img src='".$_SERVER['DOCUMENT_ROOT'] . "/tienda/img_productos/".$p->getImagen()."'  style='max-width: 12mm; max-height: 12mm'></td>";
-                $sal.= "<td>" . $p->getId() . "</td>";
-                $sal.= "<td>" . $p->getMarca() . "</td>";
-                $sal.= "<td>" . $p->getModelo() . "</td>";
-                $sal.= "<td>" . $p->getPrecio() . " €</td>";
-                if($p->getStock()==0)
-                    $sal.= "<td><span class='label label-danger'>". $p->getStock() . "</span></td>";
-                else if($p->getStock()>0 && $p->getStock()<5)
-                    $sal.= "<td><span class='label label-warning'>" .$p->getStock() . "</span></td>";
+                $sal .= "<tr>";
+                $sal .= "<td><img src='" . $_SERVER['DOCUMENT_ROOT'] . "/tienda/img_productos/" . $p->getImagen() . "'  style='max-width: 12mm; max-height: 12mm'></td>";
+                $sal .= "<td>" . $p->getId() . "</td>";
+                $sal .= "<td>" . $p->getMarca() . "</td>";
+                $sal .= "<td>" . $p->getModelo() . "</td>";
+                $sal .= "<td>" . $p->getPrecio() . " €</td>";
+                if ($p->getStock() == 0)
+                    $sal .= "<td><span class='label label-danger'>" . $p->getStock() . "</span></td>";
+                else if ($p->getStock() > 0 && $p->getStock() < 5)
+                    $sal .= "<td><span class='label label-warning'>" . $p->getStock() . "</span></td>";
                 else
-                    $sal.= "<td><span class='label label-info'>" .$p->getStock() . "</span></td>";
+                    $sal .= "<td><span class='label label-info'>" . $p->getStock() . "</span></td>";
 
-                $sal.= "<td>" . $p->getTipo() . "</td>";
+                $sal .= "<td>" . $p->getTipo() . "</td>";
                 $date = new DateTime($p->getFecha());
-                $sal.= "<td>" . $date->format('d/m/Y'). "</td>";
-                if($p->getDisponible()!=0)
-                    $sal.= "<td><span class='label label-success'>Sí</span></td>";
+                $sal .= "<td>" . $date->format('d/m/Y') . "</td>";
+                if ($p->getDisponible() != 0)
+                    $sal .= "<td><span class='label label-success'>Sí</span></td>";
                 else
-                    $sal.= "<td><span class='label label-danger'>No</span></td>";
-                if($p->getOferta()==0)
-                    $sal.= "<td><span class='label label-info'>No</span></td>";
+                    $sal .= "<td><span class='label label-danger'>No</span></td>";
+                if ($p->getOferta() == 0)
+                    $sal .= "<td><span class='label label-info'>No</span></td>";
                 else
-                    $sal.= "<td><span class='label label-success'>-".$p->getOferta()."%</span></td>";
-                $sal.="</tr>";
+                    $sal .= "<td><span class='label label-success'>-" . $p->getOferta() . "%</span></td>";
+                $sal .= "</tr>";
             }
-            $sal.="</tbody>";
-            $sal.="</table>";
+            $sal .= "</tbody>";
+            $sal .= "</table>";
         } else {
             // Si no hay nada seleccionado
-            $sal.="<p class='lead'><em>No se ha encontrado datos de Productos.</em></p>";
+            $sal .= "<p class='lead'><em>No se ha encontrado datos de Productos.</em></p>";
         }
         //https://github.com/spipu/html2pdf/blob/master/doc/basic.md
-        $pdf=new HTML2PDF('L','A4','es','true','UTF-8');
+        $pdf = new HTML2PDF('L', 'A4', 'es', 'true', 'UTF-8');
         $pdf->writeHTML($sal);
         $pdf->output('listado.pdf');
 
     }
 
-
     /**
-     * Descarga el Producto en PDF
+     * Descarga producto en PDF
+     * @param $id
      * @throws \Spipu\Html2Pdf\Exception\Html2PdfException
      */
-    public function productoPDF($id){
-        $sal ='<h1 class="pull-left">Ficha de Producto</h1>';
+    public function productoPDF($id)
+    {
+        $sal = '<h1 class="pull-left">Ficha de Producto</h1>';
         $controlador = ControladorProducto::getControlador();
-        $producto= $controlador->buscarProductoID($id);
+        $producto = $controlador->buscarProductoID($id);
 
-        $sal.="<img src='".$_SERVER['DOCUMENT_ROOT'] . "/tienda/img_productos/".$producto->getImagen()."'  style='max-width: 300mm; max-height: 12mm'>";
-        $sal.="<h1>". $producto->getModelo(). " </h1>";
-        $sal.="<h4>". $producto->getMarca(). "</h4>";
-        $sal.="<h4>". $producto->getTipo()."</h4>";
-        $sal.="<h4>". $producto->getPrecio(). "€</h4>";
-        $sal.="<p><b>Descripción:</b></p>";
-        $sal.="<p>".$producto->getDesc()."</p>";
-        $sal.="<p><b>Unidades:</b>".$producto->getStock();
-        $sal.="</p>";
-        $sal.="<p><b>Disponible:</b>";
-        if($producto->getDisponible()==0)
-            $sal.= "No";
+        $sal .= "<img src='" . $_SERVER['DOCUMENT_ROOT'] . "/tienda/img_productos/" . $producto->getImagen() . "'  style='max-width: 300mm; max-height: 12mm'>";
+        $sal .= "<h1>" . $producto->getModelo() . " </h1>";
+        $sal .= "<h4>" . $producto->getMarca() . "</h4>";
+        $sal .= "<h4>" . $producto->getTipo() . "</h4>";
+        $sal .= "<h4>" . $producto->getPrecio() . "€</h4>";
+        $sal .= "<p><b>Descripción:</b></p>";
+        $sal .= "<p>" . $producto->getDesc() . "</p>";
+        $sal .= "<p><b>Unidades:</b>" . $producto->getStock();
+        $sal .= "</p>";
+        $sal .= "<p><b>Disponible:</b>";
+        if ($producto->getDisponible() == 0)
+            $sal .= "No";
         else
-            $sal.= "Sí";
-        $sal.="</p>";
+            $sal .= "Sí";
+        $sal .= "</p>";
 
-        $sal.="<p><b>Oferta: </b>";
-        if($producto->getOferta()==0)
-            $sal.= "No";
+        $sal .= "<p><b>Oferta: </b>";
+        if ($producto->getOferta() == 0)
+            $sal .= "No";
         else
-            $sal.= "-".$producto->getOferta()."%";
+            $sal .= "-" . $producto->getOferta() . "%";
 
-        $sal.="</p>";
-        $sal.="<p><b>Fecha: </b>";
+        $sal .= "</p>";
+        $sal .= "<p><b>Fecha: </b>";
         $date = new DateTime($producto->getFecha());
-        $sal.= $date->format('d/m/Y');
-        $sal.="</p>";
-
-
+        $sal .= $date->format('d/m/Y');
+        $sal .= "</p>";
 
 
         //https://github.com/spipu/html2pdf/blob/master/doc/basic.md
-        $pdf=new HTML2PDF('P','A4','es','true','UTF-8');
+        $pdf = new HTML2PDF('P', 'A4', 'es', 'true', 'UTF-8');
         $pdf->writeHTML($sal);
         $pdf->output('producto.pdf');
 
     }
 
     /**
-     * Descarga el Producto en PDF
+     * Descarga usuario en PDF
+     * @param $id
      * @throws \Spipu\Html2Pdf\Exception\Html2PdfException
      */
-    public function usuarioPDF($id){
-        $sal ='<h1 class="pull-left">Ficha de Usuario</h1>';
+    public function usuarioPDF($id)
+    {
+        $sal = '<h1 class="pull-left">Ficha de Usuario</h1>';
         $controlador = ControladorUsuario::getControlador();
-        $usuario= $controlador->buscarUsuarioID($id);
+        $usuario = $controlador->buscarUsuarioID($id);
 
-        $sal.="<img src='".$_SERVER['DOCUMENT_ROOT'] . "/tienda/img_usuarios/".$usuario->getImagen()."'  style='max-width: 300mm; max-height: 12mm'>";
-        $sal.="<h2>". $usuario->getNombre(). " </h2>";
-        $sal.="<h4>". $usuario->getAlias(). "</h4>";
-        $sal.="<h4>". $usuario->getEmail()."</h4>";
-        $sal.="<p><b>Rol:</b>";
-        if($usuario->getAdmin()==0)
-            $sal.= "No";
+        $sal .= "<img src='" . $_SERVER['DOCUMENT_ROOT'] . "/tienda/img_usuarios/" . $usuario->getImagen() . "'  style='max-width: 300mm; max-height: 12mm'>";
+        $sal .= "<h2>" . $usuario->getNombre() . " </h2>";
+        $sal .= "<h4>" . $usuario->getAlias() . "</h4>";
+        $sal .= "<h4>" . $usuario->getEmail() . "</h4>";
+        $sal .= "<p><b>Rol:</b>";
+        if ($usuario->getAdmin() == 0)
+            $sal .= "No";
         else
-            $sal.= "Sí";
-        $sal.="</p>";
-        $sal.="<p><b>Dirección:</b>".$usuario->getDireccion();
-        $sal.="</p>";
-
+            $sal .= "Sí";
+        $sal .= "</p>";
+        $sal .= "<p><b>Dirección:</b>" . $usuario->getDireccion();
+        $sal .= "</p>";
 
 
         //https://github.com/spipu/html2pdf/blob/master/doc/basic.md
-        $pdf=new HTML2PDF('P','A4','es','true','UTF-8');
+        $pdf = new HTML2PDF('P', 'A4', 'es', 'true', 'UTF-8');
         $pdf->writeHTML($sal);
         $pdf->output('producto.pdf');
 
     }
 
-    public function facturaPDF($id){
+    /**
+     * Descarga Factura en PDF
+     * @param $id
+     * @throws \Spipu\Html2Pdf\Exception\Html2PdfException
+     */
+    public function facturaPDF($id)
+    {
         $cv = ControladorVenta::getControlador();
 
         $venta = $cv->buscarVentaID($id);
         $lineas = $cv->buscarLineasID($id);
 
-        $sal ="<h2>Factura</h2>";
-        $sal.="<h3>Pedido nº:" . $id."</h3>";
+        $sal = "<h2>Factura</h2>";
+        $sal .= "<h3>Pedido nº:" . $id . "</h3>";
         $date = new DateTime($venta->getFecha());
-        $sal.="<h4>Fecha de compra:".$date->format('d/m/Y')."</h4>";
-        $sal.="<h4>Datos de pago:</h4>";
-        $sal.="<h5>Facturado a: ".$venta->getNombreTarjeta()."</h5>";
-        $sal.="<h5>Metodo de pago: Tarjeta de crédito/debito: **** ". substr($venta->getNumTarjeta(),-4)."</h5>";
-        $sal.="<h4>Datos de Envío:</h4>";
-        $sal.="<h5>Nombre: ".$venta->getNombre()."</h5>";
-        $sal.="<h5>Email ". $venta->getEmail()."</h5>";
-        $sal.="<h5>Dirección ". $venta->getDireccion()."</h5>";
-        $sal.="<h4>Productos</h4>";
-        $sal.="<table>
+        $sal .= "<h4>Fecha de compra:" . $date->format('d/m/Y') . "</h4>";
+        $sal .= "<h4>Datos de pago:</h4>";
+        $sal .= "<h5>Facturado a: " . $venta->getNombreTarjeta() . "</h5>";
+        $sal .= "<h5>Metodo de pago: Tarjeta de crédito/debito: **** " . substr($venta->getNumTarjeta(), -4) . "</h5>";
+        $sal .= "<h4>Datos de Envío:</h4>";
+        $sal .= "<h5>Nombre: " . $venta->getNombre() . "</h5>";
+        $sal .= "<h5>Email " . $venta->getEmail() . "</h5>";
+        $sal .= "<h5>Dirección " . $venta->getDireccion() . "</h5>";
+        $sal .= "<h4>Productos</h4>";
+        $sal .= "<table>
                 <thead>
                        <tr><td><b>Item</b></td><td><b>Precio (PVP)</b></td><td><b>Cantidad</b></td><td><b>Total</b></td>
                         </tr>
@@ -334,31 +343,31 @@ class ControladorDescargas
             $sal .= "</tr>";
         }
 
-         $sal.="<tr>
+        $sal .= "<tr>
                             <td></td>
                             <td></td>
                             <td><strong>Total sin IVA</strong></td>
-                            <td>".$venta->getSubtotal()."€</td>
+                            <td>" . $venta->getSubtotal() . "€</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td></td>
                             <td><strong>I.V.A</strong></td>
-                            <td>". $venta->getIva()." €</td>
+                            <td>" . $venta->getIva() . " €</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td></td>
                             <td><strong>TOTAL</strong></td>
-                            <td><strong>".$venta->getTotal()." €</strong></td>
+                            <td><strong>" . $venta->getTotal() . " €</strong></td>
                         </tr>";
 
 
-        $sal.=" </tbody>
+        $sal .= " </tbody>
                     </table>";
 
 
-        $pdf=new HTML2PDF('P','A4','es','true','UTF-8');
+        $pdf = new HTML2PDF('P', 'A4', 'es', 'true', 'UTF-8');
         $pdf->writeHTML($sal);
         $pdf->output('factura.pdf');
 

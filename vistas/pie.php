@@ -1,7 +1,7 @@
 <!-- Footer -->
 <br><br><br>
-<footer class="navbar-inverse navbar-fixed-bottom">
-    <div class="p-3 mb-2 bg-secondary text-white">
+<footer class="navbar-inverse navbar-fixed-bottom" class="row no-print nover">
+    <div class="p-3 mb-2 bg-secondary text-white" class="row no-print nover">
         <div class="container">
             <!-- Copyright -->
 

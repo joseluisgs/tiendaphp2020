@@ -69,6 +69,30 @@ session_start();
 
     </style>
 
+    <!-- Estilos de la factura -->
+    <style>
+        .invoice-title h2, .invoice-title h3 {
+            display: inline-block;
+        }
+        .table > tbody > tr > .no-line {
+            border-top: none;
+        }
+        .table > thead > tr > .no-line {
+            border-bottom: none;
+        }
+        .table > tbody > tr > .thick-line {
+            border-top: 2px solid;
+        }
+    </style>
+    <!-- Para imprimir -->
+    <style type="text/css" media="print">
+        @media print {
+            .nover{
+                visibility:hidden
+            }
+        }
+    </style>
+
     <!-- Catalog de productos-->
     <style>
         @import url(http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css);

@@ -30,7 +30,8 @@ class ControladorSesion
      * Crea la Sesiond e usuario
      * @param Usuario $usuario
      */
-    public function crearSesion(Usuario $usuario){
+    public function crearSesion(Usuario $usuario)
+    {
         //valores de usuario
         // Mejoras, meter el usuario completo en la sesion, pero no lo hago por el password
         $_SESSION['nombre'] = $usuario->getNombre();
@@ -81,7 +82,8 @@ class ControladorSesion
         exit();
     }
 
-    public function reiniciarCarrito(){
+    public function reiniciarCarrito()
+    {
         $_SESSION['uds'] = 0;
         $_SESSION['total'] = 0;
         $_SESSION['carrito'] = array();

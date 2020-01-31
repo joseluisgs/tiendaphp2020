@@ -4,13 +4,15 @@
 require_once MODEL_PATH . "Usuario.php";
 require_once CONTROLLER_PATH . "ControladorBD.php";
 
-class ControladorUsuario {
+class ControladorUsuario
+{
 
     // Variable instancia para Singleton
     static private $instancia = null;
 
     // constructor--> Private por el patrón Singleton
-    private function __construct() {
+    private function __construct()
+    {
         //echo "Conector creado";
     }
 
@@ -18,7 +20,8 @@ class ControladorUsuario {
      * Patrón Singleton. Ontiene una instancia del Manejador de la BD
      * @return instancia de conexion
      */
-    public static function getControlador() {
+    public static function getControlador()
+    {
         if (self::$instancia == null) {
             self::$instancia = new ControladorUsuario();
         }
@@ -34,7 +37,8 @@ class ControladorUsuario {
      * se puede filtrar por nombre ó email
      * @return array|null
      */
-    public function listarUsuarios($filtro) {
+    public function listarUsuarios($filtro)
+    {
         // Creamos la conexión a la BD
         $lista = [];
         $bd = ControladorBD::getControlador();
@@ -43,7 +47,7 @@ class ControladorUsuario {
         $consulta = "SELECT * FROM usuarios";
 
         $res = $bd->consultarBD($consulta);
-        $filas=$res->fetchAll(PDO::FETCH_OBJ);
+        $filas = $res->fetchAll(PDO::FETCH_OBJ);
 
         if (count($filas) > 0) {
             foreach ($filas as $u) {
@@ -54,7 +58,7 @@ class ControladorUsuario {
             }
             $bd->cerrarBD();
             return $lista;
-        }else{
+        } else {
             return null;
         }
     }
@@ -64,14 +68,15 @@ class ControladorUsuario {
      * @param $usuario usuario a insertar
      * @return mixed
      */
-    public function insertarUsuario($usuario) {
+    public function insertarUsuario($usuario)
+    {
         $conexion = ControladorBD::getControlador();
         $conexion->abrirBD();
         $consulta = "insert into usuarios (nombre, alias, pass, email, direccion, foto) 
             values (:nombre, :alias, :pass, :email, :direccion, :foto)";
         $parametros = array(':nombre' => $usuario->getNombre(), ':alias' => $usuario->getAlias(),
-            ':pass'=>$usuario->getPass(), ':email'=>$usuario->getEmail(), ':direccion'=>$usuario->getDireccion(),
-            ':foto'=>$usuario->getImagen());
+            ':pass' => $usuario->getPass(), ':email' => $usuario->getEmail(), ':direccion' => $usuario->getDireccion(),
+            ':foto' => $usuario->getImagen());
         $estado = $conexion->actualizarBD($consulta, $parametros);
         $conexion->cerrarBD();
         return $estado;
@@ -82,7 +87,8 @@ class ControladorUsuario {
      * @param $email
      * @return int
      */
-    public function buscarEmail($email) {
+    public function buscarEmail($email)
+    {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
 
@@ -93,7 +99,7 @@ class ControladorUsuario {
         $filas = $res->fetchAll(PDO::FETCH_OBJ);
         if (count($filas) > 0) {
             return $filas[0]->ID;
-        }else{
+        } else {
             return 0;
         }
 
@@ -105,7 +111,8 @@ class ControladorUsuario {
      * @param $email
      * @return int
      */
-    public function buscarUsuarioID($id) {
+    public function buscarUsuarioID($id)
+    {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
 
@@ -125,8 +132,6 @@ class ControladorUsuario {
         }
 
     }
-
-
 
 
     /**
@@ -160,11 +165,12 @@ class ControladorUsuario {
      * @param $id
      * @return mixed
      */
-    public function eliminarUsuario($id) {
+    public function eliminarUsuario($id)
+    {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         $consulta = "delete from usuarios where id = :id";
-        $parametros = array(':id'=>$id);
+        $parametros = array(':id' => $id);
         $estado = $bd->consultarBD($consulta, $parametros);
         $bd->cerrarBD();
         return $estado;
@@ -175,14 +181,15 @@ class ControladorUsuario {
      * @param $usuario
      * @return mixed
      */
-    public function actualizarUsuario($usuario) {
+    public function actualizarUsuario($usuario)
+    {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
         $consulta = "Update usuarios set nombre =:nombre, alias=:alias, email=:email, direccion=:direccion, foto=:foto,
                     admin=:admin, pass=:pass where id=:id";
-        $parametros = array(':id'=>$usuario->getId(),':nombre' => $usuario->getNombre(), ':alias' => $usuario->getAlias(),
-            ':email'=>$usuario->getEmail(), ':direccion'=>$usuario->getDireccion(),
-            ':foto'=>$usuario->getImagen(), ':admin'=>$usuario->getAdmin(), ':pass'=>$usuario->getPass());
+        $parametros = array(':id' => $usuario->getId(), ':nombre' => $usuario->getNombre(), ':alias' => $usuario->getAlias(),
+            ':email' => $usuario->getEmail(), ':direccion' => $usuario->getDireccion(),
+            ':foto' => $usuario->getImagen(), ':admin' => $usuario->getAdmin(), ':pass' => $usuario->getPass());
         $estado = $bd->actualizarBD($consulta, $parametros);
         $bd->cerrarBD();
         return $estado;

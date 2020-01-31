@@ -4,7 +4,7 @@ $cp = ControladorProducto::getControlador();
 $secciones = $cp->mostrarSecciones();
 ?>
 <!-- ¡Barra de navegacion -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top" class="row no-print nover">
 
     <div class="container-fluid">
         <div class="navbar-header">

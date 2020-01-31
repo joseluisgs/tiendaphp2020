@@ -3,14 +3,14 @@
 // Lo que necesitamos
 require_once $_SERVER['DOCUMENT_ROOT'] . "/tienda/dirs.php";
 require_once CONTROLLER_PATH . "ControladorSesion.php";
+require_once UTILITY_PATH . "funciones.php";
+require_once CONTROLLER_PATH . "ControladorVenta.php";
+require_once VIEW_PATH . "cabecera.php";
 
 $cs = ControladorSesion::getControlador();
 $cs->reiniciarCarrito();
 //$cs->destruirCookie();
 
-//require_once VIEW_PATH . "cabecera.php";
-require_once UTILITY_PATH . "funciones.php";
-require_once CONTROLLER_PATH . "ControladorVenta.php";
 
 // Solo entramos si somos el usuario y hay items
 if ((!isset($_SESSION['nombre']))) {
@@ -51,29 +51,7 @@ $lineas = $cv->buscarLineasID($idVenta);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 
-    <!-- Estilos de la factura -->
-    <style>
-        .invoice-title h2, .invoice-title h3 {
-            display: inline-block;
-        }
-        .table > tbody > tr > .no-line {
-            border-top: none;
-        }
-        .table > thead > tr > .no-line {
-            border-bottom: none;
-        }
-        .table > tbody > tr > .thick-line {
-            border-top: 2px solid;
-        }
-    </style>
-    <!-- Para imprimir -->
-    <style type="text/css" media="print">
-        @media print {
-            .nover{
-                visibility:hidden
-            }
-        }
-    </style>
+
 </head>
 
 
@@ -192,8 +170,8 @@ $lineas = $cv->buscarLineasID($idVenta);
     </div>
 
 </main>
-
+<br><br>
 
 <?php
-//require_once VIEW_PATH . "pie.php";
+require_once VIEW_PATH . "pie.php";
 ?>

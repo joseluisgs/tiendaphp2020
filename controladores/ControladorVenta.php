@@ -5,13 +5,15 @@ require_once MODEL_PATH . "LineaVenta.php";
 require_once CONTROLLER_PATH . "ControladorBD.php";
 require_once CONTROLLER_PATH . "ControladorProducto.php";
 
-class ControladorVenta {
+class ControladorVenta
+{
 
     // Variable instancia para Singleton
     static private $instancia = null;
 
     // constructor--> Private por el patrón Singleton
-    private function __construct() {
+    private function __construct()
+    {
         //echo "Conector creado";
     }
 
@@ -19,7 +21,8 @@ class ControladorVenta {
      * Patrón Singleton. Ontiene una instancia del Manejador de la BD
      * @return instancia de conexion
      */
-    public static function getControlador() {
+    public static function getControlador()
+    {
         if (self::$instancia == null) {
             self::$instancia = new ControladorVenta();
         }
@@ -31,7 +34,8 @@ class ControladorVenta {
      * @param $id
      * @return Venta|null
      */
-    public function buscarVentaID($id) {
+    public function buscarVentaID($id)
+    {
         $bd = ControladorBD::getControlador();
         $bd->abrirBD();
 
@@ -53,7 +57,13 @@ class ControladorVenta {
 
     }
 
-    public function buscarLineasID($id) {
+    /**
+     * Buesca la líneas de venta por id
+     * @param $id
+     * @return array|null
+     */
+    public function buscarLineasID($id)
+    {
         $lista = [];
 
         $bd = ControladorBD::getControlador();
@@ -83,7 +93,8 @@ class ControladorVenta {
      * Almacena una venta en la línea de venta
      * @return mixed
      */
-    public function insertarVenta($venta) {
+    public function insertarVenta($venta)
+    {
         $conexion = ControladorBD::getControlador();
         $conexion->abrirBD();
         $consulta = "insert into ventas (idVenta, total, subtotal, iva, nombre, email, direccion, 
@@ -91,9 +102,9 @@ class ControladorVenta {
             values (:idVenta, :total, :subtotal, :iva, :nombre, :email, :direccion, :nombreTarjeta, :numTarjeta)";
 
         $parametros = array(':idVenta' => $venta->getId(), ':total' => $venta->getTotal(),
-            ':subtotal'=>$venta->getSubtotal(), ':iva'=>$venta->getIva(), ':nombre'=>$venta->getNombre(),
-            ':email'=>$venta->getEmail(), ':direccion'=>$venta->getDireccion(), ':nombreTarjeta'=>$venta->getNombreTarjeta(),
-            'numTarjeta'=>$venta->getNumTarjeta());
+            ':subtotal' => $venta->getSubtotal(), ':iva' => $venta->getIva(), ':nombre' => $venta->getNombre(),
+            ':email' => $venta->getEmail(), ':direccion' => $venta->getDireccion(), ':nombreTarjeta' => $venta->getNombreTarjeta(),
+            'numTarjeta' => $venta->getNumTarjeta());
 
         $estado = $conexion->actualizarBD($consulta, $parametros);
         $conexion->cerrarBD();
@@ -119,9 +130,9 @@ class ControladorVenta {
                 $cp = ControladorProducto::getControlador();
                 $estado = $cp->actualizarStock($producto->getId(), ($producto->getStock() - $cantidad));
 
-            $conexion->cerrarBD();
+                $conexion->cerrarBD();
+            }
         }
-    }
         return $estado;
     }
 

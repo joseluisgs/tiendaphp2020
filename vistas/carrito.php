@@ -4,7 +4,6 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . "/tienda/dirs.php";
 require_once VIEW_PATH . "cabecera.php";
 
-
 // como esta página está restringida al usuario en cuestion
 if ((!isset($_SESSION['nombre']))) {
     header("location: error.php");

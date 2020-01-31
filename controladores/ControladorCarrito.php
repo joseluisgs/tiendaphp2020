@@ -7,13 +7,15 @@ require_once MODEL_PATH . "Producto.php";
 require_once MODEL_PATH . "Usuario.php";
 require_once CONTROLLER_PATH . "ControladorBD.php";
 
-class ControladorCarrito {
+class ControladorCarrito
+{
 
     // Variable instancia para Singleton
     static private $instancia = null;
 
     // constructor--> Private por el patrón Singleton
-    private function __construct() {
+    private function __construct()
+    {
 
     }
 
@@ -21,7 +23,8 @@ class ControladorCarrito {
      * Patrón Singleton. Ontiene una instancia del Manejador de la BD
      * @return instancia de conexion
      */
-    public static function getControlador() {
+    public static function getControlador()
+    {
         if (self::$instancia == null) {
             self::$instancia = new ControladorCarrito();
         }
@@ -35,7 +38,8 @@ class ControladorCarrito {
      * @param $uds
      * @return bool
      */
-    public function insertarLineaCarrito(Producto $producto, $uds) {
+    public function insertarLineaCarrito(Producto $producto, $uds)
+    {
         //antes de añadir uds al carrito debemos comprobar que hay existencias en stock contando tambien
         //las unidades que hay ya en el carrito
         $conexion = ControladorProducto::getControlador();
@@ -48,13 +52,14 @@ class ControladorCarrito {
 
         // si las unidades que pedimos más las que ya hay en el carrito de ese producto
         // es mayor que lo que hay en Stock no lo añadirmos
-        if (($udsStock - ($uds+$udsCarrito)) >= 0) {
+        if (($udsStock - ($uds + $udsCarrito)) >= 0) {
             //echo "<br><br><br>Entra por donde hay stock";
             //añadimos las nuevas unidades a la sesión para el total uds del carrito
             $_SESSION['uds'] += $uds;
 
             // si el artículo existe el total de unidades es lo que había + las nuevas
-            if (array_key_exists($producto->getId(), $_SESSION['carrito'])&& ($_SESSION['carrito'][$producto->getId()][0]!=null)) {
+            // El valor a null es por el problema de borrar en el Array, ver función de eliminar
+            if (array_key_exists($producto->getId(), $_SESSION['carrito']) && ($_SESSION['carrito'][$producto->getId()][0] != null)) {
                 echo "<br><br><br>Existe";
                 $uds = $_SESSION['carrito'][$producto->getId()][1] + $uds;
             }
@@ -74,9 +79,10 @@ class ControladorCarrito {
      * @param $id
      * @return int
      */
-    public function unidadesArticulo($id){
+    public function unidadesArticulo($id)
+    {
 
-        $uds=0;
+        $uds = 0;
         // si el artículo existe devuelve el número
         if (array_key_exists($id, $_SESSION['carrito'])) {
             $uds = $_SESSION['carrito'][$id][1];
@@ -90,7 +96,8 @@ class ControladorCarrito {
      * @param $uds
      * @return bool
      */
-    public function actualizarLineaCarrito($id, $uds) {
+    public function actualizarLineaCarrito($id, $uds)
+    {
         //Antes de actualizar hay que comprobar si existen uds
         $conexion = ControladorProducto::getControlador();
         $articulo = $conexion->buscarProductoId($id);
@@ -118,9 +125,11 @@ class ControladorCarrito {
      * @param $id
      * @param $uds
      */
-    public function borrarLineaCarrito($id, $uds) {
+    public function borrarLineaCarrito($id, $uds)
+    {
         //eliminamos esa linea del array completa y restamos las uds al total uds carrito
-        //$_SESSION['carrito'][$id]=null;
+        // Por algún motivo no lo borra si no te deja la clave y un valor [0] a nulo, eso implica qe tengamos que parchear
+        // el resto de cosas con esa condición. Arreglar más adelante :)
         unset($_SESSION['carrito'][$id]);
         $_SESSION['uds'] -= $uds;
     }
@@ -129,23 +138,28 @@ class ControladorCarrito {
      * Devuelve el número de líenas de carrito
      * @return int
      */
-    public function unidadesEnCarrito(){
-        $total=0;
-        if(isset($_SESSION['carrito'])){
+    public function unidadesEnCarrito()
+    {
+        $total = 0;
+        if (isset($_SESSION['carrito'])) {
             foreach ($_SESSION['carrito'] as $key => $value) {
-                if($value[0]!=null) {
+                if ($value[0] != null) {
                     $total += $value[1];
                 }
             }
         }
-        if($total==0){
+        if ($total == 0) {
             unset($_SESSION['carrito']);
             $_SESSION['uds'] = 0;
         }
         return $total;
     }
 
-    public function vaciarCarrito() {
+    /**
+     * Vacía el carrito
+     */
+    public function vaciarCarrito()
+    {
         //eliminamos esa linea del array completa y restamos las uds al total uds carrito
         unset($_SESSION['carrito']);
         $_SESSION['uds'] = 0;
